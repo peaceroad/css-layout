@@ -5,6 +5,7 @@ html {
   height: -moz-calc(100%); }
 
 body {
+  -webkit-writing-mode: vertical-rl;
   writing-mode: vertical-rl;
   margin: 0;
   width: -moz-calc(100vw);
@@ -16,6 +17,7 @@ body {
   line-height: 1;
   font-weight: normal;
   position: fixed;
+  -webkit-writing-mode: horizontal-tb;
   writing-mode: horizontal-tb; }
 
 .runninghead-left {
@@ -167,6 +169,7 @@ figcaption {
 
 @media screen and (min-height: 32em) {
   .image-sdl, .tandem-sdl {
+    -webkit-writing-mode: horizontal-tb;
     writing-mode: horizontal-tb;
     display: table;
     border-collapse: collapse; }
@@ -229,6 +232,7 @@ figcaption {
         max-height: calc(37.5% - 1em);
         max-height: -moz-calc(42.5vh - 6em - 0.5em); } }
 .sidebyside-images {
+  -webkit-writing-mode: horizontal-tb;
   writing-mode: horizontal-tb;
   display: table;
   max-width: 100vw;
@@ -247,6 +251,7 @@ figcaption {
 
 @media screen and (min-height: 36em) {
   .sidebyside-sdl {
+    -webkit-writing-mode: horizontal-tb;
     writing-mode: horizontal-tb;
     display: table;
     max-width: 100vw;
@@ -263,6 +268,7 @@ figcaption {
       margin: 0.25em 0 0; } }
 .sidebyside-rtl {
   direction: rtl;
+  -webkit-writing-mode: horizontal-tb;
   writing-mode: horizontal-tb;
   display: table;
   max-width: 100vw;
@@ -289,16 +295,6 @@ main h1 {
   margin: 0; }
   main h1 + * {
     margin-right: 1.75em; }
-  main h1 img:before {
-    display: block;
-    writing-mode: horizontal-tb;
-    content: attr(alt);
-    position: fixed;
-    top: 0;
-    z-index: 100;
-    right: 0;
-    margin: 0.8em 2em 0 0;
-    font-size: 0.8em; }
 
 .warning {
   margin: 0 1em;
