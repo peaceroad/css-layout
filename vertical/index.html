@@ -1,3 +1,315 @@
-<!DOCTYPE html>
-<title>test.</title>
-<p>test.</p>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<title>EPUB実践入門 - 第x章 縦書きレイアウト</title>
+<link rel="stylesheet" href="style/vertical.css" />
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+<body class="chapter" role="doc-chapter">
+
+<header class="bridgehead">
+<h1 class="fulltitle runninghead-left">
+<span class="title">EPUB実践入門</span>
+</h1>
+</header>
+
+<main class="hanmen">
+<div class="page">
+
+
+<div role="img" class="image-page" aria-labelledby="chapterx-title">
+<p class="img-wrap"><img alt="" class="x2" src="image/chapter-titlepage_1080x1152.jpg" class="chapter-titlepage" role="presentation" height="576" /></p>
+<div class="page-content">
+<h1 id="chapterx-title" class="chapter-title runninghead-right">
+<span class="title"><span class="label">第</span><span class="ordinal">X</span>章</span> <strong>縦組みレイアウト</strong></h1>
+</div>
+</div>
+
+
+<section class="subchapter">
+<h2 class="ch2"><span class="ch2-label">X.1</span> <strong>EPUBとCSSレイアウト</strong></h2>
+<section class="warning" role="doc-notice">
+<p><strong class="warning-title">注意<span class="joint">：</strong>この章の内容は<em class="emphasis">まるっと</em>書きかけです。そのため、EPUBに合わせられるかの確認はまだしていません。</strong></p>
+</section>
+
+<section>
+<h3 class="ch3">EPUBのレイアウト</h3>
+<p>EPUB 3.0では<a href="http://www.idpf.org/epub/301/spec/epub-contentdocs-20140626.html">EPUB Content Documents</a>に規定されているとおり、基本的にはCSSを使ってレイアウトを行います。本章ではCSSによる縦組みレイアウト手法を考えてみます。</p>
+<p>ただしEPUB 3.0では、読書システムでのサポートの統一性の観点から、W3Cの最新の仕様をそのまま使えることにはなっていません。また、読書システムで利用したいプロパティを完全にサポートしているとも限りません。そのため、本章で解説したレイアウト手法をEPUB内で利用する場合にはそのことに注意してください。</p>
+</section>
+<section>
+<h3 class="ch3">CSSによる縦書きレイアウト</h3>
+<p>ブラウザにおける縦組みのレイアウトの考え方については、W3C技術ノートの「<a href="https://www.w3.org/TR/jlreq/">Requirements for Japanese Text Layout</a>」（<a href="https://www.w3.org/TR/jlreq/ja/">日本語訳：日本語組版処理の要件</a>）がまず参考になります。</p>
+<p>また、CSSの仕様書以外では、<a href="http://tategaki.github.io/">縦書きWeb普及委員会のWebサイト</a>にある「技術解説」やビヨンド・パースペクティブ・ソリューションズ株式会社の<a href="http://csslab.bpsinc.jp/">CSS研究部のサイト</a>、あとはMozilla Developer Networkの<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference">CSSリファレンス</a>（<a href="https://developer.mozilla.org/ja/docs/Web/CSS/Reference">日本語訳のページ</a>）が日本語解説として参考になるでしょう。</p>
+</section>
+</section>
+<section class="subchapter">
+<h2 class="ch2"><span class="ch2-label">X.2</span> <strong>縦書きレイアウトの基礎</strong></h2>
+<p>CSSによる縦組みは、<a href="http://dev.w3.org/csswg/css-writing-modes-3/">CSS Writing Modes Level 3</a>が基礎になります。</p>
+<p>要素内の文字列を縦書きにするためには、writing-modeを次のように使います。これで半角英数字以外のおおよその文字が正立します。</p>
+<pre><code class="prettyprint">-ms-writing-mode: tb-rl; /* For IE. */
+writing-mode: vertical-rl;</code></pre>
+<p>しかしFirefox 44.0では、この指定をbody要素に指定しても単純には上手くブラウザを操作できなくなります。そのため、描画領域をCSSで改めて次のように指定します。</p>
+<pre><code class="prettyprint">html {
+  height: -moz-calc(100%); /* for firefox. */
+}
+body {
+  writing-mode: vertical-rl;
+  width: -moz-calc(100vw); /* for firefox. */
+  height: -moz-calc(100%); /* for firefox. */
+}</code></pre>
+<p>また、半角文字等の文字は寝ている状態（値：mixed）を正立させたい場合には、text-orientationプロパティにuprightを指定します。</p>
+<pre><code class="prettyprint">text-orientation: upright; /* Not Support IE. */</code></pre>
+</section>
+<section class="subchapter">
+<h2 class="ch2"><span class="ch2-label">X.3</span> <strong>段落のデザイン</strong></h2>
+<p>本文をデザインするに当たって重要になる仕様は、<a href="https://drafts.csswg.org/css-fonts/">CSS Fonts Module Level 3</a>と<a href="https://drafts.csswg.org/css-text-3/">CSS Text Module Level 3</a>、<a href=="https://drafts.csswg.org/css-text-decor-3/">CSS Text Decoration Module Level 3</a>です。</p>
+<p>ブラウザ上で縦書きを使う場合、WindowsとMac OSの両方にある書体である游書体を指定しておくのが簡単には按配が良くお勧めです。なお、読書システムでは標準の日本語フォントが搭載されていることも多いので、EPUBでは指定しないほうが無難です。<p>
+<p>ただし、Firefoxでは縦書きで游書体を指定した際は、日本語と英数字でベースラインのずれが気になるかと思います。そのため英字の書体も合わせて指定してみても良いかもしれません。</p>
+<p>そこでこのページでは、次のように指定しています。</p>
+<pre><code class="prettyprint">@font-face {
+  font-family: 'Yu Mincho Custom';
+  src: local('Times New Roman'), local('Yu Mincho'), local('YuMincho');
+}
+@font-face {
+  font-family: 'Yu Gothic Custom';
+  src: local('Trebuchet MS'), local('Yu Gothic'), local('YuGothic');
+}
+p {
+  font-family: 'Yu Mincho Custom', serif;
+}
+h1, h2, h3, h4, h5, h6, li, dt, dd, figcaption {
+  font-family: 'Yu Gothic Custom', sans-serif;
+}</code></pre>
+<p>また、OpenTypeフォント自体が持っている情報をCSSで有効化するためには、font-variantプロパティやfont-feature-settingsプロパティを使います。仕様書以外に、<a href="http://help.typekit.com/customer/ja/portal/articles/1789708">Adobe Typekitのヘルプセンター</a>に日本語で情報がまとまっているので一読しておくことをお勧めします。</p>
+</section>
+<section class="subchapter">
+<h2 class="ch2"><span class="ch2-label">X.4</span> <strong>箇条書きのデザイン</strong></h2>
+<p>（後で書くかも。）</p>
+</section>
+<section class="subchapter">
+<h2 class="ch2"><span class="ch2-label">X.5</span> <strong>表組みのデザイン</strong></h2>
+<p>この節では、表組みを考えます。</p>
+<p>なお、EPUB内で縦組みの複雑なレイアウトを行う場合、<code>display: table;</code>による指定が現状もっとも安全でしょう。</p>
+<p>（後で書くかも。）</p>
+</section>
+<section class="subchapter">
+<h2 class="ch2"><span class="ch2-label">X.6</span> <strong>画像のレイアウト</strong></h2>
+<p>この節では、縦組みレイアウトにおける画像の配置を考えてみます。</p>
+<p>なお、img要素に対して、ベースCSSとして次のものがかかっているとします。</p>
+<pre><code class="prettyprint">img {
+  max-width: 100vw;
+  max-height: 100%;
+}</code></pre>
+<p>まずは、画像1つの場合です。300dpi相当の画像を図版として配置する場合、HTMLは次のようにします。</p>
+<pre><code class="prettyprint"><span class="keyword">&lt;figure</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="string">"bfl image"</span><span class="keyword">&gt;</span><span class="pln">
+</span><span class="keyword">&lt;p</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="string">"img-wrap"</span><span class="keyword">&gt;&lt;img</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="string">"x2"</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="string">"image/864x720.jpg"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="string">"寿司"</span><span class="pln"> </span><span class="atn">height</span><span class="pun">=</span><span class="string">"360"</span><span class="pln"> </span><span class="keyword">/&gt;&lt;/p&gt;</span><span class="pln">
+</span><span class="keyword">&lt;/figure&gt;</span></code></pre>
+<p>.bflは、画像に限らずfigure要素が使われる場合の全体の指定を設定するために指定します。.imageはfigure要素内に配置されるのが画像であることを示しています。.img-wrapは画像であるimg要素を包含していることを示しています。.x2は画像が高解像度対応であること示しています。また、img要素では、height属性に画像の半分の値を、alt属性に代替文を入れるようにしてください。</p>
+<p>CSSは次のように指定します。</p>
+<pre><code class="prettyprint">.bfl {
+  max-height: 100%;
+}
+.img-wrap img {
+  display: block;
+}</code>
+</pre>
+<p>ここで重要なのは、max-height: 100%;の指定です。これにより、後述のキャプションを画像の下部に配置する場合において、img要素が描画領域の高さを判断できるようになります。</p>
+
+<p>すると、次のように配置されます。</p>
+<figure class="bfl image">
+<p class="img-wrap"><img class="x2" src="image/864x720.jpg" alt="寿司" height="360" /></p>
+</figure>
+<p>これに、キャプションのある場合を考えてみます。HTMLは次のようになります。</p>
+<pre><code class="prettyprint"><span class="keyword">&lt;figure</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="string">"bfl image hc"</span><span class="keyword">&gt;</span><span class="pln">
+</span><span class="keyword">&lt;p</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="string">"img-wrap"</span><span class="keyword">&gt;&lt;img</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="string">"x2"</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="string">"image/864x720.jpg"</span><span class="pln">  </span><span class="atn">alt</span><span class="pun">=</span><span class="string">"図1"</span><span class="pln"> </span><span class="atn">height</span><span class="pun">=</span><span class="string">"360"</span><span class="pln"> </span><span class="keyword">/&gt;&lt;/p&gt;</span><span class="pln">
+</span><span class="keyword">&lt;figcaption&gt;&lt;span</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="string">"fc-title"</span><span class="keyword">&gt;</span><span class="pln">図</span><span class="keyword">&lt;span</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="string">"fc-ordinal"</span><span class="keyword">&gt;</span><span class="pln">1</span><span class="keyword">&lt;/span&gt;&lt;/span&gt;</span><span class="pln"> キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。</span><span class="keyword">&lt;/figcaption&gt;</span><span class="pln">
+</span><span class="keyword">&lt;/figure&gt;</span></code></pre>
+
+<p>figure要素に対してfigcaption要素を持っていることを示す.hcと、ficatption要素を加えています。figcaption要素を持つ場合、alt属性は図番号のみを入れる形で構いません。</p>
+<p>CSSは今回、次のように記述しました。</p>
+<pre><code class="prettyprint">figcaption {
+  display: block;
+  font-size: 0.9em;
+  margin-right: 0.25em;
+  line-height: 1.35;
+  text-align: justify;
+}
+.fc-title {
+  font-weight: bold;
+  margin-bottom: 0.4em;
+}
+.fc-ordinal {
+  text-orientation: upright;
+}</code></pre>
+
+<figure class="bfl image hc">
+<p class="img-wrap"><img class="x2" src="image/864x720.jpg"  alt="図1" height="360" /></p>
+<figcaption><span class="fc-title">図<span class="fc-ordinal">2</span></span> キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。</figcaption>
+</figure>
+<p>ちなみに図番号が<span class="tcy">2</span>桁の場合のには次のように表示されます。</p>
+<figure class="bfl image hc">
+<figcaption><span class="fc-title">図<span class="fc-ordinal">21</span></span> キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。</figcaption>
+</figure>
+<p>書籍では、キャプションを画像の下に配置しているものも数多くあります。HTMLでは、先のHTMLに対して、figure要素のclass属性にimage-sdlを加えます。</p>
+<pre><code class="prettyprint"><span class="keyword">&lt;figure</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="string">"bfl image hc image-sdl"</span><span class="keyword">&gt;</span><span class="pln">
+</span><span class="keyword">&lt;p</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="string">"img-wrap"</span><span class="keyword">&gt;&lt;img</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="string">"x2"</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="string">"image/864x720.jpg"</span><span class="pln">  </span><span class="atn">alt</span><span class="pun">=</span><span class="string">"図2"</span><span class="pln"> </span><span class="atn">height</span><span class="pun">=</span><span class="string">"360"</span><span class="pln"> </span><span class="keyword">/&gt;&lt;/p&gt;</span><span class="pln">
+</span><span class="keyword">&lt;figcaption&gt;&lt;span</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="string">"fc-title"</span><span class="keyword">&gt;</span><span class="pln">図</span><span class="keyword">&lt;span</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="string">"fc-ordinal"</span><span class="keyword">&gt;</span><span class="pln">3</span><span class="keyword">&lt;/span&gt;&lt;/span&gt;</span><span class="pln"> キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。</span><span class="keyword">&lt;/figcaption&gt;</span><span class="pln">
+</span><span class="keyword">&lt;/figure&gt;</span></code></pre>
+<p>そして、CSSでは次のように記述します。</p>
+<pre><code class="prettyprint">@media screen and (min-height: 32em) {
+  .image-sdl {
+    writing-mode: horizontal-tb;
+    display: table;
+    border-collapse: collapse;
+  }
+  .image-sdl .img-wrap {
+    display: table-cell;
+    height: intrinsic;
+    height: fit-content;
+  }
+  .image-sdl .img-wrap img {
+    margin: 0 auto;
+    max-height: -moz-calc(75vh - 6em - 0.5em); /* for firefox */
+  }
+  .image-sdl figcaption {
+    display: table-caption;
+    caption-side: bottom;
+    min-width: 13.4em;
+    margin: 0.25em 0 0;
+  }
+  .image-sdl .fc-title {
+    margin: 0 0.4em 0 0;
+  }
+}</code></pre>
+
+<figure class="bfl image hc image-sdl">
+<p class="img-wrap"><img class="x2" src="image/864x720.jpg"  alt="図2" height="360" /></p>
+<figcaption><span class="fc-title">図<span class="fc-ordinal">3</span></span> キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。</figcaption>
+</figure>
+<p>図が大きくても。</p>
+<p>段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。</p>
+<figure class="bfl image">
+<p class="img-wrap"><img class="x2" src="image/400x2400.jpg" alt="街路" height="1200" /></p>
+</figure>
+<p>段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。</p>
+<figure class="bfl image hc image-sdl">
+<p class="img-wrap"><img class="x2" src="image/400x2400.jpg" alt="図2" height="1200" /></p>
+<figcaption><strong>図2</strong> 街路。今年の雪は少ないと言うことでしたが、日中でも氷点下なので融けずに残っていました。</figcaption>
+</figure>
+<p>段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。</p>
+<figure class="bfl image image-page">
+<p class="img-wrap"><img class="x2" src="image/1152x1152.jpg" alt="発射待ちの電車" height="576" /></p>
+</figure>
+<p>段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。</p>
+<figure class="bfl tandem">
+<div class="tandem-images">
+<figure class="tandem-image">
+<p class="img-wrap"><img class="x2" src="image/640x480-1.jpg" alt="" title="1" height="240" /></p>
+</figure>
+<figure class="tandem-image">
+<p class="img-wrap"><img class="x2" src="image/640x480-2.jpg" alt="" title="2" height="240" /></p>
+</figure>
+</div>
+</figure>
+<p>段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。</p>
+<figure class="bfl tandem hc">
+<div class="tandem-images">
+<figure class="tandem-image">
+<p class="img-wrap"><img class="x2" src="image/640x480-1.jpg" alt="" title="1" height="240" /></p>
+</figure>
+<figure class="tandem-image">
+<p class="img-wrap"><img class="x2" src="image/640x480-2.jpg" alt="" title="2" height="240" /></p>
+</figure>
+</div>
+<figcaption>キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。</figcaption>
+</figure>
+<p>段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。</p>
+<figure class="bfl tandem tandem-sdl hc">
+<div class="tandem-images">
+<figure class="tandem-image">
+<p class="img-wrap"><img class="x2" src="image/640x480-1.jpg" alt="" title="1" height="240" /></p>
+</figure>
+<figure class="tandem-image">
+<p class="img-wrap"><img class="x2" src="image/640x480-2.jpg" alt="" title="2" height="240" /></p>
+</figure>
+</div>
+<figcaption>キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。</figcaption>
+</figure>
+<p>段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。</p>
+<figure class="bfl sidebyside">
+<div class="sidebyside-images">
+<figure class="sidebyside-image">
+<p class="img-wrap"><img class="x2" src="image/640x480-1.jpg" alt="" title="1" height="240" /></p>
+</figure>
+<figure class="sidebyside-image">
+<p class="img-wrap"><img class="x2" src="image/640x480-2.jpg" alt="" title="2" height="240" /></p>
+</figure>
+</div>
+</figure>
+<p>sidebyside start. 段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。</p>
+<figure class="bfl sidebyside hc">
+<div class="sidebyside-images">
+<figure class="sidebyside-image">
+<p class="img-wrap"><img class="x2" src="image/640x480-1.jpg" alt="" title="1" height="240" /></p>
+</figure>
+<figure class="sidebyside-image">
+<p class="img-wrap"><img class="x2" src="image/640x480-2.jpg" alt="" title="2" height="240" /></p>
+</figure>
+</div>
+<figcaption>キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。</figcaption>
+</figure>
+<p>sidebyside start. 段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。</p>
+<figure class="bfl sidebyside sidebyside-sdl hc">
+<div class="sidebyside-images">
+<figure class="sidebyside-image">
+<p class="img-wrap"><img class="x2" src="image/640x480-1.jpg" alt="" title="1" height="240" /></p>
+</figure>
+<figure class="sidebyside-image">
+<p class="img-wrap"><img class="x2" src="image/640x480-2.jpg" alt="" title="2" height="240" /></p>
+</figure>
+</div>
+<figcaption>キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。</figcaption>
+</figure>
+<p>direction start. 段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。</p>
+<figure class="bfl sidebyside-rtl">
+<div class="sidebyside-rtl-images">
+<figure class="sidebyside-rtl-image">
+<p class="img-wrap"><img class="x2" src="image/640x480-1.jpg" alt="" title="1" height="240" /></p>
+</figure>
+<figure class="sidebyside-rtl-image">
+<p class="img-wrap"><img class="x2" src="image/640x480-2.jpg" alt="" title="2" height="240" /></p>
+</figure>
+</div>
+</figure>
+<p>direction start. 段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。</p>
+<figure class="bfl sidebyside-rtl hc">
+<div class="sidebyside-rtl-images">
+<figure class="sidebyside-rtl-image">
+<p class="img-wrap"><img class="x2" src="image/640x480-1.jpg" alt="" title="1" height="240" /></p>
+</figure>
+<figure class="sidebyside-rtl-image">
+<p class="img-wrap"><img class="x2" src="image/640x480-2.jpg" alt="" title="2" height="240" /></p>
+</figure>
+</div>
+<figcaption>キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。</figcaption>
+</figure>
+<p>direction start. 段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。</p>
+<figure class="bfl sidebyside-rtl hc">
+<div class="sidebyside-rtl-images">
+<figure class="sidebyside-rtl-image">
+<p class="img-wrap"><img class="x2" src="image/640x480-1.jpg" alt="" title="1" height="240" /></p>
+</figure>
+<figure class="sidebyside-rtl-image">
+<p class="img-wrap"><img class="x2" src="image/640x480-2.jpg" alt="" title="2" height="240" /></p>
+</figure>
+</div>
+<figcaption>キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。キャプション。</figcaption>
+</figure>
+<p>direction start. 段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。</p>
+
+
+</section>
+</div>
+</main>
+</body>
+</html>
