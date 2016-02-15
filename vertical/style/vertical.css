@@ -1,20 +1,22 @@
 main, div, p {
   -ms-writing-mode: tb-rl;
-  /* for IE */ }
+  /* for IE. */ }
 
 html {
-  height: -moz-calc(100%);
-  /* for firefox */ }
+  height: 100%;
+  /* for firefox, safari. */ }
 
 body {
   -webkit-writing-mode: vertical-rl;
-  /* for safari */
+  /* for safari. */
+  -webkit-text-size-adjust: 100%;
+  /* for code font size in ios safari. */
   writing-mode: vertical-rl;
   margin: 0;
-  width: -moz-calc(100vw);
-  /*  for firefox */
-  height: -moz-calc(100%);
-  /* for firefox */ }
+  width: 100vw;
+  /*  for firefox. */
+  height: 100%;
+  /* for firefox, safari. */ }
 
 .runninghead-left,
 .runninghead-right {
@@ -49,6 +51,9 @@ main {
 .page {
   height: 32em; }
 
+@media screen and (max-height: 32em) {
+  .page {
+    height: auto; } }
 @font-face {
   font-family: 'Yu Mincho Custom';
   src: local("Times New Roman"), local("Yu Mincho"), local("YuMincho"); }
@@ -156,7 +161,6 @@ pre > code {
 
 figcaption {
   display: block;
-  background: #BAB;
   font-family: sans-serif;
   font-size: 0.9em;
   margin-right: 0.25em;
@@ -225,7 +229,7 @@ figcaption {
   display: table-caption;
   caption-side: bottom; }
 
-@media screen and (min-height: 36em) {
+@media screen and (min-height: 32em) {
   .tandem-sdl {
     margin-top: -1em; }
     .tandem-sdl .tandem-images {
@@ -259,7 +263,7 @@ figcaption {
   max-width: calc(50vw - 1em);
   max-height: 100%; }
 
-@media screen and (min-height: 36em) {
+@media screen and (min-height: 32em) {
   .sidebyside-sdl {
     -webkit-writing-mode: horizontal-tb;
     writing-mode: horizontal-tb;

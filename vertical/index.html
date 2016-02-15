@@ -3,7 +3,8 @@
 <meta charset="UTF-8" />
 <title>EPUB実践入門 - 第x章 縦書きレイアウト</title>
 <link rel="stylesheet" href="style/vertical.css" />
-<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+<!--<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>-->
+<meta name="viewport" content="height=device-height, initial-scale=1.0">
 <body class="chapter" role="doc-chapter">
 
 <header class="bridgehead">
@@ -48,17 +49,18 @@
 <p>要素内の文字列を縦書きにするためには、writing-modeを次のように使います。これで半角英数字以外のおおよその文字が正立します。</p>
 <pre><code class="prettyprint">-ms-writing-mode: tb-rl; /* For IE. */
 writing-mode: vertical-rl;</code></pre>
-<p>しかしFirefox 44.0では、この指定をbody要素に指定しても単純には上手くブラウザを操作できなくなります。そのため、描画領域をCSSで改めて次のように指定します。</p>
+<p>しかしFirefox 44.0では、この指定をbody要素に指定しても単純には上手くブラウザを操作できなくなります。そのため、描画領域をCSSで改めて次のように指定します（IEは鬼門なので指定を外しています）。</p>
 <pre><code class="prettyprint">html {
-  height: -moz-calc(100%); /* for firefox. */
+  height: 100%; /* for firefox, safari. */
 }
 body {
+  -webkit-writing-mode: vertical-rl; / for safari. */
   writing-mode: vertical-rl;
-  width: -moz-calc(100vw); /* for firefox. */
-  height: -moz-calc(100%); /* for firefox. */
+  width: 100vw; /* for firefox. */
+  height: 100%; /* for firefox, safari. */
 }</code></pre>
 <p>また、半角文字等の文字は寝ている状態（値：mixed）を正立させたい場合には、text-orientationプロパティにuprightを指定します。</p>
-<pre><code class="prettyprint">text-orientation: upright; /* Not Support IE. */</code></pre>
+<pre><code class="prettyprint">text-orientation: upright; /* support chrome only. */</code></pre>
 </section>
 <section class="subchapter">
 <h2 class="ch2"><span class="ch2-label">X.3</span> <strong>段落のデザイン</strong></h2>
