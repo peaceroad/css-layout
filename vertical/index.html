@@ -348,13 +348,9 @@ h1, h2, h3, h4, h5, h6, li, dt, dd, figcaption {
 </ul>
 <p>ということで、どれも難しいです。でも、使うのであれば、次のような形でzoomプロパティになるでしょう。</p>
 <pre><code>
-@media screen 
-  and (-webkit-max-device-pixel-ratio: 1)
-  and (max-resolution: 1dppx) {
-  img {
-    -ms-zoom: 0.5;
-    zoom: 0.5;
-  }
+img {
+  -ms-zoom: 0.5;
+  zoom: 0.5;
 }
 </code></pre>
 <div class="zoom">

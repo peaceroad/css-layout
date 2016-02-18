@@ -339,10 +339,8 @@ figcaption {
 .warning .joint {
   display: none; }
 
-@media screen and (-webkit-max-device-pixel-ratio: 1.5) and (max-resolution: 1.5dppx) {
-  .zoom img {
-    zoom: 0.5;
-    -moz-transform: salce(0.5);
-    -moz-transform-box: fill-box; } }
+.zoom img {
+  -ms-zoom: 0.5;
+  zoom: 0.5; }
 
 /*# sourceMappingURL=vertical.css.map */
