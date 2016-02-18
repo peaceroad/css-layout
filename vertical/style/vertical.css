@@ -163,7 +163,7 @@ pre > code {
   font-size: 0.9em;
   line-height: 1.67em;
   padding: 1.11em 0.84em;
-  background: #DDD;
+  background: #DFDFDF;
   text-orientation: sideways;
   overflow-wrap: break-word;
   word-wrap: break-word;
@@ -178,9 +178,9 @@ pre > code {
 figcaption {
   display: block;
   font-family: sans-serif;
-  font-size: 0.9em;
-  margin-right: 0.25em;
-  line-height: 1.35;
+  font-size: 0.8em;
+  margin-right: 0.35em;
+  line-height: 1.4;
   text-align: justify; }
 
 .fc-title {
@@ -217,13 +217,7 @@ figcaption {
     display: table-caption;
     caption-side: bottom;
     min-width: 13.4em;
-    margin: 0.25em 0 0; }
-
-  .tandem-sdl figcaption {
-    display: table-caption;
-    caption-side: bottom;
-    min-width: 13.4em;
-    margin: 0.25em 0 0; }
+    margin: 0.35em 0 0; }
 
   .image-sdl .fc-title, .tandem-sdl .fc-title {
     margin: 0 0.4em 0 0; } }
@@ -271,7 +265,9 @@ figcaption {
         max-height: -moz-calc(42.5vh - 6em - 0.5em); }
     .tandem-sdl figcaption {
       display: table-caption;
-      caption-side: bottom; } }
+      caption-side: bottom;
+      min-width: 15em;
+      margin: 0.35em 0 0; } }
 .sidebyside-images,
 .sidebyside-rtl-images {
   -webkit-writing-mode: horizontal-tb;
@@ -344,9 +340,6 @@ figcaption {
   display: none; }
 
 @media screen and (-webkit-max-device-pixel-ratio: 1.5) and (max-resolution: 1.5dppx) {
-  figure {
-    background: #ECA; }
-
   .zoom img {
     zoom: 0.5;
     -moz-transform: salce(0.5);
