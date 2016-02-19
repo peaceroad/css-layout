@@ -17,7 +17,9 @@ body {
   width: 100%;
   /*  for firefox. */
   height: 100%;
-  /* for firefox, safari. */ }
+  /* for firefox, safari. */
+  overflow-y: hidden;
+  /* for firefox. */ }
 
 .runninghead-left,
 .runninghead-right {
@@ -107,7 +109,7 @@ a {
   word-break: break-all; }
 
 h1, h2, h3, h4, h6, li, dt, dd, figcaption {
-  font-family: 'Yu Gothic Custom', 'Yu Gothic', 'YuGothic', sans-serif;
+  font-family: 'Yu Gothic Custom',  'Yu Gothic', 'YuGothic', sans-serif;
   line-height: 1.5; }
 
 .ch2 {
@@ -177,7 +179,6 @@ pre > code {
 
 figcaption {
   display: block;
-  font-family: sans-serif;
   font-size: 0.8em;
   margin-right: 0.35em;
   line-height: 1.4;
@@ -186,16 +187,11 @@ figcaption {
 .fc-title {
   display: inline-block;
   font-weight: bold;
-  margin-bottom: 0.4em; }
+  margin-bottom: 0.25em; }
 
 .fc-ordinal {
   text-orientation: upright;
-  /* text-combine-horizontal: digits 2; */
-  /* text-combine-horizontal: all; */ }
-
-.image-sdl .img-wrap img {
-  max-width: 75vw;
-  max-height: 75%; }
+  text-combine-upright: all; }
 
 @media screen and (min-height: 32em) {
   .image-sdl {
@@ -204,65 +200,76 @@ figcaption {
     writing-mode: horizontal-tb;
     display: table;
     border-collapse: collapse; }
-
-  .image-sdl .img-wrap {
-    display: table-cell;
-    height: intrinsic;
-    height: fit-content;
-    min-width: -moz-calc(13.4em * 0.9); }
-    .image-sdl .img-wrap img {
-      margin: 0 auto;
-      max-height: -moz-calc(75vh - 6em - 0.5em); }
-  .image-sdl figcaption {
-    display: table-caption;
-    caption-side: bottom;
-    min-width: 13.4em;
-    margin: 0.35em 0 0; }
+    .image-sdl .img-wrap {
+      display: table-cell;
+      height: intrinsic;
+      height: fit-content;
+      min-width: -moz-calc(13.4em * 0.9); }
+      .image-sdl .img-wrap img {
+        max-width: 75vw;
+        max-height: 75%;
+        margin: 0 auto;
+        max-height: -moz-calc(75vh - 6em - 0.5em); }
+    .image-sdl figcaption {
+      display: table-caption;
+      caption-side: bottom;
+      min-width: 13.4em;
+      margin: 0.35em 0 0; }
 
   .image-sdl .fc-title, .tandem-sdl .fc-title {
-    margin: 0 0.4em 0 0; } }
+    margin: 0 0.25em 0 0; } }
 .tandem {
   display: table;
-  max-height: 100%;
-  border-collapse: collapse; }
+  height: 100%;
+  border-collapse: collapse;
+  width: -moz-min-content; }
 
 .tandem-images {
   -webkit-writing-mode: horizontal-tb;
   /* for safari */
   writing-mode: horizontal-tb;
-  margin-top: -1em; }
+  margin-top: -1em;
+  height: inherit;
+  max-height: inherit;
+  width: -moz-min-content; }
 
 .tandem-image {
-  display: table-row; }
+  display: table-row;
+  width: -moz-min-content; }
 
 .tandem .img-wrap {
   display: table-cell;
-  padding-top: 1em; }
+  height: intrinsic;
+  height: fit-content;
+  padding-top: 1em;
+  width: -moz-min-content; }
 
 .tandem .img-wrap img {
-  max-height: calc(50% - 1em);
-  max-height: -moz-calc(50vh - 7em - 2em); }
+  max-height: calc(50% - 0.5em);
+  max-height: -moz-calc(50vh - 3.5em - 0.5em - 0.5em); }
 
 @media screen and (min-height: 32em) {
   .tandem-sdl {
     -webkit-writing-mode: horizontal-tb;
     writing-mode: horizontal-tb;
+    max-height: 75%;
     display: table;
     border-collapse: collapse;
     margin-top: -1em; }
     .tandem-sdl .tandem-images {
       display: table-cell;
+      min-width: -moz-calc(13.4em * 0.9);
       height: intrinsic;
       height: fit-content; }
     .tandem-sdl .tandem-image {
       display: block;
-      margin: 0;
-      height: min-content; }
+      margin: 0 auto; }
     .tandem-sdl .img-wrap {
-      height: min-content; }
+      display: block; }
       .tandem-sdl .img-wrap img {
-        max-height: calc(37.5% - 1em);
-        max-height: -moz-calc(42.5vh - 6em - 0.5em); }
+        margin: 0 auto;
+        max-height: calc((50% * 100 / 75) - 0.5em - 0.5em);
+        max-height: -moz-calc((50vh * 0.75) - 3.5em - 0.5em); }
     .tandem-sdl figcaption {
       display: table-caption;
       caption-side: bottom;
@@ -273,7 +280,6 @@ figcaption {
   -webkit-writing-mode: horizontal-tb;
   writing-mode: horizontal-tb;
   display: table;
-  max-height: 100%;
   border-collapse: collapse; }
 
 .sidebyside-image,
