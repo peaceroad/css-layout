@@ -79,11 +79,15 @@ p {
 
 p, figcaption {
   line-break: strict;
-  word-break: break-all;
-  /* 英単語が長い場合の対応のために。 */
   text-justify: inter-character;
   overflow-wrap: break-word;
   hanging-punctuation: force-end; }
+
+code, samp, .urn, .en,
+figcaption {
+  /* 今回、絵文字を連打しているのでfigcaptionも追加。*/
+  word-break: break-all;
+  /* 英単語が長い場合の対応のために。 */ }
 
 .tcy {
   -ms-text-combine-horizontal: digits 2;
@@ -105,11 +109,8 @@ a {
   text-orientation: sideways;
   /* リンクでの適用がFirefoxでは下線がでなくなってしまうので、具体的な文字列に対して指定することに。 */ }
 
-.url {
-  word-break: break-all; }
-
 h1, h2, h3, h4, h6, li, dt, dd, figcaption {
-  font-family: 'Yu Gothic Custom',  'Yu Gothic', 'YuGothic', sans-serif;
+  font-family: 'Yu Gothic Custom', 'Yu Gothic', 'YuGothic', sans-serif;
   line-height: 1.5; }
 
 .ch2 {
@@ -219,19 +220,17 @@ figcaption {
   .image-sdl .fc-title, .tandem-sdl .fc-title {
     margin: 0 0.25em 0 0; } }
 .tandem {
-  display: table;
   height: 100%;
-  border-collapse: collapse;
-  width: -moz-min-content; }
+  border-collapse: collapse; }
 
 .tandem-images {
   -webkit-writing-mode: horizontal-tb;
   /* for safari */
   writing-mode: horizontal-tb;
+  display: table;
   margin-top: -1em;
   height: inherit;
-  max-height: inherit;
-  width: -moz-min-content; }
+  max-height: inherit; }
 
 .tandem-image {
   display: table-row;
