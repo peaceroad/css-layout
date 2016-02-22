@@ -14,7 +14,7 @@ body {
   /* for code font size in ios(iphone) safari. */
   writing-mode: vertical-rl;
   margin: 0;
-  width: 100%;
+  width: -moz-calc(100vw);
   /*  for firefox. */
   height: 100%;
   /* for firefox, safari. */
@@ -38,12 +38,12 @@ div.runninghead-right h1 span {
 .runninghead-left {
   top: 0;
   left: 0;
-  margin: 1.5em 0 0 2em; }
+  margin: 1.5em 0 0 calc(2em / 0.8); }
 
 .runninghead-right {
   top: 0;
   right: 0;
-  margin: 1.5em 2em 0 0; }
+  margin: 1.5em calc(2em / 0.8) 0 0; }
   .runninghead-right strong {
     margin-left: 0.5em;
     font-weight: normal; }
@@ -56,43 +56,83 @@ main {
   background-size: cover; }
 
 .page {
+  background-size: 1.75em;
   max-height: 32em; }
 
 @font-face {
   font-family: 'Yu Mincho Custom';
-  src: local("Times New Roman"), local("Yu Mincho"), local("YuMincho"); }
+  src: local("Yu Mincho"), local("YuMincho"); }
+@font-face {
+  font-family: 'Yu Mincho Custom';
+  src: local("Times New Roman");
+  unicode-range: U+0-2FF; }
 @font-face {
   font-family: 'Yu Gothic Custom';
-  src: local("Trebuchet MS"), local("Yu Gothic"), local("YuGothic"); }
+  src: local("Yu Gothic"), local("YuGothic"); }
+@font-face {
+  font-family: 'Yu Gothic Custom';
+  src: local("Trebuchet MS");
+  unicode-range: U+0-2FF; }
 @font-face {
   font-family: 'Vertical Mono';
-  src: local("Consolas"), local("Courier New");
+  src: local("Consolas"), local("Menlo"), local("Courier New");
   /* for safari. */ }
 p {
   font-family: 'Yu Mincho Custom', serif;
   font-size: 1em;
-  /* font-feature-settings: 'halt', 'vhal'; */
-  line-height: 1.8;
+  line-height: 1.75;
   text-indent: 1em;
   margin: 0;
-  text-align: justify; }
+  text-align: justify;
+  font-feature-settings: 'vert';
+  /* for chrome (3点リーダ etc). */ }
 
 p, figcaption {
   line-break: strict;
   text-justify: inter-character;
   overflow-wrap: break-word;
-  hanging-punctuation: force-end; }
+  hanging-punctuation: force-end;
+  font-variant-ligatures: common-ligatures; }
 
-code, samp, .urn, .en,
+code, samp, .url, :root:lang(en),
 figcaption {
-  /* 今回、絵文字を連打しているのでfigcaptionも追加。*/
+  /* 今回、絵文字を連打しているのでfigcaptionも追加。しかし縦中横を使うとChromeで挙動が怪しい。*/
   word-break: break-all;
   /* 英単語が長い場合の対応のために。 */ }
 
-.tcy {
+code, samp {
+  -moz-font-feature-settings: 'hwid', 'zero';
+  -webkit-font-feature-settings: 'hwid', 'zero';
+  font-feature-settings: 'hwid', 'zero'; }
+
+.tcy,
+.fc-ordinal {
+  -webkit-text-combine: horizontal;
+  /* for safari. */
   -ms-text-combine-horizontal: digits 2;
+  /* for IE. */
+  -moz-text-combine-upright: horizontal;
+  /* for future firefox. */
   text-combine-upright: all;
-  text-combine-horizontal: digits 2; }
+  text-combine-upright: digits 2;
+  text-transform: full-width; }
+
+@supports not (text-combine-upright: all) {
+  /* for safari. */
+  .tcy {
+    -webkit-text-orientation: upright;
+    /* for safari 3点リーダ. But no effect. */
+    text-orientation: upright;
+    /* for firefox 3点リーダ. */ }
+
+  .fc-ordinal {
+    /* for safari. */
+    display: inline-block;
+    -webkit-text-orientation: upright;
+    text-orientation: upright; } }
+.sideways {
+  text-orientation: sideways;
+  /* リンクでの適用がFirefoxでは下線がでなくなってしまうので、具体的な文字列に対して指定することに。 */ }
 
 .emphasis {
   font-style: normal;
@@ -101,25 +141,39 @@ figcaption {
   text-emphasis: filled;
   text-emphasis-position: over; }
 
+rt, rtc {
+  font-variant-east-asian: ruby;
+  -moz-font-feature-settings: 'ruby';
+  -webkit-font-feature-settings: 'ruby';
+  font-feature-settings: 'ruby'; }
+
+rtc {
+  ruby-position: under; }
+
+@supports not (display: ruby-text-container) {
+  /* for chrome. */
+  rtc::before {
+    display: inline;
+    content: '［'; }
+
+  rtc::after {
+    display: inline;
+    content: '］'; } }
 a {
   text-underline-position: under right;
   text-decoration-skip: ink; }
 
-.sideways {
-  text-orientation: sideways;
-  /* リンクでの適用がFirefoxでは下線がでなくなってしまうので、具体的な文字列に対して指定することに。 */ }
-
 h1, h2, h3, h4, h6, li, dt, dd, figcaption {
-  font-family: 'Yu Gothic Custom', 'Yu Gothic', 'YuGothic', sans-serif;
-  line-height: 1.5; }
+  font-family: 'Yu Gothic Custom', sans-serif;
+  line-height: 1.5;
+  font-feature-settings: 'vert';
+  /* for chrome (3点リーダ etc). */ }
 
 .ch2 {
-  font-size: 1.3em;
-  margin: 0 3em 0 1em;
-  padding: 0 0.64em;
-  letter-spacing: 0.05em;
-  border-right: 0.1em solid #000;
-  border-left: 0.1em solid #000;
+  font-size: 1em;
+  margin: 0 5em 0 2em;
+  border-right: 0.125em solid #000;
+  border-left: 0.125em solid #000;
   display: table;
   height: 100%; }
 
@@ -128,23 +182,24 @@ h1, h2, h3, h4, h6, li, dt, dd, figcaption {
   text-combine-upright: all;
   display: table-cell;
   font-family: 'Times New Roman', serif;
-  font-size: 1.8em;
+  font-size: 3em;
   line-height: 1;
   height: 1em;
-  padding: 0.4em 0;
-  vertical-align: top; }
+  padding: 0.15em 0.5em 0.5em; }
 
 .ch2 strong {
+  font-size: 1.3125em;
   vertical-align: top;
   display: table-cell;
   text-align: justify;
-  padding: 0.1em; }
+  vertical-align: middle; }
 
 .ch3 {
-  font-size: 1.15em;
-  margin: 0 2em 0 1em;
+  font-size: 1.1875em;
+  line-height: 1.5625;
+  margin: 0 2.5em 0 1em;
   border-top: 0.5em solid #666;
-  padding: 0.5em 0.3em 0; }
+  padding: 0.5em 0.5em 0; }
 
 img {
   max-width: 100vw;
@@ -190,9 +245,8 @@ figcaption {
   font-weight: bold;
   margin-bottom: 0.25em; }
 
-.fc-ordinal {
-  text-orientation: upright;
-  text-combine-upright: all; }
+.image-fc .img-wrap img {
+  max-width: 75vw; }
 
 @media screen and (min-height: 32em) {
   .image-sdl {
@@ -207,7 +261,7 @@ figcaption {
       height: fit-content;
       min-width: -moz-calc(13.4em * 0.9); }
       .image-sdl .img-wrap img {
-        max-width: 75vw;
+        max-width: 100vw;
         max-height: 75%;
         margin: 0 auto;
         max-height: -moz-calc(75vh - 6em - 0.5em); }
@@ -215,7 +269,11 @@ figcaption {
       display: table-caption;
       caption-side: bottom;
       min-width: 13.4em;
-      margin: 0.35em 0 0; }
+      margin: 0.35em 0 0;
+      font-variant-east-asian: proportional-width;
+      -moz-font-feature-settings: 'pwid';
+      -webkit-font-feature-settings: 'pwid';
+      font-feature-settings: 'pwid'; }
 
   .image-sdl .fc-title, .tandem-sdl .fc-title {
     margin: 0 0.25em 0 0; } }
@@ -273,7 +331,11 @@ figcaption {
       display: table-caption;
       caption-side: bottom;
       min-width: 15em;
-      margin: 0.35em 0 0; } }
+      margin: 0.35em 0 0;
+      font-variant-east-asian: proportional-width;
+      -moz-font-feature-settings: 'pwid';
+      -webkit-font-feature-settings: 'pwid';
+      font-feature-settings: 'pwid'; } }
 .sidebyside-images,
 .sidebyside-rtl-images {
   -webkit-writing-mode: horizontal-tb;
@@ -317,7 +379,11 @@ figcaption {
     .sidebyside-rtl-sdl figcaption {
       display: table-caption;
       caption-side: bottom;
-      margin: 0.25em 0 0; } }
+      margin: 0.25em 0 0;
+      font-variant-east-asian: proportional-width;
+      -moz-font-feature-settings: 'pwid';
+      -webkit-font-feature-settings: 'pwid';
+      font-feature-settings: 'pwid'; } }
 .sidebyside-rtl-images {
   direction: rtl; }
 
@@ -327,11 +393,6 @@ figcaption {
 .sidebyside-rtl .img-wrap,
 .sidebyside-rtl figcaption {
   direction: ltr; }
-
-.chh1 {
-  margin: 0; }
-  .chh1 + * {
-    margin-right: 1.75em; }
 
 .warning {
   margin: 0 1em;
@@ -343,6 +404,10 @@ figcaption {
 
 .warning .joint {
   display: none; }
+
+.example {
+  border: 0.0625em solid #000;
+  padding: 1em; }
 
 .zoom img {
   -ms-zoom: 0.5;
