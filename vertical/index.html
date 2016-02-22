@@ -46,12 +46,12 @@
 <section class="subchapter">
 <h2 class="ch2"><span class="ch2-label">X.2</span> <strong>縦書きレイアウトの基礎</strong></h2>
 <p>CSSによる縦組みは、<a href="http://dev.w3.org/csswg/css-writing-modes-3/">CSS Writing Modes Level 3</a>が基礎になります。</p>
-<p>要素内の文字列を縦書きにするためには、writing-modeを次のように使います。ただし、IEではGrouping contentとなる要素に指定する必要があるようです（以降、IEは鬼門なので説明から外します）。</p>
+<p>要素内の文字列を縦書きにするためには、writing-modeプロパティを次のように使います。ただし、IEではGrouping contentとなる要素に指定する必要があるようです（以降、IEは鬼門なので説明から外します）。</p>
 <pre><code class="prettyprint">-ms-writing-mode: tb-rl; /* for IE. */
 -webkit-writing-mode: vertical-rl; /* for safari. */
 writing-mode: vertical-rl;</code></pre>
-<p>これで半角英数字以外のおおよその文字が正立します。正確には<a href="http://unicode.org/reports/tr50/">Unicode<span class="sideways">®</span> Technical Report #50</a>（UTR50）によって規定されています。</p>
-<p>しかしFirefox 44.0では、この指定をbody要素に指定しても単純には上手くブラウザを操作できなくなります。そのため、描画領域をCSSで改めて次のように指定します。</p>
+<p>これで半角英数字以外のおおよその文字が正立します。正確には<a href="http://unicode.org/reports/tr50/">Unicode<span class="sideways">®</span> Technical Report #50</a>（UTR50）によって規定されています。よく使う記号のうち特に、<span class="tcy">3</span>点リーダが正立しないことに注意してください。縦書き（︙）と横書き（…）のUnicode自体が<a href="https://ja.wikipedia.org/wiki/%E3%83%AA%E3%83%BC%E3%83%80%E3%83%BC_%28%E8%A8%98%E5%8F%B7%29#.E7.AC.A6.E5.8F.B7.E4.BD.8D.E7.BD.AE">別になっています</a>（横書きのほうを縦中横にしても、ブラウザによっては横書きのままに表示されます）。</p>
+<p>wrting-modeの話に戻ります。この指定をbody要素に指定してもFirefox 44.0では上手くブラウザを操作できなくなります。Safariでも現状高さを指定しておく必要があります。そのため、描画領域を縦書き化するためのCSSは次のようになります。</p>
 <pre><code class="prettyprint">html {
   height: 100%; /* for firefox, safari. */
 }
@@ -63,50 +63,71 @@ body {
 }</code></pre>
 <p>また、寝ている状態（値：mixed）になっている半角文字を正立させたい場合には、text-orientationプロパティにuprightを指定します。逆に日本語等を寝せたい場合にはsidewaysを指定します。</p>
 <!--<pre><code class="prettyprint">text-orientation: upright;</code></pre>-->
+<p>一部の文字だけ縦中横にしたい場合、基本的にはtext-combine-uprightプロパティにallを指定します。ですが、各ブラウザへの実装が目下進められている段階であり、現時点で使用するためにはその指定が煩雑です。
 </section>
 <section class="subchapter">
 <h2 class="ch2"><span class="ch2-label">X.3</span> <strong>段落のデザイン</strong></h2>
-<p>段落本文をデザインするに当たって重要になる仕様は、<a href="https://drafts.csswg.org/css-fonts/">CSS Fonts Module Level 3</a>と<a href="https://drafts.csswg.org/css-text-3/">CSS Text Module Level 3</a>、<a href="https://drafts.csswg.org/css-text-decor-3/">CSS Text Decoration Module Level 3</a>です。</p>
+<p>段落本文をデザインするに当たって現状重要になる仕様は、<a href="https://drafts.csswg.org/css-fonts/">CSS Fonts Module Level 3</a>と<a href="https://drafts.csswg.org/css-text-3/">CSS Text Module Level 3</a>、<a href="https://drafts.csswg.org/css-text-decor-3/">CSS Text Decoration Module Level 3</a>です。また、段落のより複雑なレイアウトを制御するために、<a href="https://drafts.csswg.org/css-inline/">CSS Inline Layout Module Level 3</a>、<a href="https://drafts.csswg.org/css-line-grid/">CSS Line Grid Module Level 1</a>などがあります。</p>
 <section>
 <h3 class="ch3">フォントの指定</h3>
 <p>ブラウザ上で縦書きを使う場合、WindowsとMac OSの両方にある書体である游明朝と游ゴシックを指定しておくのが簡単には按配が良くお勧めです。なお、読書システムでは標準の日本語フォントが搭載されていることも多いので、EPUBでは指定しないほうが無難です。<p>
-<p>ただし、Firefoxでは縦書きで游書体を指定した際は、日本語と英数字でベースラインのずれが気になるかと思います。そのため英字の書体も合わせて指定してみても良いかもしれません。</p>
+<p>ただし、Firefoxでは縦書きで游書体を指定した際は、日本語と半角の英数字でベースラインのずれが気になるかと思います。そのため英字の書体も合わせて指定してみても良いかもしれません。</p>
 <p>そこでこのページでは、次のように指定しています。</p>
 <pre><code class="prettyprint">@font-face {
   font-family: 'Yu Mincho Custom';
-  src: local('Times New Roman'), local('Yu Mincho'), local('YuMincho');
+  src: local('Yu Mincho'), local('YuMincho');
+}
+@font-face {
+  font-family: 'Yu Mincho Custom';
+  src: local('Times New Roman');
+  unicode-range: U+0-2FF;
 }
 @font-face {
   font-family: 'Yu Gothic Custom';
-  src: local('Trebuchet MS'), local('Yu Gothic'), local('YuGothic');
+  src: local('Yu Gothic'), local('YuGothic');
+}
+@font-face {
+  font-family: 'Yu Gothic Custom';
+  src: local('Trebuchet MS');
+  unicode-range: U+0-2FF;
 }
 p {
   font-family: 'Yu Mincho Custom', serif;
 }
 h1, h2, h3, h4, h5, h6, li, dt, dd, figcaption {
-  font-family: 'Yu Gothic Custom', 'Yu Gothic', 'YuGothic', sans-serif;
+  font-family: 'Yu Gothic Custom', sans-serif;
 }</code></pre>
-<p>Grouping Contentに游ゴシックを再指定しているのは、@font-faceの指定のみではChrome 48のli要素で上手く反映できなかったからです。</p>
-<p>また、OpenTypeフォント自体が持っている情報をCSSで有効化するためには、font-variantプロパティやfont-feature-settingsプロパティを使います。仕様書以外に、<a href="http://help.typekit.com/customer/ja/portal/articles/1789708">Adobe Typekitのヘルプセンター</a>に日本語で説明があります。</p>
+<p>また、OpenTypeフォント自体が持っている情報をCSSで有効化するためには、font-variantプロパティやfont-feature-settingsプロパティなどを使います。仕様書以外に、<a href="http://help.typekit.com/customer/ja/portal/articles/1789708">Adobe Typekitのヘルプセンター</a>に日本語で説明があります。</p>
 </section>
 <section>
 <h3 class="ch3">段落本文内の英数字</h3>
 <p>縦書きを想定したHTMLの本文を書くにあたり、本文内の英数字は半角で書いて構いません。また、記号は全角で書きます。つまり、横書きと同じです。</p>
 <p>ただし、作品において英数字の文字列が明らかに短いものしか記載しない場合は、英数字を全角で書いてすべて正立させてしまう方針もあるでしょう。</p>
-<p>なお、半角スペースが入らない半角文字の文字列は、ブラウザによってはword-break: all;をかけないと自動的に次行に送られないことに注意してください。通常はそこまで長い文字列は記載されないと考え、例えば、次のように処理しておくのが良いかと思います。</p>
+<p>なお、半角スペースが入らない半角文字の文字列は、ブラウザによってはword-break: all;をかけないと自動的に次行に送られないことに注意してください。通常はそこまで長い文字列は記載されないと考え、例えば、次のように処理しておくのが良いかもしれません。</p>
 <pre><code class="prettyprint">/* .url = URL文字列,
-.emoji = 絵文字,
-:lang(en) = 英語文字列 を想定。 */
-code, samp, .url, :lang(en) {
+:root:lang(en) = 英語文字列 を想定。 */
+code, samp, .url, :root:lang(en) {
   word-break: break-all;
 }</code></pre>
 <p>なお、このページではfigcaption内で絵文字を連打しているために、Firefoxでは行が送られないので、合わせてこの指定を行っています。</p>
+
 </section>
 <section>
 <h3 class="ch3">リンクのデザイン</h3>
-<p>リンクのデザインは、縦書きの場合、文字列の右側に実線が引かれていることをブラウザに対して勧めています。</p>
+<p>リンクのデザインは、縦書きの場合、文字列の右側に実線が引かれていることをブラウザに対して<a href="https://drafts.csswg.org/css-text-decor-3/#example-affafc32">勧めています</a>。</p>
 <p>なお、Firefox 44ではa要素に対して、text-orientation: sideways;を指定すると下線が引かれなくなってしまいます。</p>
 </section>
+<section>
+<h3 class="ch3">ルビ</h3>
+<p>ルビを簡単に確認しておきます。ルビのレイアウトは<a href="https://drafts.csswg.org/css-ruby-1/">CSS Ruby Layout Module Level 1</a>にて規定されます。基本的には、グループルビとインラインルビが必要になるでしょう。</p>
+<p>また、Chromeではfont-feature-settingsプロパティを使うことでルビ用字形が有効にできます。</p>
+<p>例えば、次のようになります。</p>
+<figure class="bfl example">
+<p>先日、イベントに参加するために<ruby>北海道<rp>（</rp><rt>ほっかいどう</rt><rp>）</rp></ruby>に行ってきました。雪が今年はあまり降っていないということで<ruby>大通<rp>（</rp><rt>おおどおり</rt><rp>）</rp></ruby>などの歩道は地面が<ruby>見<rp>（</rp><rt>み</rt><rp>）</rp></ruby>えていました。食事については<ruby>🍣<rp>（</rp><rt>美味しいお寿司</rt><rp>）</rp></ruby>をたくさん食べてきました。<ruby>鮪<rp>（</rp><rt>まぐろ</rt><rp>）</rp></ruby>やタコ、<ruby>北寄貝<rp>（</rp><rt>ほっきがい</rt><rp>）</rp></ruby>のほか、旬の<ruby>鰤<rp>（</rp><rt>ぶり</rt><rp>）</rp></ruby>や<ruby>真鱈の白子<rp>（</rp><rt>たちぽん</rt><rp>）</rp></ruby>などなど<span class="tcy">…</span><span class="tcy">…</span>。その時の<ruby>写真<rp>（</rp><rt>しゃしん</rt><rp>；</rp><rtc>Photo</rtc><rp>）</rp></ruby>をこのページに掲載します。</p>
+</figure>
+
+
+
 </section>
 <section class="subchapter">
 <h2 class="ch2"><span class="ch2-label">X.4</span> <strong>箇条書きのデザイン</strong></h2>
@@ -134,12 +155,16 @@ code, samp, .url, :lang(en) {
 <h3 class="ch3">ブラウザにおける300dpi相当の画像の配置</h3>
 <p>まずは、EPUBを考えずにブラウザでの配置を確認していきます。300dpi相当の画像を図版として配置する場合、HTMLは次のようになります。</p>
 <pre><code class="prettyprint"><span class="keyword">&lt;figure</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="string">"bfl image"</span><span class="keyword">&gt;</span><span class="pln">
-</span><span class="keyword">&lt;p</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="string">"img-wrap"</span><span class="keyword">&gt;&lt;img</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="string">"寿司"</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="string">"image/432x360.jpg"</span><span class="pln"> </span><span class="atn">srcset</span><span class="pun">=</span><span class="string">"image/864x720.jpg 2x"</span><span class="pln"> </span><span class="keyword">/&gt;&lt;/p&gt;</span><span class="pln">
+</span><span class="keyword">&lt;p</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="string">"img-wrap"</span><span class="keyword">&gt;&lt;img</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="string">"🍣"</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="string">"image/432x360.jpg"</span><span class="pln"> </span><span class="atn">srcset</span><span class="pun">=</span><span class="string">"image/864x720.jpg 2x"</span><span class="pln"> </span><span class="keyword">/&gt;&lt;/p&gt;</span><span class="pln">
 </span><span class="keyword">&lt;/figure&gt;</span></code></pre>
 <p>class属性について触れておきます。.bflは、画像に限らずfigure要素が使われる図版設定するために指定します。.imageはfigure要素内に配置されるのが画像の図版であることを示します。.img-wrapは画像図版であるimg要素を包含していることを示します。</p>
 <p>CSSは次のように指定します。</p>
 <pre><code class="prettyprint">.bfl {
+  margin: 0 1.5em 0 0;
   max-height: 100%;
+} 
+.bfl + * {
+  margin-right: 1.5em;
 }
 .img-wrap img {
   display: block;
@@ -148,19 +173,22 @@ code, samp, .url, :lang(en) {
 <p>ここで重要なのは、max-height: 100%;の指定です。これにより、後述のキャプションを画像の下部に配置する場合において、img要素が描画領域の高さを判断できるようになります。</p>
 <p>すると、次のように配置されます。</p>
 <figure class="bfl image">
-<p class="img-wrap"><img alt="寿司" src="image/432x360.jpg" srcset="image/864x720.jpg 2x" /></p>
+<p class="img-wrap"><img alt="🍣" src="image/432x360.jpg" srcset="image/864x720.jpg 2x" /></p>
 </figure>
-<p>これに、キャプションのある場合を考えてみます。HTMLは次のようになります。</p>
-<pre><code class="prettyprint"><span class="keyword">&lt;figure</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="string">"bfl image"</span><span class="keyword">&gt;</span><span class="pln">
+<p>これに、キャプションのある場合を考えてみます。HTMLは次のようになります。キャプションを持つことを示すために、figure要素のclass属性にimage-fcを加えています。</p>
+<pre><code class="prettyprint"><span class="keyword">&lt;figure</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="string">"bfl image image-fc"</span><span class="keyword">&gt;</span><span class="pln">
 </span><span class="keyword">&lt;p</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="string">"img-wrap"</span><span class="keyword">&gt;&lt;img</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="string">"図2"</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="string">"image/432x360.jpg"</span><span class="pln"> </span><span class="atn">srcset</span><span class="pun">=</span><span class="string">"image/864x720.jpg 2x"</span><span class="pln"> </span><span class="keyword">/&gt;&lt;/p&gt;</span><span class="pln">
 </span><span class="keyword">&lt;figcaption&gt;&lt;span</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="string">"fc-title"</span><span class="keyword">&gt;</span><span class="pln">図</span><span class="keyword">&lt;span</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="string">"fc-ordinal"</span><span class="keyword">&gt;</span><span class="pln">2</span><span class="keyword">&lt;/span&gt;&lt;/span&gt;</span><span class="pln"> 🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣</span><span class="keyword">&lt;/figcaption&gt;</span><span class="pln">
 </span><span class="keyword">&lt;/figure&gt;</span></code></pre>
 <p>figcaption要素を持つ場合、alt属性は<a href="https://www.w3.org/TR/html5/embedded-content-0.html#images-that-include-text">図番号のみを入れる形</a>で構いません。</p>
 <p>CSSは今回、次のように記述しました。</p>
-<pre><code class="prettyprint">figcaption {
+<pre><code class="prettyprint">.image-fc .img-wrap img {
+  max-width: 75vw;
+}
+figcaption {
   display: block;
-  font-size: 0.9em;
-  margin-right: 0.25em;
+  font-size: 0.8em;
+  margin-right: 0.45em;
   line-height: 1.35;
   text-align: justify;
 }
@@ -171,7 +199,7 @@ code, samp, .url, :lang(en) {
 .fc-ordinal {
   text-orientation: upright;
 }</code></pre>
-<figure class="bfl image">
+<figure class="bfl image image-fc">
 <p class="img-wrap"><img alt="図2" src="image/432x360.jpg" srcset="image/864x720.jpg 2x" /></p>
 <figcaption><span class="fc-title">図<span class="fc-ordinal">2</span></span> 🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣</figcaption>
 </figure>
