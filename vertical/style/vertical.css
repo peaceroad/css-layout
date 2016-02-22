@@ -84,9 +84,7 @@ p {
   text-indent: 1em;
   margin: 0;
   text-align: justify;
-  -moz-font-feature-settings: "vert";
-  -webkit-font-feature-settings: "vert";
-  font-feature-settings: "vert";
+  font-feature-settings: 'vert';
   /* for chrome (3点リーダ etc). */ }
 
 p, figcaption {
@@ -101,6 +99,11 @@ figcaption {
   /* 今回、絵文字を連打しているのでfigcaptionも追加。しかし縦中横を使うとChromeで挙動が怪しい。*/
   word-break: break-all;
   /* 英単語が長い場合の対応のために。 */ }
+
+code, samp {
+  -moz-font-feature-settings: 'hwid', 'zero';
+  -webkit-font-feature-settings: 'hwid', 'zero';
+  font-feature-settings: 'hwid', 'zero'; }
 
 .tcy,
 .fc-ordinal {
@@ -162,7 +165,9 @@ a {
 
 h1, h2, h3, h4, h6, li, dt, dd, figcaption {
   font-family: 'Yu Gothic Custom', sans-serif;
-  line-height: 1.5; }
+  line-height: 1.5;
+  font-feature-settings: 'vert';
+  /* for chrome (3点リーダ etc). */ }
 
 .ch2 {
   font-size: 1em;
@@ -264,7 +269,11 @@ figcaption {
       display: table-caption;
       caption-side: bottom;
       min-width: 13.4em;
-      margin: 0.35em 0 0; }
+      margin: 0.35em 0 0;
+      font-variant-east-asian: proportional-width;
+      -moz-font-feature-settings: 'pwid';
+      -webkit-font-feature-settings: 'pwid';
+      font-feature-settings: 'pwid'; }
 
   .image-sdl .fc-title, .tandem-sdl .fc-title {
     margin: 0 0.25em 0 0; } }
@@ -322,7 +331,11 @@ figcaption {
       display: table-caption;
       caption-side: bottom;
       min-width: 15em;
-      margin: 0.35em 0 0; } }
+      margin: 0.35em 0 0;
+      font-variant-east-asian: proportional-width;
+      -moz-font-feature-settings: 'pwid';
+      -webkit-font-feature-settings: 'pwid';
+      font-feature-settings: 'pwid'; } }
 .sidebyside-images,
 .sidebyside-rtl-images {
   -webkit-writing-mode: horizontal-tb;
@@ -366,7 +379,11 @@ figcaption {
     .sidebyside-rtl-sdl figcaption {
       display: table-caption;
       caption-side: bottom;
-      margin: 0.25em 0 0; } }
+      margin: 0.25em 0 0;
+      font-variant-east-asian: proportional-width;
+      -moz-font-feature-settings: 'pwid';
+      -webkit-font-feature-settings: 'pwid';
+      font-feature-settings: 'pwid'; } }
 .sidebyside-rtl-images {
   direction: rtl; }
 
