@@ -278,7 +278,6 @@ figcaption {
   .image-sdl .fc-title, .tandem-sdl .fc-title {
     margin: 0 0.25em 0 0; } }
 .tandem {
-  height: 100%;
   border-collapse: collapse; }
 
 .tandem-images {
@@ -287,7 +286,6 @@ figcaption {
   writing-mode: horizontal-tb;
   display: table;
   margin-top: -1em;
-  height: inherit;
   max-height: inherit; }
 
 .tandem-image {
@@ -309,10 +307,10 @@ figcaption {
   .tandem-sdl {
     -webkit-writing-mode: horizontal-tb;
     writing-mode: horizontal-tb;
-    max-height: 75%;
     display: table;
     border-collapse: collapse;
-    margin-top: -1em; }
+    margin-top: -1em;
+    max-height: 75% !important; }
     .tandem-sdl .tandem-images {
       display: table-cell;
       min-width: -moz-calc(13.4em * 0.9);
@@ -325,7 +323,7 @@ figcaption {
       display: block; }
       .tandem-sdl .img-wrap img {
         margin: 0 auto;
-        max-height: calc((50% * 100 / 75) - 0.5em - 0.5em);
+        max-height: calc((50% * 100 / 75) - 3.5em - 1em);
         max-height: -moz-calc((50vh * 0.75) - 3.5em - 0.5em); }
     .tandem-sdl figcaption {
       display: table-caption;
