@@ -173,7 +173,12 @@ code, samp, .url, :root:lang(en) {
   display: block;
 }</code>
 </pre>
-<p>ここで重要なのは、max-height: 100%;の指定です。これにより、後述のキャプションを画像の下部に配置する場合において、img要素が描画領域の高さを判断できるようになります。</p>
+<p>ここで重要なのは、max-height: 100%;の指定です。これにより、後述のキャプションを画像の下部に配置する場合において、img要素が描画領域の高さを判断できるようになります。img要素をblock化してるのは，余計な余白を描画しないように念のため設定しています<a class="noteref" href="#img-block"><span class="joint">（</span>※<span class="tcy">1</span><span class="joint">）</span></a></p>
+<aside class="footnote" id="img-block" role="doc-footnote">
+<p><span class="">※<span class="tcy">1</span></span> 以前block化しないと，謎の余白が生成されていたことがありました。現在は必要ないかもしれません。</p>
+<p>その代わりに標準のp要素のスタイルに注意しないといけませんが。</p></dd>
+</dl>
+</aside>
 <p>すると、次のように配置されます。</p>
 <figure class="bfl image">
 <p class="img-wrap"><img alt="🍣" src="image/sushi-tuna_96dpi.jpg" srcset="image/sushi-tuna.jpg 3.125x" /></p>
@@ -246,7 +251,7 @@ figcaption {
   }
 }</code></pre>
 <p>Firefoxでは縦書きの中で横書きにした場合、その要素は親要素の高さを取ることができません。そこで、画面幅からおおよその値を指定しています。</p>
-<figure class="bfl image image-sdl">
+<figure class="bfl image image-fc image-sdl">
 <p class="img-wrap"><img alt="図3" src="image/sushi-tuna_96dpi.jpg" srcset="image/sushi-tuna.jpg 3.125x" /></p>
 <figcaption><span class="fc-title">図<span class="fc-ordinal">3</span></span> 🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣</figcaption>
 </figure>
@@ -256,7 +261,7 @@ figcaption {
 <p class="img-wrap"><img alt="街路" src="image/snow-street-day_96dpi.jpg" srcset="image/snow-street-day.jpg 3.125x" /></p>
 </figure>
 <p>キャプションがある場合は次のとおりです。</p>
-<figure class="bfl image image-sdl">
+<figure class="bfl image image-fc image-sdl">
 <p class="img-wrap"><img alt="図5" src="image/snow-street-day_96dpi.jpg" srcset="image/snow-street-day.jpg 3.125x" /></p>
 <figcaption><span class="fc-title">図<span class="fc-ordinal">5</span></span> ⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄</figcaption>
 </figure>
@@ -301,7 +306,7 @@ figcaption {
 </div>
 </figure>
 <p>これに対して、キャプションがある場合は次のようになります。先のfigure.image要素と同じように、構造は同じfigcaption要素を加えているだけです。</p>
-<figure class="bfl tandem">
+<figure class="bfl tandem tandem-fc">
 <div class="tandem-images">
 <figure class="tandem-image">
 <p class="img-wrap"><img alt="図8-①" src="image/sushi-shellfish_96dpi.jpg" srcset="image/sushi-shellfish.jpg 3.125x" title="🍣1" /></p>
@@ -313,7 +318,7 @@ figcaption {
 <figcaption><span class="fc-title">図<span class="fc-ordinal">8</span></span> 🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣</figcaption>
 </figure>
 <p>さらに、キャプションを画像の下に持った例です。</p>
-<figure class="bfl tandem tandem-sdl">
+<figure class="bfl tandem tandem-fc tandem-sdl">
 <div class="tandem-images">
 <figure class="tandem-image">
 <p class="img-wrap"><img alt="図9a-①" src="image/sushi-shellfish_96dpi.jpg" srcset="image/sushi-shellfish.jpg 3.125x" title="🍣1" /></p>
@@ -325,7 +330,7 @@ figcaption {
 <figcaption><span class="fc-title">図<span class="fc-ordinal">9a</span></span> 🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣</figcaption>
 </figure>
 <p>縦に長い場合も確認しておきます。</p>
-<figure class="bfl tandem tandem-sdl">
+<figure class="bfl tandem tandem-fc tandem-sdl">
 <div class="tandem-images">
 <figure class="tandem-image">
 <p class="img-wrap"><img alt="図9b-①" src="image/snow-street-day_96dpi.jpg" srcset="image/snow-street-day.jpg 3.125x" title="⛄1" /></p>
@@ -349,8 +354,8 @@ figcaption {
 </div>
 </figure>
 <p>これに対して、キャプションがある場合は次のとおりです。</p>
-<p>キャプションがあることをfigure要素が知らないと横幅が画面領域を超えてしまうため、figure要素のclass属性に sidebyside-with-fcを加えています。</p>
-<figure class="bfl sidebyside sidebyside-with-fc">
+<p>キャプションがあることをfigure要素が知らないと横幅が画面領域を超えてしまうため、figure要素のclass属性に sidebyside-fcを加えています。</p>
+<figure class="bfl sidebyside sidebyside-fc">
 <div class="sidebyside-images">
 <figure class="sidebyside-image">
 <p class="img-wrap"><img alt="図11-①" src="image/sushi-shellfish_96dpi.jpg" srcset="image/sushi-shellfish.jpg 3.125x" title="🍣1" /></p>
@@ -363,7 +368,7 @@ figcaption {
 </figure>
 <p>キャプションが下に配置する場合には、次のとおりです。</p>
 <p>先と同じく、キャプションがあることをfigure要素が知らないと横幅が画面領域を超えてしまうため、figure要素のclass属性に sidebyside-with-fcを加えています。</p>
-<figure class="bfl sidebyside sidebyside-sdl sidebyside-with-fc">
+<figure class="bfl sidebyside sidebyside-fc sidebyside-sdl">
 <div class="sidebyside-images">
 <figure class="sidebyside-image">
 <p class="img-wrap"><img alt="図12-①" src="image/sushi-shellfish_96dpi.jpg" srcset="image/sushi-shellfish.jpg 3.125x" title="🍣1" /></p>
@@ -388,8 +393,8 @@ figcaption {
 </figure>
 
 <p>これに対して、キャプションがある場合は次のとおりです。</p>
-<p>キャプションがあることをfigure要素が知らないと横幅が画面領域を超えてしまうため、figure要素のclass属性に sidebyside-rtl-with-fcを加えています。</p>
-<figure class="bfl sidebyside-rtl sidebyside-rtl-with-fc">
+<p>キャプションがあることをfigure要素が知らないと横幅が画面領域を超えてしまうため、figure要素のclass属性に sidebyside-rtl-fcを加えています。</p>
+<figure class="bfl sidebyside-rtl sidebyside-rtl-fc">
 <div class="sidebyside-rtl-images">
 <figure class="sidebyside-rtl-image">
 <p class="img-wrap"><img alt="図14-①" src="image/sushi-shellfish_96dpi.jpg" srcset="image/sushi-shellfish.jpg 3.125x" title="🍣1" /></p>
@@ -402,7 +407,7 @@ figcaption {
 </figure>
 <p>キャプションが下に配置する場合には、次のとおりです。</p>
 <p>先と同じく、キャプションがあることをfigure要素が知らないと横幅が画面領域を超えてしまうため、figure要素のclass属性に sidebyside-rtl-with-fcを加えています。</p>
-<figure class="bfl sidebyside-rtl sidebyside-rtl-sdl sidebyside-rtl-with-fc">
+<figure class="bfl sidebyside-rtl sidebyside-rtl-fc sidebyside-rtl-sdl">
 <div class="sidebyside-rtl-images">
 <figure class="sidebyside-rtl-image">
 <p class="img-wrap"><img alt="図15-①" src="image/sushi-shellfish_96dpi.jpg" srcset="image/sushi-shellfish.jpg 3.125x" title="🍣1" /></p>
