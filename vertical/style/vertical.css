@@ -1,8 +1,22 @@
 @charset "UTF-8";
-main, div, p {
-  -ms-writing-mode: tb-rl;
-  /* for IE. */ }
-
+@font-face {
+  font-family: 'Yu Mincho Custom';
+  src: local("Yu Mincho"), local("YuMincho"); }
+@font-face {
+  font-family: 'Yu Mincho Custom';
+  src: local("Times New Roman");
+  unicode-range: U+0-2FF; }
+@font-face {
+  font-family: 'Yu Gothic Custom';
+  src: local("Yu Gothic"), local("YuGothic"); }
+@font-face {
+  font-family: 'Yu Gothic Custom';
+  src: local("Trebuchet MS");
+  unicode-range: U+0-2FF; }
+@font-face {
+  font-family: 'Vertical Mono';
+  src: local("Consolas"), local("Menlo");
+  /* for safari. */ }
 html {
   height: 100%;
   /* for firefox, safari. */ }
@@ -10,16 +24,20 @@ html {
 body {
   -webkit-writing-mode: vertical-rl;
   /* for safari. */
-  -webkit-text-size-adjust: 100%;
-  /* for code font size in ios(iphone) safari. */
   writing-mode: vertical-rl;
-  margin: 0;
   width: -moz-calc(100vw);
   /*  for firefox. */
   height: 100%;
   /* for firefox, safari. */
   overflow-y: hidden;
-  /* for firefox. */ }
+  /* for firefox. */
+  overflow: auto !important;
+  /* for edge. But specified overflow-y is canceled. */
+  margin: 0; }
+
+main, div, p {
+  -ms-writing-mode: tb-rl;
+  /* for IE. */ }
 
 .runninghead-left,
 .runninghead-right {
@@ -28,7 +46,7 @@ body {
   font-weight: normal;
   position: fixed;
   -webkit-writing-mode: horizontal-tb;
-  /* Bug ios(iphone) */
+  /* for safari. */
   writing-mode: horizontal-tb; }
 
 div.runninghead-right h1 span {
@@ -59,40 +77,22 @@ main {
   background-size: 1.75em;
   max-height: 32em; }
 
-@font-face {
-  font-family: 'Yu Mincho Custom';
-  src: local("Yu Mincho"), local("YuMincho"); }
-@font-face {
-  font-family: 'Yu Mincho Custom';
-  src: local("Times New Roman");
-  unicode-range: U+0-2FF; }
-@font-face {
-  font-family: 'Yu Gothic Custom';
-  src: local("Yu Gothic"), local("YuGothic"); }
-@font-face {
-  font-family: 'Yu Gothic Custom';
-  src: local("Trebuchet MS");
-  unicode-range: U+0-2FF; }
-@font-face {
-  font-family: 'Vertical Mono';
-  src: local("Consolas"), local("Menlo"), local("Courier New");
-  /* for safari. */ }
 p {
   font-family: 'Yu Mincho Custom', serif;
   font-size: 1em;
   line-height: 1.75;
   text-indent: 1em;
-  margin: 0;
-  text-align: justify;
-  font-feature-settings: 'vert';
-  /* for chrome (3点リーダ etc). */ }
+  margin: 0; }
 
-p, figcaption {
-  line-break: strict;
+p, li, dt, dd, figcaption {
+  text-align: justify;
   text-justify: inter-character;
+  line-break: strict;
   overflow-wrap: break-word;
   hanging-punctuation: force-end;
-  font-variant-ligatures: common-ligatures; }
+  /* future supported. */
+  font-feature-settings: 'vert';
+  /* for chrome "…" etc. */ }
 
 code, samp, .url, :root:lang(en),
 figcaption {
@@ -100,10 +100,15 @@ figcaption {
   word-break: break-all;
   /* 英単語が長い場合の対応のために。 */ }
 
-code, samp {
-  -moz-font-feature-settings: 'hwid', 'zero';
-  -webkit-font-feature-settings: 'hwid', 'zero';
-  font-feature-settings: 'hwid', 'zero'; }
+code, samp, var {
+  font-family: 'Vertical Mono', monospace;
+  /* for sfarii */
+  -webkit-text-size-adjust: 100%;
+  /* for code font size in ios(iphone) safari. */ }
+
+p > code, p > samp, p > var {
+  font-size: 0.9em;
+  margin: 0.063em 0; }
 
 .tcy,
 .fc-ordinal {
@@ -121,18 +126,18 @@ code, samp {
   /* for safari. */
   .tcy {
     -webkit-text-orientation: upright;
-    /* for safari 3点リーダ. But no effect. */
+    /* for safari '…'. But no effect. */
     text-orientation: upright;
-    /* for firefox 3点リーダ. */ }
+    /* for firefox '…'. */ }
 
   .fc-ordinal {
-    /* for safari. */
     display: inline-block;
     -webkit-text-orientation: upright;
     text-orientation: upright; } }
 .sideways {
-  text-orientation: sideways;
-  /* リンクでの適用がFirefoxでは下線がでなくなってしまうので、具体的な文字列に対して指定することに。 */ }
+  /* リンクでの適用がFirefoxでは下線がでなくなってしまうので、具体的な文字列に対して指定することに。 */
+  -ms-text-orientation: sideways;
+  text-orientation: sideways; }
 
 .emphasis {
   font-style: normal;
@@ -154,20 +159,39 @@ rtc {
   /* for chrome. */
   rtc::before {
     display: inline;
-    content: '［'; }
-
+    content: '\FE35'; }
   rtc::after {
     display: inline;
-    content: '］'; } }
+    content: '\FE36'; } }
+.inline-ruby {
+  display: inline;
+  font-size: inherit;
+  white-space: inherit;
+  text-emphasis: inherit;
+  font-variant-east-asian: inherit;
+  -moz-font-feature-settings: inherit;
+  -webkit-font-feature-settings: inherit;
+  font-feature-settings: inherit; }
+  .inline-ruby rt, .inline-ruby rp, .inline-ruby rtc {
+    display: inline;
+    font-size: inherit;
+    white-space: inherit;
+    text-emphasis: inherit;
+    font-variant-east-asian: inherit;
+    -moz-font-feature-settings: inherit;
+    -webkit-font-feature-settings: inherit;
+    font-feature-settings: inherit; }
+
 a {
   text-underline-position: under right;
-  text-decoration-skip: ink; }
+  text-decoration-skip: ink;
+  /* future supperted. */ }
 
 h1, h2, h3, h4, h6, li, dt, dd, figcaption {
   font-family: 'Yu Gothic Custom', sans-serif;
   line-height: 1.5;
   font-feature-settings: 'vert';
-  /* for chrome (3点リーダ etc). */ }
+  /* for chrome '…'. */ }
 
 .ch2 {
   font-size: 1em;
@@ -176,6 +200,12 @@ h1, h2, h3, h4, h6, li, dt, dd, figcaption {
   border-left: 0.125em solid #000;
   display: table;
   height: 100%; }
+  .ch2 strong {
+    font-size: 1.3125em;
+    vertical-align: top;
+    display: table-cell;
+    text-align: justify;
+    vertical-align: middle; }
 
 .ch2-label {
   -moz-text-combine-upright: all;
@@ -186,13 +216,6 @@ h1, h2, h3, h4, h6, li, dt, dd, figcaption {
   line-height: 1;
   height: 1em;
   padding: 0.15em 0.5em 0.5em; }
-
-.ch2 strong {
-  font-size: 1.3125em;
-  vertical-align: top;
-  display: table-cell;
-  text-align: justify;
-  vertical-align: middle; }
 
 .ch3 {
   font-size: 1.1875em;
@@ -215,8 +238,6 @@ img {
 pre + * {
   margin-right: 1.5em; }
 pre > code {
-  font-family: 'Vertical Mono', monospace;
-  /* for sfarii */
   display: block;
   font-size: 0.9em;
   line-height: 1.67em;
@@ -230,20 +251,19 @@ pre > code {
   /* for firefox, and line start prohibition of '"' in chrome */
   word-break: break-all; }
 
-.img-wrap img {
-  display: block; }
-
-figcaption {
+.bfl figcaption {
   display: block;
   font-size: 0.8em;
   margin-right: 0.35em;
   line-height: 1.4;
   text-align: justify; }
-
-.fc-title {
+.bfl .fc-title {
   display: inline-block;
   font-weight: bold;
   margin-bottom: 0.25em; }
+
+.img-wrap img {
+  display: block; }
 
 .image-fc .img-wrap img {
   max-width: 75vw; }
@@ -263,8 +283,9 @@ figcaption {
       .image-sdl .img-wrap img {
         max-width: 100vw;
         max-height: 75%;
+        max-height: -moz-calc(75vh - 6em - 0.5em);
         margin: 0 auto;
-        max-height: -moz-calc(75vh - 6em - 0.5em); }
+        /* in case width of caption is longer than image. */ }
     .image-sdl figcaption {
       display: table-caption;
       caption-side: bottom;
@@ -274,9 +295,8 @@ figcaption {
       -moz-font-feature-settings: 'pwid';
       -webkit-font-feature-settings: 'pwid';
       font-feature-settings: 'pwid'; }
-
-  .image-sdl .fc-title, .tandem-sdl .fc-title {
-    margin: 0 0.25em 0 0; } }
+    .image-sdl .fc-title {
+      margin: 0 0.25em 0 0; } }
 .tandem {
   border-collapse: collapse; }
 
@@ -298,12 +318,12 @@ figcaption {
   height: fit-content;
   padding-top: 1em;
   width: -moz-min-content; }
+  .tandem .img-wrap img {
+    max-width: 75vw;
+    max-height: calc(50% - 0.5em);
+    max-height: -moz-calc(50vh - 3.5em - 0.5em); }
 
-.tandem .img-wrap img {
-  max-height: calc(50% - 0.5em);
-  max-height: -moz-calc(50vh - 3.5em - 0.5em - 0.5em); }
-
-@media screen and (min-height: 32em) {
+@media screen and (max-height: 32em) {
   .tandem-sdl {
     -webkit-writing-mode: horizontal-tb;
     writing-mode: horizontal-tb;
@@ -323,8 +343,9 @@ figcaption {
       display: block; }
       .tandem-sdl .img-wrap img {
         margin: 0 auto;
-        max-height: calc((50% * 100 / 75) - 3.5em - 1em);
-        max-height: -moz-calc((50vh * 0.75) - 3.5em - 0.5em); }
+        max-width: 100vw;
+        max-height: calc(50% - 1em);
+        max-height: -moz-calc(50vh - 3.5em - 1em); }
     .tandem-sdl figcaption {
       display: table-caption;
       caption-side: bottom;
@@ -333,7 +354,9 @@ figcaption {
       font-variant-east-asian: proportional-width;
       -moz-font-feature-settings: 'pwid';
       -webkit-font-feature-settings: 'pwid';
-      font-feature-settings: 'pwid'; } }
+      font-feature-settings: 'pwid'; }
+    .tandem-sdl .fc-title {
+      margin: 0 0.25em 0 0; } }
 .sidebyside-images,
 .sidebyside-rtl-images {
   -webkit-writing-mode: horizontal-tb;
@@ -344,52 +367,54 @@ figcaption {
 .sidebyside-image,
 .sidebyside-rtl-image {
   display: table-cell; }
-  .sidebyside-image:last-child,
-  .sidebyside-rtl-image:last-child {
-    padding-left: 1em; }
+
+.sidebyside-image:last-child,
+.sidebyside-rtl-image:last-child {
+  padding-left: 1em; }
 
 .sidebyside .img-wrap img,
 .sidebyside-rtl .img-wrap img {
   max-width: calc(50vw - 1em); }
 
-.sidebyside.sidebyside-with-fc .img-wrap img,
-.sidebyside-sdl.sidebyside-with-fc .img-wrap img,
-.sidebyside-rtl.sidebyside-with-fc .img-wrap img,
-.sidebyside-rtl-sdl.sidebyside-with-fc .img-wrap img {
+.sidebyside.sidebyside-fc .img-wrap img,
+.sidebyside-sdl.sidebyside-fc .img-wrap img,
+.sidebyside-rtl.sidebyside-fc .img-wrap img,
+.sidebyside-rtl-sdl.sidebyside-fc .img-wrap img {
   max-width: calc(37.5vw - 1em); }
 
 @media screen and (min-height: 32em) {
-  .sidebyside-sdl,
-  .sidebyside-rtl-sdl {
+  .sidebyside-sdl, .sidebyside-rtl-sdl {
     -webkit-writing-mode: horizontal-tb;
     writing-mode: horizontal-tb;
     display: table;
     border-collapse: collapse; }
-    .sidebyside-sdl .sidebyside-image,
-    .sidebyside-sdl .sidebyside-rtl-images,
-    .sidebyside-rtl-sdl .sidebyside-image,
-    .sidebyside-rtl-sdl .sidebyside-rtl-images {
-      display: table-cell; }
-    .sidebyside-sdl.sidebyside-with-fc .img-wrap img,
-    .sidebyside-rtl-sdl.sidebyside-with-fc .img-wrap img {
-      max-width: calc(50vw - 1em); }
-    .sidebyside-sdl figcaption,
-    .sidebyside-rtl-sdl figcaption {
-      display: table-caption;
-      caption-side: bottom;
-      margin: 0.25em 0 0;
-      font-variant-east-asian: proportional-width;
-      -moz-font-feature-settings: 'pwid';
-      -webkit-font-feature-settings: 'pwid';
-      font-feature-settings: 'pwid'; } }
+
+  .sidebyside-sdl .sidebyside-image, .sidebyside-sdl .sidebyside-rtl-images {
+    display: table-cell; }
+
+  .sidebyside-rtl-sdl .sidebyside-image, .sidebyside-rtl-sdl .sidebyside-rtl-images {
+    display: table-cell; }
+
+  .sidebyside-sdl.sidebyside-fc .img-wrap img,
+  .sidebyside-rtl-sdl.sidebyside-fc .img-wrap img {
+    max-width: calc(50vw - 1em); }
+
+  .sidebyside-sdl figcaption,
+  .sidebyside-rtl-sdl figcaption {
+    display: table-caption;
+    caption-side: bottom;
+    margin: 0.25em 0 0;
+    font-variant-east-asian: proportional-width;
+    -moz-font-feature-settings: 'pwid';
+    -webkit-font-feature-settings: 'pwid';
+    font-feature-settings: 'pwid'; } }
 .sidebyside-rtl-images {
   direction: rtl; }
 
 .sidebyside-rtl-image:last-child {
   padding: 0 1em 0 0; }
 
-.sidebyside-rtl .img-wrap,
-.sidebyside-rtl figcaption {
+.sidebyside-rtl .img-wrap, .sidebyside-rtl figcaption {
   direction: ltr; }
 
 .warning {
@@ -402,6 +427,23 @@ figcaption {
 
 .warning .joint {
   display: none; }
+
+.footnote {
+  margin-right: 1.5em; }
+  .footnote + * {
+    margin-right: 1.5em; }
+  .footnote p {
+    font-size: 0.8em;
+    margin-top: 2.75em; }
+
+.noteref {
+  font-size: 0.75em;
+  vertical-align: top; }
+  .noteref .tcy {
+    vertical-align: top;
+    /* for chrome. */ }
+  .noteref .joint {
+    display: none; }
 
 .example {
   border: 0.0625em solid #000;
