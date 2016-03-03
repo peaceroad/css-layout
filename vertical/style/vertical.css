@@ -327,10 +327,10 @@ pre > code {
   .tandem-sdl {
     -webkit-writing-mode: horizontal-tb;
     writing-mode: horizontal-tb;
-    max-height: 75%;
     display: table;
     border-collapse: collapse;
-    margin-top: -1em; }
+    margin-top: -1em;
+    max-height: 75% !important; }
     .tandem-sdl .tandem-images {
       display: table-cell;
       min-width: -moz-calc(13.4em * 0.9);
