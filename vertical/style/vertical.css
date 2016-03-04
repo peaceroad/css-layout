@@ -120,7 +120,7 @@ p > code, p > samp, p > var {
   /* for future firefox. */
   text-combine-upright: all;
   text-combine-upright: digits 2;
-  text-transform: full-width; }
+  /* text-transform: full-width; */ }
 
 @supports not (text-combine-upright: all) {
   /* for safari. */
@@ -254,11 +254,10 @@ pre > code {
 .bfl figcaption {
   display: block;
   font-size: 0.8em;
-  margin-right: 0.35em;
-  line-height: 1.4;
+  margin-right: 0.5em;
+  line-height: 1.5;
   text-align: justify; }
 .bfl .fc-title {
-  display: inline-block;
   font-weight: bold;
   margin-bottom: 0.25em; }
 
@@ -278,8 +277,9 @@ pre > code {
     .image-sdl .img-wrap {
       display: table-cell;
       height: intrinsic;
+      /* for mobile safari. */
       height: fit-content;
-      min-width: -moz-calc(13.4em * 0.9); }
+      min-width: -moz-calc(13.4em * 0.8); }
       .image-sdl .img-wrap img {
         max-width: 100vw;
         max-height: 75%;
@@ -323,14 +323,14 @@ pre > code {
     max-height: calc(50% - 0.5em);
     max-height: -moz-calc(50vh - 3.5em - 0.5em); }
 
-@media screen and (max-height: 32em) {
+@media screen and (min-height: 32em) {
   .tandem-sdl {
     -webkit-writing-mode: horizontal-tb;
     writing-mode: horizontal-tb;
+    max-height: 75%;
     display: table;
     border-collapse: collapse;
-    margin-top: -1em;
-    max-height: 75% !important; }
+    margin-top: -1em; }
     .tandem-sdl .tandem-images {
       display: table-cell;
       min-width: -moz-calc(13.4em * 0.9);
@@ -344,8 +344,8 @@ pre > code {
       .tandem-sdl .img-wrap img {
         margin: 0 auto;
         max-width: 100vw;
-        max-height: calc(50% - 1em);
-        max-height: -moz-calc(50vh - 3.5em - 1em); }
+        max-height: calc(50% - 0.5em);
+        max-height: -moz-calc(50vh - 0.5em - 3.5em); }
     .tandem-sdl figcaption {
       display: table-caption;
       caption-side: bottom;
@@ -434,15 +434,16 @@ pre > code {
     margin-right: 1.5em; }
   .footnote p {
     font-size: 0.8em;
-    margin-top: 2.75em; }
+    margin-top: 2.25em;
+    line-height: 1.5; }
+  .footnote .referer {
+    margin: -3.25em 0 1em; }
 
-.noteref {
-  font-size: 0.75em;
-  vertical-align: top; }
-  .noteref .tcy {
-    vertical-align: top;
-    /* for chrome. */ }
-  .noteref .joint {
+.noteref-wrap {
+  font-size: 0.75em; }
+  .noteref-wrap .noteref, .noteref-wrap .tcy {
+    vertical-align: top; }
+  .noteref-wrap .joint {
     display: none; }
 
 .example {

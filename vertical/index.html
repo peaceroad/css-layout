@@ -139,7 +139,7 @@ code, samp, .url, :root:lang(en) {
 <h3 class="ch3">ルビ</h3>
 <p>ルビを簡単に確認しておきます。ルビのレイアウトは<a href="https://drafts.csswg.org/css-ruby-1/">CSS Ruby Layout Module Level 1</a>にて規定されます。ルビのレイアウトにそこまで気を使わない場合には、グループルビとインラインルビを把握していれば十分でしょう。</p>
 <p>また、Chrome 49ではfont-feature-settingsプロパティを使うこと（値：ruby）でルビ用字形が有効になるようです（Windowsで確認）。</p>
-<p>例えば、このページでは次のCSS（SCSS）を適用してきます。</p>
+<p>例えば、このページでは次のCSS（以降SCSSの場合もある）を適用してきます。</p>
 <pre><code class="prettyprint">rt, rtc {
   font-variant-east-asian: ruby;
   -moz-font-feature-settings: 'ruby';
@@ -184,9 +184,6 @@ rtc {
 <p style="text-align: right;">—— <span class="tcy">2</span><span class="tcy">0</span><span class="tcy">1</span><span class="tcy">6</span>年、<ruby class="inline-ruby">札幌<rp>（</rp><rt>さっぽろ</rt><rp>）</rp></ruby>にて</p>
 </figure>
 
-
-
-
 </section>
 <section class="subchapter">
 <h2 class="ch2"><span class="ch2-label">X.4</span> <strong>箇条書きのデザイン</strong></h2>
@@ -221,30 +218,33 @@ rtc {
 <pre><code class="prettyprint">.bfl {
   margin: 0 1.5em 0 0;
   max-height: 100%;
-} 
-.bfl + * {
-  margin-right: 1.5em;
+  + * {
+    margin-right: 1.5em;
+  }
 }
 .img-wrap img {
   display: block;
 }</code>
 </pre>
-<p>ここで重要なのは、max-height: 100%;の指定です。これにより、後述のキャプションを画像の下部に配置する場合において、img要素が描画領域の高さを判断できるようになります。img要素をblock化してるのは，余計な余白を描画しないように念のため設定しています<a class="noteref" href="#img-block"><span class="joint">（</span>※<span class="tcy">1</span><span class="joint">）</span></a></p>
+<p>ここで重要なのは、max-height: 100%;の指定です。これにより、後述のキャプションを画像の下部に配置する場合において、img要素が描画領域の高さを判断できるようになります。img要素をblock化してるのは，余計な余白を描画しないように念のため設定しています<span class="noteref-wrap"><span class="joint">（</span><a class="noteref" href="#img-block">※<span class="tcy">1</span></a><span class="joint">）</span></span>。</p>
 <aside class="footnote" id="img-block" role="doc-footnote">
-<p><span class="">※<span class="tcy">1</span></span> 以前block化しないと，謎の余白が生成されていたことがありました。現在は必要ないかもしれません。</p>
-<p>その代わりに標準のp要素のスタイルに注意しないといけませんが。</p></dd>
-</dl>
+<p><a href="" class="referer">※<span class="tcy">1</span></a> 以前block化しないと，謎の余白が生成されていたことがありました。現在は必要ないかもしれません。その代わりに、標準のp要素のスタイルに注意しないといけませんが。</p>
 </aside>
 <p>すると、次のように配置されます。</p>
 <figure class="bfl image">
 <p class="img-wrap"><img alt="🍣" src="image/sushi-tuna_96dpi.jpg" srcset="image/sushi-tuna.jpg 3.125x" /></p>
 </figure>
+<!--
+<figure class="bfl image">
+<p class="img-wrap"><img alt="🍣" src="image/sushi-tuna_96dpi.jpg" srcset="image/sushi-tuna.jpg 864w, image/sushi-tuna_96dpi.jpg 276w" sizes="276px" /></p>
+</figure>
+-->
 <p>これに、キャプションのある場合を考えてみます。HTMLは次のようになります。キャプションを持つことを示すために、figure要素のclass属性にimage-fcを加えています。</p>
 <pre><code class="prettyprint"><span class="keyword">&lt;figure</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="string">"bfl image image-fc"</span><span class="keyword">&gt;</span><span class="pln">
 </span><span class="keyword">&lt;p</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="string">"img-wrap"</span><span class="keyword">&gt;&lt;img</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="string">"図2"</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="string">"image/sushi-tuna_96dpi.jpg"</span><span class="pln"> </span><span class="atn">srcset</span><span class="pun">=</span><span class="string">"image/sushi-tuna.jpg 3.125x"</span><span class="pln"> </span><span class="keyword">/&gt;&lt;/p&gt;</span><span class="pln">
 </span><span class="keyword">&lt;figcaption&gt;&lt;span</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="string">"fc-title"</span><span class="keyword">&gt;</span><span class="pln">図</span><span class="keyword">&lt;span</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="string">"fc-ordinal"</span><span class="keyword">&gt;</span><span class="pln">2</span><span class="keyword">&lt;/span&gt;&lt;/span&gt;</span><span class="pln"> 🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣</span><span class="keyword">&lt;/figcaption&gt;</span><span class="pln">
 </span><span class="keyword">&lt;/figure&gt;</span></code></pre>
-<p>figcaption要素を持つ場合、alt属性は<a href="https://www.w3.org/TR/html5/embedded-content-0.html#images-that-include-text">図番号のみを入れる形</a>で構いません。</p>
+<p>figcaption要素を持つ場合、img要素のalt属性は<a href="https://www.w3.org/TR/html5/embedded-content-0.html#images-that-include-text">図番号のみを入れる形</a>で構いません。</p>
 <p>CSSは今回、次のように記述しました。</p>
 <pre><code class="prettyprint">.image-fc .img-wrap img {
   max-width: 75vw;
@@ -252,17 +252,18 @@ rtc {
 figcaption {
   display: block;
   font-size: 0.8em;
-  margin-right: 0.45em;
-  line-height: 1.35;
+  margin-right: 0.5em;
+  line-height: 1.5;
   text-align: justify;
 }
 .fc-title {
   font-weight: bold;
-  margin-bottom: 0.4em;
+  margin-bottom: 0.25em;
 }
 .fc-ordinal {
-  text-orientation: upright;
+  @include text-combine-upright-all;
 }</code></pre>
+<p>ここで重要になるのは、描画領域における画像とキャプションの割合です。画像が大きい場合には、描画領域の横幅<span class="tcy">75</span>％を上限とし、残りの<span class="tcy">25</span>％分の横幅分を最低でもキャプションに割り当てるようにしました（以降、キャプションが表示される場合の割合の数字は同じ）。そのため今回の設計では、キャプションが<span class="tcy">25</span>％以上の横幅を持つと、描画領域からキャプションが落ちることに注意してください。</p>
 <figure class="bfl image image-fc">
 <p class="img-wrap"><img alt="図2" src="image/sushi-tuna_96dpi.jpg" srcset="image/sushi-tuna.jpg 3.125x" /></p>
 <figcaption><span class="fc-title">図<span class="fc-ordinal">2</span></span> 🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣</figcaption>
@@ -271,46 +272,58 @@ figcaption {
 <figure class="bfl image">
 <figcaption><span class="fc-title">図<span class="fc-ordinal">21</span></span> 🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣</figcaption>
 </figure>
-<p>次に、キャプションを画像の下に配置してみます。HTMLは、先のHTMLに対して、figure要素のclass属性にimage-sdlを加えます。</p>
-<pre><code class="prettyprint"><span class="keyword">&lt;figure</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="string">"bfl image image-sdl"</span><span class="keyword">&gt;</span><span class="pln">
+<p>次に、キャプションを画像の下に配置してみます。HTMLは、先のHTMLに対して、figure要素のclass属性にimage-sdlを加えます。その際、CSSを上書きする必要性から、image-fcの後にimage-sdlを記述してください。</p>
+<pre><code class="prettyprint"><span class="keyword">&lt;figure</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="string">"bfl image image-fc image-sdl"</span><span class="keyword">&gt;</span><span class="pln">
 </span><span class="keyword">&lt;p</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="string">"img-wrap"</span><span class="keyword">&gt;&lt;img</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="string">"図3"</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="string">"image/sushi-tuna_96dpi.jpg"</span><span class="pln"> </span><span class="atn">srcset</span><span class="pun">=</span><span class="string">"image/sushi-tuna.jpg 3.125x"</span><span class="pln"> </span><span class="keyword">/&gt;&lt;/p&gt;</span><span class="pln">
 </span><span class="keyword">&lt;figcaption&gt;&lt;span</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="string">"fc-title"</span><span class="keyword">&gt;</span><span class="pln">図</span><span class="keyword">&lt;span</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="string">"fc-ordinal"</span><span class="keyword">&gt;</span><span class="pln">3</span><span class="keyword">&lt;/span&gt;&lt;/span&gt;</span><span class="pln"> 🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣</span><span class="keyword">&lt;/figcaption&gt;</span><span class="pln">
 </span><span class="keyword">&lt;/figure&gt;</span></code></pre>
-<p>そして、CSSでは次のように記述します。</p>
-<pre><code class="prettyprint">.image-sdl .img-wrap img {
-  max-width: 75vw;
-  max-height: 75%;
-}
-@media screen and (min-height: 32em) {
+<p>そして、CSSは次のように記述します。</p>
+<pre><code class="prettyprint">@media screen and (min-height: $page-height) {
   .image-sdl {
+    -webkit-writing-mode: horizontal-tb; /* for safari. */
     writing-mode: horizontal-tb;
-    display: table;
+    display: table;        
     border-collapse: collapse;
+    .img-wrap {
+      display: table-cell;
+      height: intrinsic;
+      height: fit-content;
+      min-width: -moz-calc(13.4em * 0.8);
+      img {
+        max-width: 100vw;
+        max-height: 75%;
+        max-height: -moz-calc(75vh - 6em - 0.5em);       
+        margin: 0 auto; /* in case width of caption is longer than image. */
+      }
+    }
+    figcaption {
+      display: table-caption;
+      caption-side: bottom;
+      min-width: 13.4em;
+      margin: 0.35em 0 0;
+      font-variant-east-asian: proportional-width;
+      -moz-font-feature-settings: 'pwid';
+      -webkit-font-feature-settings: 'pwid';
+      font-feature-settings: 'pwid';
+    }
+    .fc-title {
+      margin: 0 0.25em 0 0;
+    }
   }
-  .image-sdl .img-wrap {
-    display: table-cell;
-    height: intrinsic;
-    height: fit-content;
-  }
-  .image-sdl .img-wrap img {
-    margin: 0 auto;
-    max-height: -moz-calc(75vh - 6em - 0.5em); /* for firefox */
-  }
-  .image-sdl figcaption {
-    display: table-caption;
-    caption-side: bottom;
-    min-width: 13.4em;
-    margin: 0.25em 0 0;
-  }
-  .image-sdl .fc-title {
-    margin: 0 0.4em 0 0;
-  }
-}</code></pre>
-<p>Firefoxでは縦書きの中で横書きにした場合、その要素は親要素の高さを取ることができません。そこで、画面幅からおおよその値を指定しています。</p>
+}
+</code></pre>
+<p>基本的には、CSSで表組しているだけです。画像の高さに対する最大値は、前述していたように、.bflに指定した<code>height-max: 100%</code>の指定を明示することで、有効値を計算してくれます。</p>
+<p>なお、Firefoxでは縦書きの中で横書きにした場合、その要素は親要素の高さを取ることができません。ここでは、描画領域の高さをもとに画面領域にはみ出さないように調整しています。また、Firefoxで、かつ画面のピクセル密度が<span class="tcy">1</span>よりも大きい場合に、p.img-wrap要素の領域が画像の領域まで収縮できません。そのため、現状その分画像の周りに余白ができてしまいます。</p>
 <figure class="bfl image image-fc image-sdl">
 <p class="img-wrap"><img alt="図3" src="image/sushi-tuna_96dpi.jpg" srcset="image/sushi-tuna.jpg 3.125x" /></p>
 <figcaption><span class="fc-title">図<span class="fc-ordinal">3</span></span> 🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣</figcaption>
 </figure>
+<!--
+<figure class="bfl image image-fc image-sdl">
+<p class="img-wrap"><img alt="🍣" src="image/sushi-tuna_96dpi.jpg" srcset="image/sushi-tuna.jpg 864w, image/sushi-tuna_96dpi.jpg 276w" sizes="276px" /></p>
+<figcaption><span class="fc-title">図<span class="fc-ordinal">3</span></span> 🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣</figcaption>
+</figure>
+-->
 <p>ここで、縦に画像が長い場合も確認してきましょう。</p>
 <p>キャプションがない場合は次のとおりです。</p>
 <figure class="bfl image">
@@ -321,12 +334,14 @@ figcaption {
 <p class="img-wrap"><img alt="図5" src="image/snow-street-day_96dpi.jpg" srcset="image/snow-street-day.jpg 3.125x" /></p>
 <figcaption><span class="fc-title">図<span class="fc-ordinal">5</span></span> ⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄⛄</figcaption>
 </figure>
-<p>次に、ページメディアにおいて、ページ内に<span class="tcy">1</span>つの図版だけ表示したい画像も考えておきます。例えば、キャプションも画像に含まれている場合です。その場合は、figure要素のclass属性にimage-pageを加えることにします。</p>
+<p>次に、ページメディアにおいて、ページ内に<span class="tcy">1</span>つの図版だけ表示したい画像も考えておきます。例えば、キャプションも画像に含まれている場合です。その場合は、figure要素のclass属性にimage-pageを加えておくことにします。</p>
 <figure class="bfl image image-page">
 <p class="img-wrap"><img  alt="出発待ちの電車" src="image/train_96dpi.jpg" srcset="image/train.jpg 3.125x" title="🚃🚃🚃🚃🚃🚃🚃🚃🚃🚃🚃🚃🚃🚃🚃🚃🚃🚃🚃🚃🚃🚃🚃🚃🚃🚃🚃🚃🚃🚃🚃" /></p>
 </figure>
-<p>次に、図版に<span class="tcy">2</span>つの画像が縦に並ぶ場合を考えてみます。figure要素のclass属性につけていたimageをtandemに変えています。</p>
-
+<p>次に、図版に<span class="tcy">2</span>つの画像が縦に並ぶ場合を考えてみます。</p>
+<p>HTMLは、それぞれの画像を、これまでのfigure.image要素のclass属性につけていたclass属性をtandem-imageのみに変えて部品として用意します。そして、それらをdiv.tandem-images要素で包含します。さらに、figure.bfl.tandem要素で包含します。</p>
+<p>CSSの解説はfigure.image要素で記述した時の応用です。</p>
+<p>その結果、次のように表示できます。</p>
 <figure class="bfl tandem">
 <div class="tandem-images">
 <figure class="tandem-image">
@@ -350,7 +365,7 @@ figcaption {
 </div>
 </figure>
 -->
-<p>縦に長い場合も確認しておきます。img要素の属性値の値以外はHTMLとCSSともに前の例から修正していません。</p>
+<p>縦に長い場合も確認しておきます。画像周りの値を変更したのみです。</p>
 <figure class="bfl tandem">
 <div class="tandem-images">
 <figure class="tandem-image">
@@ -361,7 +376,7 @@ figcaption {
 </figure>
 </div>
 </figure>
-<p>これに対して、キャプションがある場合は次のようになります。先のfigure.image要素と同じように、構造は同じfigcaption要素を加えているだけです。</p>
+<p>これに対して、キャプションがある場合は次のようになります。先のfigure.image要素の場合と同じようにfigcaption要素を加えているので、figure.tandem要素のclass属性にtandem-fcを加えてキャプションがあることをfigure要素側で把握させています。</p>
 <figure class="bfl tandem tandem-fc">
 <div class="tandem-images">
 <figure class="tandem-image">
@@ -478,15 +493,16 @@ figcaption {
 </section>
 <section>
 <h3 class="ch3">EPUBに対応させる</h3>
-<p>ここまでの画像配置の手法は、ブラウザでの配置方法です。しかし、EPUBではこのままは上手くいきません。EPUB 3.0ではHTML5の勧告を元にしていますので、現在srcset属性を使うとValidatorが通らないためです。</p>
-<p>これを解決するには、次の方法が検討できます。</p>
+<p>ここまでの画像配置の手法は、ブラウザでの配置方法です。しかし、EPUBではこのままは上手くいきません。EPUB 3.0ではHTML5の勧告を元にしていますので、現在srcset属性を使うとValidatorが通らないためです。ただし、EPUB 3.1では使えるようになることが<a href="https://github.com/IDPF/epub-revision/issues/429">予定されています</a>。</p>
+<p>srcset属性を使わない場合には、次の方法が検討できます。</p>
 <ul>
 <li>height属性を指定する：しかし横幅が小さいデバイスで見た時に矩形比が保てません。</li>
 <li>image-resolutionプロパティを使う：詳しく見ていませんが、このプロパティを使うことで対応できるようになると思われます。しかし実装されていません。</li>
 <li>zoomプロパティ使う：セレクタでのzoomプロパティの使用は非標準です。特にFirefoxでは利用できません。</li>
 <li>transformプロパティを使う：親ボックスが縮小されず、余白が出てしまいます。</li>
 </ul>
-<p>ということで、どれも難しいです。でも、使うのであれば、次のような形でzoomプロパティになるでしょう。</p>
+<p>ということで、現状どれも難しいです。</p>
+<p>zoomプロパティを使う場合には次のようになります。</p>
 <pre><code class="prettyprint">img {
   -ms-zoom: 0.32;
   zoom: 0.32;
@@ -496,10 +512,10 @@ figcaption {
 <figure class="bfl sidebyside sidebyside-sdl sidebyside-with-fc">
 <div class="sidebyside-images">
 <figure class="sidebyside-image">
-<p class="img-wrap"><img alt="図16-①" src="image/ramen-sumire.jpg" title="🍜2" /></p>
+<p class="img-wrap"><img alt="図16-①" src="image/ramen-sumire.jpg" title="🍜1" /></p>
 </figure>
 <figure class="sidebyside-image">
-<p class="img-wrap"><img alt="図16-②" src="image/ramen-nanashi.jpg" title="🍜1"  /></p>
+<p class="img-wrap"><img alt="図16-②" src="image/ramen-nanashi.jpg" title="🍜2"  /></p>
 </figure>
 </div>
 <figcaption><span class="fc-title">図<span class="fc-ordinal">16</span></span> 🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜</figcaption>
