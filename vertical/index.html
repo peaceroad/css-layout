@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8" />
@@ -20,12 +21,24 @@
 <p class="img-wrap"><img alt="" src="image/chapter-titlepage_96dpi.jpg" srcset="image/chapter-titlepage.jpg 3.125x" class="chapter-titlepage" role="presentation" /></p>
 <div class="page-content">
 <h1 id="chapterx-title" class="ch1 chapter-title runninghead-right">
-<span class="title"><span class="label">第<span class="ordinal">X</span>章</span></span> <strong>縦組みレイアウト</strong></h1>
+<span class="title"><span class="label">第<span class="ordinal">X</span>章</span></span> <strong>縦書きレイアウト</strong></h1>
 </div>
 </div>
 
+<nav class="nav-toc" id="nav-toc">
+<h2><a href="#nav-toc">table of contents</a></h2>
+<ol>
+<li><a href="#chapterx-1"><span class="ch2-label">X.1</span> <strong>EPUBとCSSレイアウト</strong></a></li>
+<li><a href="#chapterx-2"><span class="ch2-label">X.2</span> <strong>縦書きレイアウトの基礎</strong></a></li>
+<li><a href="#chapterx-3"><span class="ch2-label">X.3</span> <strong>段落のデザイン</strong></a></li>
+<li><a href="#chapterx-4"><span class="ch2-label">X.4</span> <strong>箇条書きのデザイン</strong></a></li>
+<li><a href="#chapterx-5"><span class="ch2-label">X.5</span> <strong>表のデザイン</strong></a></li>
+<li><a href="#chapterx-6"><span class="ch2-label">X.6</span> <strong>画像のデザイン</strong></a></li>
+</ol>
+</nav>
 
-<section class="subchapter">
+
+<section class="subchapter" id="chapterx-1">
 <h2 class="ch2"><span class="ch2-label">X.1</span> <strong>EPUBとCSSレイアウト</strong></h2>
 <section class="warning" role="doc-notice">
 <p><strong class="warning-title">注意<span class="joint">：</span></strong>この章は<em class="emphasis">まるっと</em>書きかけです。そのため内容は、不正確なことがあること、EPUBの読書システムでの実機確認はしっかりとは行っていないことに注意してください。</p>
@@ -43,7 +56,8 @@
 <p>また、CSSの仕様書以外では、<a href="http://tategaki.github.io/">縦書きWeb普及委員会のWebサイト</a>にある「技術解説」やビヨンド・パースペクティブ・ソリューションズの<a href="http://csslab.bpsinc.jp/">CSS研究部のサイト</a>、あとはMozilla Developer Networkの<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference">CSSリファレンス</a>（<a href="https://developer.mozilla.org/ja/docs/Web/CSS/Reference">日本語訳のページ</a>）が日本語解説として参考になるでしょう。</p>
 </section>
 </section>
-<section class="subchapter">
+
+<section class="subchapter" id="chapterx-2">
 <h2 class="ch2"><span class="ch2-label">X.2</span> <strong>縦書きレイアウトの基礎</strong></h2>
 <p>CSSによる縦組みは、<a href="http://dev.w3.org/csswg/css-writing-modes-3/">CSS Writing Modes Level 3</a>が基礎になります。</p>
 <p>要素内の文字列を縦書きにするためには、writing-modeプロパティを次のように使います。ただし、IEではGrouping contentとなる要素に指定する必要があるようです（以降、IEは鬼門なので説明から外します）。</p>
@@ -69,9 +83,11 @@ body {
 <!--<pre><code class="prettyprint">text-orientation: upright;</code></pre>-->
 <p>一部の文字だけ縦中横にしたい場合、基本的にはtext-combine-uprightプロパティにallを指定します。ですが、各ブラウザへの実装が目下進められている段階であり、現時点で使用するためにはその指定が煩雑です。
 </section>
-<section class="subchapter">
+
+<section class="subchapter" id="chapterx-3">
 <h2 class="ch2"><span class="ch2-label">X.3</span> <strong>段落のデザイン</strong></h2>
 <p>段落本文をデザインするに当たって現状重要になる仕様は、<a href="https://drafts.csswg.org/css-fonts/">CSS Fonts Module Level 3</a>と<a href="https://drafts.csswg.org/css-text-3/">CSS Text Module Level 3</a>、<a href="https://drafts.csswg.org/css-text-decor-3/">CSS Text Decoration Module Level 3</a>です。また、段落のより複雑なレイアウトを制御するために、<a href="https://drafts.csswg.org/css-inline/">CSS Inline Layout Module Level 3</a>、<a href="https://drafts.csswg.org/css-line-grid/">CSS Line Grid Module Level 1</a>などがあります。</p>
+
 <section>
 <h3 class="ch3">フォントの指定</h3>
 <p>ブラウザ上で縦書きを使う場合、WindowsとMac OSの両方にある書体である游明朝と游ゴシックを指定しておくのが簡単には按配が良くお勧めです。なお、読書システムでは標準の日本語フォントが搭載されていることも多いので、EPUBでは指定しないほうが無難です。<p>
@@ -114,9 +130,8 @@ code, samp, var {
   font-family: 'Vertical Mono', monospace; /* for sfarii, and adjust windows. */
   -webkit-text-size-adjust: 100%; /* for code font size in ios(iphone) safari. */
 }</code></pre>
-
-
 </section>
+
 <section>
 <h3 class="ch3">段落本文内の英数字</h3>
 <p>縦書きを想定したHTMLの本文を書くにあたり、本文内の英数字は半角で書いて構いません。また、記号は全角で書きます。つまり、横書きと同じです。</p>
@@ -128,17 +143,18 @@ code, samp, .url, :root:lang(en) {
   word-break: break-all;
 }</code></pre>
 <p>なお、このページではfigcaption要素内で絵文字を連打しているために、Firefoxでは次行に送られないので、あわせてこの指定を行っています。</p>
-
 </section>
+
 <section>
 <h3 class="ch3">リンクのデザイン</h3>
 <p>リンクのデザインは、縦書きの場合、文字列の右側に実線が引かれていることをブラウザに対して<a href="https://drafts.csswg.org/css-text-decor-3/#example-affafc32">勧めています</a>。</p>
 <p>なお、Firefox 44ではa要素に対して、text-orientation: sideways;を指定すると下線が引かれなくなってしまいます。</p>
 </section>
+
 <section>
 <h3 class="ch3">ルビ</h3>
 <p>ルビを簡単に確認しておきます。ルビのレイアウトは<a href="https://drafts.csswg.org/css-ruby-1/">CSS Ruby Layout Module Level 1</a>にて規定されます。ルビのレイアウトにそこまで気を使わない場合には、グループルビとインラインルビを把握していれば十分でしょう。</p>
-<p>また、Chrome 49ではfont-feature-settingsプロパティを使うこと（値：ruby）でルビ用字形が有効になるようです（Windowsで確認）。</p>
+<p>また、Chrome 49ではfont-feature-settingsプロパティを使うこと（値：ruby）でルビ用字形が有効になるようです（Windowsで確認）。ただし、この指定はブラウザのデフォルトCSSで指定することを勧めていて、著者が指定すべきではないことに注意してください。</p>
 <p>例えば、このページでは次のCSS（以降SCSSの場合もある）を適用してきます。</p>
 <pre><code class="prettyprint">rt, rtc {
   font-variant-east-asian: ruby;
@@ -178,24 +194,97 @@ rtc {
   }    
 }
 </code></pre>
-<p>その結果、次のよう描画されます（ちなみに最後の「札幌（さっぽろ）」と表示されている箇所がインラインルビです）。</p>
+<p>その結果、次のよう描画されます。最後の「札幌（さっぽろ）」と表示されている箇所がインラインルビです。</p>
 <figure class="bfl example">
 <p>先日、イベントに参加するために<ruby>北海道<rp>（</rp><rt>ほっかいどう</rt><rp>）</rp></ruby>に行ってきました。雪が今年はあまり降っていないということで<ruby>大通<rp>（</rp><rt>おおどおり</rt><rp>）</rp></ruby>などの歩道は地面が<ruby>見<rp>（</rp><rt>み</rt><rp>）</rp></ruby>えていました。食事については<ruby>🍣<rp>（</rp><rt>美味しいお寿司</rt><rp>）</rp></ruby>をたくさん食べてきました。<ruby>鮪<rp>（</rp><rt>まぐろ</rt><rp>）</rp></ruby>やタコ、<ruby>北寄貝<rp>（</rp><rt>ほっきがい</rt><rp>）</rp></ruby>のほか、旬の<ruby>鰤<rp>（</rp><rt>ぶり</rt><rp>）</rp></ruby>や<ruby>真鱈の白子<rp>（</rp><rt>たちぽん</rt><rp>）</rp></ruby>などなど<span class="tcy">…</span><span class="tcy">…</span>。その時の<ruby>写真<rp>（</rp><rt>しゃしん</rt><rp>；</rp><rtc>Photo</rtc><rp>）</rp></ruby>をこのページに掲載します。</p>
 <p style="text-align: right;">—— <span class="tcy">2</span><span class="tcy">0</span><span class="tcy">1</span><span class="tcy">6</span>年、<ruby class="inline-ruby">札幌<rp>（</rp><rt>さっぽろ</rt><rp>）</rp></ruby>にて</p>
 </figure>
-
 </section>
-<section class="subchapter">
+</section>
+
+<section class="subchapter" id="chapterx-4">
 <h2 class="ch2"><span class="ch2-label">X.4</span> <strong>箇条書きのデザイン</strong></h2>
 <p>（後で書くかも。）</p>
 </section>
-<section class="subchapter">
-<h2 class="ch2"><span class="ch2-label">X.5</span> <strong>表組みのデザイン</strong></h2>
-<p>この節では、表組みを考えます。</p>
+
+<section class="subchapter" id="chapterx-5">
+<h2 class="ch2"><span class="ch2-label">X.5</span> <strong>表のデザイン</strong></h2>
+<p>この節では、表のデザインを考えます。</p>
 <p>なお、EPUB内で縦組みの複雑なレイアウトを行う場合、<code>display: table;</code>による指定が現状もっとも安全でしょう。</p>
-<p>（後で書くかも。）</p>
+<p>ここで図版はすべてfigure要素を使います。</p>
+<figure class="bfl table">
+<table>
+<thead>
+<tr><th>px値</th><th>em値</th></tr>
+</thead>
+<tbody>
+<tr><td>16px</td><td>1em</td></tr>
+<tr><td>15px</td><td>0.9375em</td></tr>
+<tr><td>14px</td><td>0.875em</td></tr>
+<tr><td>13px</td><td>0.8125em</td></tr>
+<tr><td>12px</td><td>0.75em</td></tr>
+<tr><td>11px</td><td>0.6875em</td></tr>
+<tr><td>10px</td><td>0.625em</td></tr>
+</tbody>
+</table>
+</figure>
+<p>次に、キャプションがある場合を考えてみます。</p>
+<figure class="bfl table table-fc">
+<figcaption><span class="fc-title">表<span class="fc-ordinal">2</span></span> pxとemの関係</figcaption>
+<table>
+<thead>
+<tr><th>px値</th><th>em値</th></tr>
+</thead>
+<tbody>
+<tr><td>16px</td><td>1em</td></tr>
+<tr><td>15px</td><td>0.9375em</td></tr>
+<tr><td>14px</td><td>0.875em</td></tr>
+<tr><td>13px</td><td>0.8125em</td></tr>
+<tr><td>12px</td><td>0.75em</td></tr>
+<tr><td>11px</td><td>0.6875em</td></tr>
+<tr><td>10px</td><td>0.625em</td></tr>
+</tbody>
+</table>
+</figure>
+<p>次に、表を横書きにしてみます。</p>
+<figure class="bfl table-horizontal">
+<table>
+<thead>
+<tr><th>px値</th><th>em値</th></tr>
+</thead>
+<tbody>
+<tr><td>16px</td><td>1em</td></tr>
+<tr><td>15px</td><td>0.9375em</td></tr>
+<tr><td>14px</td><td>0.875em</td></tr>
+<tr><td>13px</td><td>0.8125em</td></tr>
+<tr><td>12px</td><td>0.75em</td></tr>
+<tr><td>11px</td><td>0.6875em</td></tr>
+<tr><td>10px</td><td>0.625em</td></tr>
+</tbody>
+</table>
+</figure>
+<p>次に、横書きの表にキャプションを加えてみます。</p>
+<figure class="bfl table-horizontal">
+<figcaption><span class="fc-title">表<span class="fc-ordinal">2</span></span> pxとemの関係</figcaption>
+  <table>
+<thead>
+<tr><th>px値</th><th>em値</th></tr>
+</thead>
+<tbody>
+<tr><td>16px</td><td>1em</td></tr>
+<tr><td>15px</td><td>0.9375em</td></tr>
+<tr><td>14px</td><td>0.875em</td></tr>
+<tr><td>13px</td><td>0.8125em</td></tr>
+<tr><td>12px</td><td>0.75em</td></tr>
+<tr><td>11px</td><td>0.6875em</td></tr>
+<tr><td>10px</td><td>0.625em</td></tr>
+</tbody>
+</table>
+</figure>
+
 </section>
-<section class="subchapter">
+
+<section class="subchapter" id="chapterx-6">
 <h2 class="ch2"><span class="ch2-label">X.6</span> <strong>画像のレイアウト</strong></h2>
 <p>この節では、縦組みレイアウトにおける画像の配置を考えてみます。</p>
 <p>なお、img要素に対して、ベースCSSとして次のものがかかっているとします。</p>
@@ -203,7 +292,6 @@ rtc {
   max-width: 100vw;
   max-height: 100%;
 }</code></pre>
-
 <section>
 
 </section>
@@ -226,9 +314,9 @@ rtc {
   display: block;
 }</code>
 </pre>
-<p>ここで重要なのは、max-height: 100%;の指定です。これにより、後述のキャプションを画像の下部に配置する場合において、img要素が描画領域の高さを判断できるようになります。img要素をblock化してるのは，余計な余白を描画しないように念のため設定しています<span class="noteref-wrap"><span class="joint">（</span><a class="noteref" href="#img-block">※<span class="tcy">1</span></a><span class="joint">）</span></span>。</p>
+<p>ここで重要なのは、max-height: 100%;の指定です。これにより、後述のキャプションを画像の下部に配置する場合において、img要素が描画領域の高さを判断できるようになります。img要素をblock化してるのは，余計な余白を描画しないように念のため設定しています<span class="noteref-wrap"><span class="joint">（</span><a id="img-block-noteref" class="noteref" href="#img-block">※<span class="tcy">1</span></a><span class="joint">）</span></span>。</p>
 <aside class="footnote" id="img-block" role="doc-footnote">
-<p><a href="" class="referer">※<span class="tcy">1</span></a> 以前block化しないと，謎の余白が生成されていたことがありました。現在は必要ないかもしれません。その代わりに、標準のp要素のスタイルに注意しないといけませんが。</p>
+<p><a href="#img-block-noteref" class="referer">※<span class="tcy">1</span></a> 以前block化しないと，謎の余白が生成されていたことがありました。現在は必要ないかもしれません。その代わりに、標準のp要素のスタイルに注意しないといけませんが。</p>
 </aside>
 <p>すると、次のように配置されます。</p>
 <figure class="bfl image">
@@ -527,5 +615,11 @@ figcaption {
 </section>
 </div>
 </main>
+
+<footer>
+<p><a href="https://github.com/peaceroad/css-layout">GitHub</a> / <a href="https://twitter.com/k_taka">@k_taka</a></p>  
+</footer>
+</div>
+  
 </body>
 </html>
