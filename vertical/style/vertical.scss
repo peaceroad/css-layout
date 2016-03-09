@@ -1,0 +1,635 @@
+@charset 'UTF-8';
+
+@font-face {
+  font-family: 'Yu Mincho Custom';
+  src: local("Yu Mincho"), local("YuMincho");
+}
+@font-face {
+  font-family: 'Yu Mincho Custom';
+  src: local("Times New Roman");
+  unicode-range: U+0-2FF;
+}
+@font-face {
+  font-family: 'Yu Gothic Custom';
+  src: local("Yu Gothic"), local("YuGothic");
+}
+@font-face {
+  font-family: 'Yu Gothic Custom';
+  src: local("Trebuchet MS");
+  unicode-range: U+0-2FF;
+}
+@font-face {
+  font-family: 'Vertical Mono';
+  src: local("Consolas"), local("Menlo"); /* for safari. */
+}
+
+html {
+  height: 100%; /* for firefox, safari. */
+}
+body {
+  -webkit-writing-mode: vertical-rl; /* for safari. */
+  writing-mode: vertical-rl;
+  width: -moz-calc(100vw); /*  for firefox. */
+  height: 100%;  /* for firefox, safari. */
+  overflow-y: hidden; /* for firefox. */
+  overflow: auto !important; /* for edge. But specified overflow-y is canceled. */
+  margin: 0;
+}
+main, div, p {
+  -ms-writing-mode: tb-rl; /* for IE. */
+}
+
+.runninghead-left,
+.runninghead-right {
+  font-size: 0.8em;
+  line-height: 1;
+  font-weight: normal;
+  position: fixed;
+  -webkit-writing-mode: horizontal-tb; /* for safari. */
+  writing-mode: horizontal-tb;
+}
+div.runninghead-right h1 span {
+  -ms-writing-mode: tb-rl !important; /* for IE. */
+}
+.runninghead-left {
+  top: 0;
+  left: 0;
+  margin: 1.5em 0 0 calc(2em / 0.8);
+  font-family: 'Yu Mincho Custom', serif;
+}
+.runninghead-right {
+  top: 0;
+  right: 0;
+  margin: 1.5em calc(2em / 0.8) 0 0;
+  strong {
+    margin-left: 0.5em;
+    font-weight: normal;
+  }
+}
+
+main {
+  padding: 3.5em 2em;
+  background: url(../image/background2.jpg);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+$page-height: 32em;
+.page {
+  background-size: 1.75em;
+  max-height: $page-height;
+}
+
+p {
+  font-family: 'Yu Mincho Custom', serif;
+  font-size: 1em;
+  line-height: 1.75;
+  text-indent: 1em;
+  margin: 0;
+}
+p, li, dt, dd, figcaption {
+  text-align: justify;
+  text-justify: inter-character;
+  line-break: strict;
+  overflow-wrap: break-word; 
+  hanging-punctuation: force-end; /* future supported. */
+  // font-variant-ligatures: common-ligatures;
+  font-feature-settings: 'vert'; /* for chrome "…" etc. */
+}
+
+code, samp, .url, :root:lang(en),
+figcaption {
+  /* 今回、絵文字を連打しているのでfigcaptionも追加。しかし縦中横を使うとChromeで挙動が怪しい。*/
+  word-break: break-all; /* 英単語が長い場合の対応のために。 */
+}
+
+code, samp, var  {
+  font-family: 'Vertical Mono', monospace; /* for sfarii */
+  -webkit-text-size-adjust: 100%; /* for code font size in ios(iphone) safari. */    
+//  -moz-font-feature-settings: 'hwid', 'zero';
+//  -webkit-font-feature-settings: 'hwid', 'zero';
+//  font-feature-settings: 'hwid', 'zero';
+}
+p {
+  > code, > samp, > var {
+    font-size: 0.9em;
+    margin: 0.063em 0;
+  }
+}
+
+@mixin text-combine-upright-all {
+  -webkit-text-combine: horizontal; /* for safari. */
+  -ms-text-combine-horizontal: digits 2; /* for IE. */
+  -moz-text-combine-upright: horizontal; /* for future firefox. */
+  text-combine-upright: all;
+  text-combine-upright: digits 2;
+  /* text-transform: full-width; */
+}
+.tcy,
+.fc-ordinal {
+  @include text-combine-upright-all;
+}
+@supports not (text-combine-upright: all) { /* for safari. */
+  .tcy {
+    -webkit-text-orientation: upright; /* for safari '…'. But no effect. */
+    text-orientation: upright; /* for firefox '…'. */
+  }
+  .fc-ordinal {
+    display: inline-block;
+    -webkit-text-orientation: upright;
+    text-orientation: upright;
+  }
+}
+.sideways { /* リンクでの適用がFirefoxでは下線がでなくなってしまうので、具体的な文字列に対して指定することに。 */
+  -ms-text-orientation: sideways;
+  text-orientation: sideways;
+}
+.emphasis {
+  font-style: normal;
+  -webkit-text-emphasis: filled; /* for chrome. */
+  text-emphasis: filled;
+  text-emphasis-position: over;
+}
+rt, rtc {
+  font-variant-east-asian: ruby;
+  -moz-font-feature-settings: 'ruby';
+  -webkit-font-feature-settings: 'ruby';
+  font-feature-settings: 'ruby';
+}
+rtc {
+  ruby-position: under;
+}
+@supports not (display: ruby-text-container) { /* for chrome. */
+  rtc {
+    &::before {
+      display: inline;
+      content: '\FE35';
+    }
+    &::after {
+      display: inline;
+      content: '\FE36';
+    }
+  }
+}
+@mixin inline-ruby {
+  display: inline;
+  font-size: inherit;
+  white-space: inherit;
+  text-emphasis: inherit;    
+  font-variant-east-asian: inherit;
+  -moz-font-feature-settings: inherit;
+  -webkit-font-feature-settings: inherit;
+  font-feature-settings: inherit;
+}
+.inline-ruby {
+  @include inline-ruby;
+  rt, rp, rtc {
+    @include inline-ruby;
+  }    
+}
+a {
+  text-underline-position: under right;
+  text-decoration-skip: ink; /* future supperted. */
+}
+
+h1, h2, h3, h4, h6, li, dt, dd, figcaption, th, td {
+  font-family: 'Yu Gothic Custom', sans-serif;
+  line-height: 1.5;
+  font-feature-settings: 'vert'; /* for chrome '…'. */
+}
+.ch2 {
+  font-size: 1em;
+  margin: 0 5em 0 2em;
+  border-right: 0.125em solid #000;
+  border-left: 0.125em solid #000;
+  display: table;
+  height: 100%;
+  strong {
+    font-size: 1.3125em;
+    vertical-align: top;
+    display: table-cell;
+    text-align: justify;
+    vertical-align: middle;
+  }
+}
+.ch2-label {
+  -moz-text-combine-upright: all;
+  text-combine-upright: all;
+  display: table-cell;
+  font-family: 'Times New Roman', serif;
+  font-size: 3em;
+  line-height: 1;
+  height: 1em;
+  padding: 0.15em 0.5em 0.5em;
+}
+.ch3 {
+  font-size: 1.1875em;
+  line-height: 1.5625;
+  margin: 0 2.5em 0 1em;
+  border-top: 0.5em solid #666;
+  padding: 0.5em 0.5em 0;
+}
+img {
+  max-width: 100vw;
+  max-height: 100%;
+}
+.bfl, pre {
+  margin: 0 1.5em 0 0;
+  max-height: 100%;
+}
+.bfl + * {
+  margin-right: 1.5em;
+}
+pre {
+  + * {
+    margin-right: 1.5em;
+  }
+  > code {
+    display: block;
+    font-size: 0.9em;
+    line-height: 1.67em;
+    padding: 1.11em 0.84em;
+    background: #DFDFDF;
+    text-orientation: sideways;
+    overflow-wrap: break-word;
+    word-wrap: break-word; /* for firefox */
+    white-space: pre-wrap; /* for firefox, and line start prohibition of '"' in chrome */
+    word-break: break-all;
+  }
+}
+
+.bfl { 
+  figcaption {
+    display: block;
+    font-size: 0.8em;
+    margin-right: 0.5em;
+    line-height: 1.5;
+    text-align: justify;
+  }
+  .fc-title {
+    font-weight: bold;
+    margin-bottom: 0.25em;
+  }
+}
+
+.img-wrap {
+  img {
+    display: block;
+  }
+}
+.image-fc .img-wrap img {
+  max-width: 75vw;
+}
+@media screen and (min-height: $page-height) {
+  .image-sdl {
+    -webkit-writing-mode: horizontal-tb; /* for safari. */
+    writing-mode: horizontal-tb;
+    display: table;        
+    border-collapse: collapse;
+    .img-wrap {
+      display: table-cell;
+      height: intrinsic; /* for mobile safari. */
+      height: fit-content;
+      min-width: -moz-calc(13.4em * 0.8);
+      img {
+        max-width: 100vw;
+        max-height: 75%;
+        max-height: -moz-calc(75vh - 6em - 0.5em);       
+        margin: 0 auto; /* in case width of caption is longer than image. */
+      }
+    }
+    figcaption {
+      display: table-caption;
+      caption-side: bottom;
+      min-width: 13.4em;
+      margin: 0.35em 0 0;
+      font-variant-east-asian: proportional-width;
+      -moz-font-feature-settings: 'pwid';
+      -webkit-font-feature-settings: 'pwid';
+      font-feature-settings: 'pwid';
+    }
+    .fc-title {
+      margin: 0 0.25em 0 0;
+    }
+  }
+}
+
+.tandem {
+  border-collapse: collapse;
+}
+.tandem-images {
+  -webkit-writing-mode: horizontal-tb; /* for safari */
+  writing-mode: horizontal-tb;
+  display: table;
+  margin-top: -1em;
+  max-height: inherit;
+}
+.tandem-image {
+  display: table-row;
+  width: -moz-min-content;
+}
+.tandem .img-wrap {
+  display: table-cell;
+  height: intrinsic;
+  height: fit-content;
+  padding-top: 1em;
+  width: -moz-min-content;
+  img {
+    max-width: 75vw;
+    max-height: calc(50% - 0.5em);
+    max-height: -moz-calc(50vh - 3.5em - 0.5em);
+  }
+}
+@media screen and (min-height: $page-height) {
+  .tandem-sdl {
+    -webkit-writing-mode: horizontal-tb;
+    writing-mode: horizontal-tb;
+    max-height: 75%;
+    display: table;
+    border-collapse: collapse;
+    margin-top: -1em;
+    .tandem-images {
+      display: table-cell;
+      min-width: -moz-calc(13.4em * 0.9);
+      height: intrinsic;
+      height: fit-content;
+    }
+    .tandem-image {
+      display: block;
+      margin: 0 auto;
+    }
+    .img-wrap {
+      display: block;
+      img {
+        margin: 0 auto;
+        max-width: 100vw;
+        max-height: calc(50% - 0.5em);
+        max-height: -moz-calc(50vh - 0.5em - 3.5em);
+      }
+    }
+    figcaption {
+      display: table-caption;
+      caption-side: bottom;
+      min-width: 15em;
+      margin: 0.35em 0 0;
+      font-variant-east-asian: proportional-width;
+      -moz-font-feature-settings: 'pwid';
+      -webkit-font-feature-settings: 'pwid';
+      font-feature-settings: 'pwid';
+    }
+    .fc-title {
+      margin: 0 0.25em 0 0;
+    }
+  }
+}
+
+.sidebyside-images,
+.sidebyside-rtl-images {
+  -webkit-writing-mode: horizontal-tb;
+  writing-mode: horizontal-tb;
+  display: table;
+  border-collapse: collapse;
+}
+.sidebyside-image,
+.sidebyside-rtl-image {
+  display: table-cell;
+}
+.sidebyside-image:last-child,
+.sidebyside-rtl-image:last-child {
+  padding-left: 1em;
+}
+.sidebyside .img-wrap img,
+.sidebyside-rtl .img-wrap img {
+  max-width: calc(50vw - 1em);
+}
+.sidebyside.sidebyside-fc .img-wrap img,
+.sidebyside-sdl.sidebyside-fc .img-wrap img,
+.sidebyside-rtl.sidebyside-fc .img-wrap img,
+.sidebyside-rtl-sdl.sidebyside-fc .img-wrap img {
+  max-width: calc(37.5vw - 1em);
+}
+@media screen and (min-height: $page-height) {
+  .sidebyside-sdl, .sidebyside-rtl-sdl {
+    -webkit-writing-mode: horizontal-tb;
+    writing-mode: horizontal-tb;
+    display: table;
+    border-collapse: collapse;
+  }
+  .sidebyside-sdl {
+    .sidebyside-image, .sidebyside-rtl-images {
+      display: table-cell;
+    }
+  }
+  .sidebyside-rtl-sdl {
+    .sidebyside-image, .sidebyside-rtl-images {
+      display: table-cell;
+    }
+  }
+  .sidebyside-sdl.sidebyside-fc .img-wrap img,
+  .sidebyside-rtl-sdl.sidebyside-fc .img-wrap img {
+    max-width: calc(50vw - 1em);
+  }
+  .sidebyside-sdl figcaption,
+  .sidebyside-rtl-sdl figcaption {
+    display: table-caption;
+    caption-side: bottom;
+    margin: 0.25em 0 0;
+    font-variant-east-asian: proportional-width;
+    -moz-font-feature-settings: 'pwid';
+    -webkit-font-feature-settings: 'pwid';
+    font-feature-settings: 'pwid';
+  }
+}
+
+.sidebyside-rtl-images {
+  direction: rtl;
+}
+.sidebyside-rtl-image:last-child {
+  padding: 0 1em 0 0;
+}
+.sidebyside-rtl {
+  .img-wrap, figcaption {
+    direction: ltr;
+  }
+}
+
+.warning {
+  margin: 0 1em;
+  border: 0.1em solid #000;
+  padding: 4em 1em 1em;
+}
+
+.warning-title {
+  margin: -4em 0 0.95em;
+}
+.warning .joint {
+  display: none;
+}
+.footnote {
+  margin-right: 1.5em;
+  + * {
+    margin-right: 1.5em;
+  }
+  p {
+    font-size: 0.8em;
+    margin-top: 2.25em;
+    line-height: 1.5;
+  }
+  .referer {
+    margin: -3.25em 0 1em;
+  }
+}
+.noteref-wrap {
+  font-size: 0.75em;
+  .noteref, .tcy {
+    vertical-align: top;   
+  }
+  .joint {
+    display: none;
+  }
+}
+.example {
+  border: 0.0625em solid #000;
+  padding: 1em;
+}
+
+.zoom img {
+  -ms-zoom: 0.32;
+  zoom: 0.32;
+}
+
+
+.nav-toc,
+footer {
+  -webkit-writing-mode: horizontal-tb;
+  writing-mode: horizontal-tb;
+  position: fixed;
+  bottom: 0.5em;
+  font-size: 0.85em;
+}
+.nav-toc {
+  right: calc(3em * 0.9);
+  h2 {
+    font-family: 'Yu Mincho Custom', sans-serif;
+    font-size: inherit;
+    font-weight: normal;
+    margin: 0;
+  }
+  .ch2-label {
+    display: inline-block;
+    font-size: inherit;
+  }
+  strong {
+    font-weight: normal;
+  }
+  ol {
+    display: none;
+  }
+  &:target {
+    background: #DFDFDF;
+    right: 0;
+    padding: 1em;
+    ol {
+      display: block;
+      margin: 0.5em 0 0;
+      padding: 0;
+    }
+  }
+  li {
+    list-style: none;
+    font-family: 'Yu Mincho Custom', sans-serif;
+  }
+}
+footer {
+  left: calc(2em * 0.9);
+  p {
+    font-variant-east-asian: proportional-width;
+    -moz-font-feature-settings: 'pwid';
+    -webkit-font-feature-settings: 'pwid';
+    font-feature-settings: 'pwid';
+  }
+}
+
+table {
+  border-collapse: collapse;
+}
+th, td {
+  font-size: 0.875em;
+}
+.table {
+  display: table;
+  margin-top: auto;
+  margin-bottom: auto;
+  figcaption {
+    display: table-caption;
+    caption-side: top;
+    margin: 0 0 0 0.4em;
+  }
+  table {
+    border-right: #444 solid 0.125em;
+    border-left: #444 solid 0.0625em;
+  }
+  th {
+    border-left: #444 solid calc(0.0625em / 0.875);
+    padding: 1em 0.25em;
+    &:first-child {
+      padding-top: 2em;
+    }
+    &:last-child {
+      padding-bottom: 2em;
+    }
+  }
+  td {
+    padding: 1em 0.25em;
+    &:first-child {
+      padding-top: 2em;
+    }
+    &:last-child {
+      padding-bottom: 2em;
+    }
+  }
+}
+.table-horizontal {
+  -webkit-writing-mode: horizontal-tb;  
+  writing-mode: horizontal-tb;
+  margin-top: auto;
+  margin-bottom: auto;
+  display: table;
+  table {
+    border-top: #444 solid 0.125em;
+    border-bottom: #444 solid 0.0625em;
+  }
+  th, td {
+    font-variant-east-asian: proportional-width;
+    -moz-font-feature-settings: 'pwid';
+    -webkit-font-feature-settings: 'pwid';
+    font-feature-settings: 'pwid';
+  }
+  th {
+    padding: 0.25em 1em ;
+    border-bottom: #444 solid calc(0.0625em / 0.875);
+    &:first-child {
+      padding-left: 2em;
+    }
+    &:last-child {
+      padding-right: 2em;
+    }
+  }
+  td {
+    padding: 0.25em 1em;
+    &:first-child {
+      padding-left: 2em;
+    }
+    &:last-child {
+      padding-right: 2em;
+    }
+  }
+  figcaption {
+    display: table-caption;
+    caption-side: top;
+    margin: 0 0 0.4em 0;
+  }
+  .fc-title {
+    margin: 0 0.25em 0 0;
+  }
+}
