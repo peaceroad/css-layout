@@ -265,8 +265,8 @@ rtc {
 </figure>
 <p>次に、横書きの表にキャプションを加えてみます。</p>
 <figure class="bfl table-horizontal">
-<figcaption><span class="fc-title">表<span class="fc-ordinal">2</span></span> pxとemの関係</figcaption>
-  <table>
+<figcaption><span class="fc-title">表<span class="fc-ordinal">4</span></span> pxとemの関係</figcaption>
+<table>
 <thead>
 <tr><th>px値</th><th>em値</th></tr>
 </thead>
@@ -401,7 +401,7 @@ figcaption {
 }
 </code></pre>
 <p>基本的には、CSSで表組しているだけです。画像の高さに対する最大値は、前述していたように、.bflに指定した<code>height-max: 100%</code>の指定を明示することで、有効値を計算してくれます。</p>
-<p>なお、Firefoxでは縦書きの中で横書きにした場合、その要素は親要素の高さを取ることができません。ここでは、描画領域の高さをもとに画面領域にはみ出さないように調整しています。また、Firefoxで、かつ画面のピクセル密度が<span class="tcy">1</span>よりも大きい場合に、p.img-wrap要素の領域が画像の領域まで収縮できません。そのため、現状その分画像の周りに余白ができてしまいます。</p>
+<p>なお、Firefoxでは縦書きの中で横書きにした場合、その要素は親要素の高さを取ることができません。ここでは、描画領域の高さをもとに画面領域にはみ出さないように調整しています。また、Firefoxで、かつ画面のピクセル密度が<span class="tcy">1</span>よりも大きい場合に、p.img-wrap要素の領域が画像の領域まで<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1251327">収縮できません</a>。そのため、現状その分画像の周りに余白ができてしまいます。</p>
 <figure class="bfl image image-fc image-sdl">
 <p class="img-wrap"><img alt="図3" src="image/sushi-tuna_96dpi.jpg" srcset="image/sushi-tuna.jpg 3.125x" /></p>
 <figcaption><span class="fc-title">図<span class="fc-ordinal">3</span></span> 🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣</figcaption>
