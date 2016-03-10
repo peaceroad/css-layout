@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="style/vertical.css" />
 <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 <meta name="viewport" content="height=device-height, initial-scale=1.0, shrink-to-fit=no">
+</head>
 <body class="chapter" role="doc-chapter">
 
 <header class="bridgehead">
@@ -77,11 +78,10 @@ body {
   overflow: auto !important; /* for edge. But specified overflow-y is canceled. */  
 }</code></pre>
 <p>さらに、Mobile Safari対策のために次のmeta要素を入れるようにしてください。しかし現状Mobile Safariでは描画時に、縦組みの始まり側にスクロール位置が置かれません。</p>
-<pre><code class="prettyprint"><span class="keyword">&lt;meta</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="string">"viewport"</span><span class="pln"> </span><span class="atn">content</span><span class="pun">=</span><span class="string">"height=device-height, initial-scale=1.0, shrink-to-fit=no"</span><span class="keyword">&gt;</span>
-</code></pre>
+<pre><code class="prettyprint"><span class="keyword">&lt;meta</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="string">"viewport"</span><span class="pln"> </span><span class="atn">content</span><span class="pun">=</span><span class="string">"height=device-height, initial-scale=1.0, shrink-to-fit=no"</span><span class="keyword">&gt;</span></code></pre>
 <p>また、寝ている状態（初期値：mixed）になっている半角文字を正立させたい場合には、text-orientationプロパティにuprightを指定します。逆に日本語等を寝せたい場合にはsidewaysを指定します。</p>
 <!--<pre><code class="prettyprint">text-orientation: upright;</code></pre>-->
-<p>一部の文字だけ縦中横にしたい場合、基本的にはtext-combine-uprightプロパティにallを指定します。ですが、各ブラウザへの実装が目下進められている段階であり、現時点で使用するためにはその指定が煩雑です。
+<p>一部の文字だけ縦中横にしたい場合、基本的にはtext-combine-uprightプロパティにallを指定します。ですが、各ブラウザへの実装が目下進められている段階であり、現時点で使用するためにはその指定が煩雑です。</p>
 </section>
 
 <section class="subchapter" id="chapterx-3">
@@ -90,7 +90,7 @@ body {
 
 <section>
 <h3 class="ch3">フォントの指定</h3>
-<p>ブラウザ上で縦書きを使う場合、WindowsとMac OSの両方にある書体である游明朝と游ゴシックを指定しておくのが簡単には按配が良くお勧めです。なお、読書システムでは標準の日本語フォントが搭載されていることも多いので、EPUBでは指定しないほうが無難です。<p>
+<p>ブラウザ上で縦書きを使う場合、WindowsとMac OSの両方にある書体である游明朝と游ゴシックを指定しておくのが簡単には按配が良くお勧めです。なお、読書システムでは標準の日本語フォントが搭載されていることも多いので、EPUBでは指定しないほうが無難です。</p>
 <p>ただし、Firefoxでは縦書きで游書体を指定した際は、日本語と半角の英数字でベースラインのずれが気になるかと思います。そのため英字の書体も合わせて指定してみても良いかもしれません。</p>
 <p>また、OpenTypeフォント自体が持っている情報をCSSで有効化するためには、font-variantプロパティやfont-feature-settingsプロパティなどを使います。仕様書以外に、<a href="http://help.typekit.com/customer/ja/portal/articles/1789708">Adobe Typekitのヘルプセンター</a>に日本語で説明があり、参考になるでしょう。</p>
 <p>ということで、このページでは、次のように指定しています。</p>
@@ -167,11 +167,11 @@ rtc {
 }
 @supports not (display: ruby-text-container) { /* for chrome. */
   rtc {
-    &::before {
+    &amp;::before {
       display: inline;
       content: '\FE35';
     }
-    &::after {
+    &amp;::after {
       display: inline;
       content: '\FE36';
     }
@@ -539,45 +539,45 @@ figcaption {
 <figcaption><span class="fc-title">図<span class="fc-ordinal">12</span></span> 🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣</figcaption>
 </figure>
 <p>次に、横並びで、右から左に並ぶ図版を考えてみます。</p>
-<p>なお、figure要素のclass属性につけていたimage（sidebyside）をsidebyside-rtlに変えています。</p>
-<figure class="bfl sidebyside-rtl">
-<div class="sidebyside-rtl-images">
-<figure class="sidebyside-rtl-image">
+<p>figure要素のclass属性につけていたfiugre.sidebyside要素のclass属性にsidebyside-rtlを足します。</p>
+<p>なお、directionプロパティを使うと手軽に左右反転できるのですが、EPUBではdirectionプロパティを使えません。</p>
+<figure class="bfl sidebyside sidebyside-rtl">
+<div class="sidebyside-images">
+<figure class="sidebyside-image">
 <p class="img-wrap"><img alt="図13-①" src="image/sushi-shellfish_96dpi.jpg" srcset="image/sushi-shellfish.jpg 3.125x" title="🍣1" /></p>
 </figure>
-<figure class="sidebyside-rtl-image">
+<figure class="sidebyside-image">
 <p class="img-wrap"><img alt="図13-②" src="image/sushi-milt_96dpi.jpg" srcset="image/sushi-milt.jpg 3.125x" title="🍣2" /></p>
 </figure>
 </div>
 </figure>
 
 <p>これに対して、キャプションがある場合は次のとおりです。</p>
-<p>キャプションがあることをfigure要素が知らないと横幅が画面領域を超えてしまうため、figure要素のclass属性に sidebyside-rtl-fcを加えています。</p>
-<figure class="bfl sidebyside-rtl sidebyside-rtl-fc">
-<div class="sidebyside-rtl-images">
-<figure class="sidebyside-rtl-image">
+<p>figure.sidebyside.sidebyside-fc要素のclass属性にsidebyside-rtlを加えています。</p>
+<figure class="bfl sidebyside sidebyside-fc sidebyside-rtl">
+<div class="sidebyside-images">
+<figure class="sidebyside-image">
 <p class="img-wrap"><img alt="図14-①" src="image/sushi-shellfish_96dpi.jpg" srcset="image/sushi-shellfish.jpg 3.125x" title="🍣1" /></p>
 </figure>
-<figure class="sidebyside-rtl-image">
+<figure class="sidebyside-image">
 <p class="img-wrap"><img alt="図14-②" src="image/sushi-milt_96dpi.jpg" srcset="image/sushi-milt.jpg 3.125x" title="🍣2" /></p>
 </figure>
 </div>
 <figcaption><span class="fc-title">図<span class="fc-ordinal">14</span></span> 🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣</figcaption>
 </figure>
 <p>キャプションが下に配置する場合には、次のとおりです。</p>
-<p>先と同じく、キャプションがあることをfigure要素が知らないと横幅が画面領域を超えてしまうため、figure要素のclass属性に sidebyside-rtl-with-fcを加えています。</p>
-<figure class="bfl sidebyside-rtl sidebyside-rtl-fc sidebyside-rtl-sdl">
-<div class="sidebyside-rtl-images">
-<figure class="sidebyside-rtl-image">
+<p>先と同じように、figure.sidebyside.sidebyside-fc.sidebyside-sdl要素のclass属性にsidebyside-rtlを加えています。</p>
+<figure class="bfl sidebyside sidebyside-fc sidebyside-sdl sidebyside-rtl">
+<div class="sidebyside-images">
+<figure class="sidebyside-image">
 <p class="img-wrap"><img alt="図15-①" src="image/sushi-shellfish_96dpi.jpg" srcset="image/sushi-shellfish.jpg 3.125x" title="🍣1" /></p>
 </figure>
-<figure class="sidebyside-rtl-image">
+<figure class="sidebyside-image">
 <p class="img-wrap"><img alt="図15-②" src="image/sushi-milt_96dpi.jpg" srcset="image/sushi-milt.jpg 3.125x" title="🍣2" /></p>
 </figure>
 </div>
 <figcaption><span class="fc-title">図<span class="fc-ordinal">15</span></span> 🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣</figcaption>
 </figure>
-<p>direction start. 段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。段落。</p>
 </section>
 <section>
 <h3 class="ch3">EPUBに対応させる</h3>
@@ -596,8 +596,7 @@ figcaption {
   zoom: 0.32;
 }
 </code></pre>
-<div class="zoom">
-<figure class="bfl sidebyside sidebyside-sdl sidebyside-fc">
+<figure class="bfl sidebyside sidebyside-sdl sidebyside-fc zoom">
 <div class="sidebyside-images">
 <figure class="sidebyside-image">
 <p class="img-wrap"><img alt="図16-①" src="image/ramen-sumire.jpg" title="🍜1" /></p>
@@ -608,8 +607,10 @@ figcaption {
 </div>
 <figcaption><span class="fc-title">図<span class="fc-ordinal">16</span></span> 🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜</figcaption>
 </figure>
-</div>
 
+<p>srcset属性の以外にも問題があります。</p>
+<p>まず、読書システムとしてよく利用されるReadiumやiBooksでは、縦書きの中で横書きを指定していたfigure[class$=sdl]要素において、画像のmax-heightの％指定が有効にならないというバグがあります。これにより、画像が大きいと描画領域から落ちてしまいます。そこで、!importantをつけて強制的にその指定を有効化させる必要があります。</p>
+<p>また、Kindleでは現在max-heightなどの最大値／最小値の指定がサポートされていません。そのため、Kindle用のメディアクエリーである@amzn-kf8を使って、これらの処理を迂回させる必要があります。<p>
 </section>
 
 </section>
