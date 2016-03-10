@@ -333,7 +333,6 @@ pre {
   height: intrinsic;
   height: fit-content;
   padding-top: 1em;
-  width: -moz-min-content;
   img {
     max-width: 75vw;
     max-height: calc(50% - 0.5em);
@@ -402,10 +401,8 @@ pre {
 .sidebyside-rtl .img-wrap img {
   max-width: calc(50vw - 1em);
 }
-.sidebyside.sidebyside-fc .img-wrap img,
-.sidebyside-sdl.sidebyside-fc .img-wrap img,
-.sidebyside-rtl.sidebyside-fc .img-wrap img,
-.sidebyside-rtl-sdl.sidebyside-fc .img-wrap img {
+.sidebyside-fc .img-wrap img,
+.sidebyside-rtl-fc .img-wrap img {
   max-width: calc(37.5vw - 1em);
 }
 @media screen and (min-height: $page-height) {
@@ -426,7 +423,7 @@ pre {
     }
   }
   .sidebyside-sdl.sidebyside-fc .img-wrap img,
-  .sidebyside-rtl-sdl.sidebyside-fc .img-wrap img {
+  .sidebyside-rtl-sdl.sidebyside-rtl-fc .img-wrap img {
     max-width: calc(50vw - 1em);
   }
   .sidebyside-sdl figcaption,
