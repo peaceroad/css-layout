@@ -382,52 +382,54 @@ pre {
   }
 }
 
-.sidebyside-images,
-.sidebyside-rtl-images {
+.sidebyside-images, {
+//.sidebyside-rtl-images {
   -webkit-writing-mode: horizontal-tb;
   writing-mode: horizontal-tb;
   display: table;
   border-collapse: collapse;
 }
-.sidebyside-image,
-.sidebyside-rtl-image {
+.sidebyside-image, {
+//.sidebyside-rtl-image {
   display: table-cell;
 }
-.sidebyside-image:last-child,
-.sidebyside-rtl-image:last-child {
+.sidebyside-image:last-child, {
+//.sidebyside-rtl-image:last-child {
   padding-left: 1em;
 }
-.sidebyside .img-wrap img,
-.sidebyside-rtl .img-wrap img {
+.sidebyside .img-wrap img, {
+//.sidebyside-rtl .img-wrap img {
   max-width: calc(50vw - 1em);
 }
-.sidebyside-fc .img-wrap img,
-.sidebyside-rtl-fc .img-wrap img {
+.sidebyside-fc .img-wrap img, {
+//.sidebyside-rtl-fc .img-wrap img {
   max-width: calc(37.5vw - 1em);
 }
 @media screen and (min-height: $page-height) {
-  .sidebyside-sdl, .sidebyside-rtl-sdl {
+  .sidebyside-sdl, {
+//  .sidebyside-rtl-sdl {
     -webkit-writing-mode: horizontal-tb;
     writing-mode: horizontal-tb;
     display: table;
     border-collapse: collapse;
   }
   .sidebyside-sdl {
-    .sidebyside-image, .sidebyside-rtl-images {
+    .sidebyside-image, {
+//    .sidebyside-rtl-images {
       display: table-cell;
     }
   }
-  .sidebyside-rtl-sdl {
-    .sidebyside-image, .sidebyside-rtl-images {
-      display: table-cell;
-    }
-  }
-  .sidebyside-sdl.sidebyside-fc .img-wrap img,
-  .sidebyside-rtl-sdl.sidebyside-rtl-fc .img-wrap img {
+//  .sidebyside-rtl-sdl {
+//    .sidebyside-image, .sidebyside-rtl-images {
+//      display: table-cell;
+//    }
+//  }
+  .sidebyside-sdl.sidebyside-fc .img-wrap img, {
+//  .sidebyside-rtl-sdl.sidebyside-rtl-fc .img-wrap img {
     max-width: calc(50vw - 1em);
   }
-  .sidebyside-sdl figcaption,
-  .sidebyside-rtl-sdl figcaption {
+  .sidebyside-sdl figcaption, {
+//  .sidebyside-rtl-sdl figcaption {
     display: table-caption;
     caption-side: bottom;
     margin: 0.25em 0 0;
@@ -439,16 +441,46 @@ pre {
 }
 
 .sidebyside-rtl-images {
-  direction: rtl;
+//  direction: rtl;
 }
 .sidebyside-rtl-image:last-child {
-  padding: 0 1em 0 0;
+//  padding: 0 1em 0 0;
 }
 .sidebyside-rtl {
   .img-wrap, figcaption {
-    direction: ltr;
+//    direction: ltr;
   }
 }
+
+.sidebyside-rtl {
+  -webkit-writing-mode: verticlal-rl;
+  writing-mode: vertical-rl;
+  display: block;
+  .sidebyside-images {
+    display: table-cell;
+    -webkit-writing-mode: inherit;
+    writing-mode: inherit;
+  }
+ .sidebyside-image {
+    display: block;
+    margin: 0; /* for chrome. */
+    &:last-child {
+      padding: 0 1em 0 0;
+    }
+  }
+  @media screen and (min-height: $page-height){
+    &.sidebyside-sdl {
+      -webkit-writing-mode: horizontal-tb;
+      writing-mode: horizontal-tb;
+      display: table;
+      width: max-content; /* with float property. */ 
+      .sidebyside-image {
+        float: right;
+      }
+    }
+  }
+}
+
 
 .warning {
   margin: 0 1em;
