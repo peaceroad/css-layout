@@ -596,8 +596,7 @@ figcaption {
   zoom: 0.32;
 }
 </code></pre>
-<div class="zoom">
-<figure class="bfl sidebyside sidebyside-sdl sidebyside-fc">
+<figure class="bfl sidebyside sidebyside-sdl sidebyside-fc zoom">
 <div class="sidebyside-images">
 <figure class="sidebyside-image">
 <p class="img-wrap"><img alt="図16-①" src="image/ramen-sumire.jpg" title="🍜1" /></p>
@@ -608,8 +607,10 @@ figcaption {
 </div>
 <figcaption><span class="fc-title">図<span class="fc-ordinal">16</span></span> 🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜</figcaption>
 </figure>
-</div>
 
+<p>srcset属性の以外にも問題があります。</p>
+<p>まず、読書システムとしてよく利用されるReadiumやiBooksでは、縦書きの中で横書きを指定していたfigure[class$=sdl]要素において、画像のmax-heightの％指定が有効にならないというバグがあります。これにより、画像が大きいと描画領域から落ちてしまいます。そこで、!importantをつけて強制的にその指定を有効化させる必要があります。</p>
+<p>また、Kindleでは現在max-heightなどの最大値／最小値の指定がサポートされていません。そのため、Kindle用のメディアクエリーである@amzn-kf8を使って、これらの処理を迂回させる必要があります。<p>
 </section>
 
 </section>

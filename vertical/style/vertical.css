@@ -449,7 +449,7 @@ pre > code {
   border: 0.0625em solid #000;
   padding: 1em; }
 
-.zoom img {
+figure.zoom img {
   -ms-zoom: 0.32;
   zoom: 0.32; }
 
