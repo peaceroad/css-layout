@@ -2,25 +2,25 @@
 
 @font-face {
   font-family: 'Yu Mincho Custom';
-  src: local("Yu Mincho"), local("YuMincho");
+  src: local('Yu Mincho'), local('YuMincho');
 }
 @font-face {
   font-family: 'Yu Mincho Custom';
-  src: local("Times New Roman");
+  src: local('Times New Roman');
   unicode-range: U+0-2FF;
 }
 @font-face {
   font-family: 'Yu Gothic Custom';
-  src: local("Yu Gothic"), local("YuGothic");
+  src: local('Yu Gothic'), local('YuGothic');
 }
 @font-face {
   font-family: 'Yu Gothic Custom';
-  src: local("Trebuchet MS");
+  src: local('Trebuchet MS');
   unicode-range: U+0-2FF;
 }
 @font-face {
   font-family: 'Vertical Mono';
-  src: local("Consolas"), local("Menlo"); /* for safari. */
+  src: local('Consolas'), local('Menlo'); /* for safari. */
 }
 
 html {
@@ -31,8 +31,8 @@ body {
   writing-mode: vertical-rl;
   width: -moz-calc(100vw); /*  for firefox. */
   height: 100%;  /* for firefox, safari. */
-  overflow-y: hidden; /* for firefox. */
-  overflow: auto !important; /* for edge. But specified overflow-y is canceled. */
+  /* overflow-y: hidden; /* for firefox. */
+  /* overflow: auto !important; /* for edge. */
   margin: 0;
 }
 main, div, p {
@@ -55,7 +55,7 @@ div.runninghead-right h1 span {
   top: 0;
   left: 0;
   margin: 1.5em 0 0 calc(2em / 0.8);
-  font-family: 'Yu Mincho Custom', serif;
+  font-family: 'Yu Guthic Custom', serif;
 }
 .runninghead-right {
   top: 0;
@@ -94,7 +94,8 @@ p, li, dt, dd, figcaption {
   overflow-wrap: break-word; 
   hanging-punctuation: force-end; /* future supported. */
   // font-variant-ligatures: common-ligatures;
-  font-feature-settings: 'vert'; /* for chrome "…" etc. */
+  // -webkit-font-feature-settings: 'vert';
+  // font-feature-settings: 'vert';
 }
 
 code, samp, .url, :root:lang(en),
@@ -106,7 +107,6 @@ figcaption {
 code, samp, var  {
   font-family: 'Vertical Mono', monospace; /* for sfarii */
   -webkit-text-size-adjust: 100%; /* for code font size in ios(iphone) safari. */    
-//  -moz-font-feature-settings: 'hwid', 'zero';
 //  -webkit-font-feature-settings: 'hwid', 'zero';
 //  font-feature-settings: 'hwid', 'zero';
 }
@@ -152,7 +152,6 @@ p {
 }
 rt, rtc {
   font-variant-east-asian: ruby;
-  -moz-font-feature-settings: 'ruby';
   -webkit-font-feature-settings: 'ruby';
   font-feature-settings: 'ruby';
 }
@@ -177,7 +176,6 @@ rtc {
   white-space: inherit;
   text-emphasis: inherit;    
   font-variant-east-asian: inherit;
-  -moz-font-feature-settings: inherit;
   -webkit-font-feature-settings: inherit;
   font-feature-settings: inherit;
 }
@@ -195,7 +193,8 @@ a {
 h1, h2, h3, h4, h6, li, dt, dd, figcaption, th, td {
   font-family: 'Yu Gothic Custom', sans-serif;
   line-height: 1.5;
-  font-feature-settings: 'vert'; /* for chrome '…'. */
+  //-webit-font-feature-settings: 'vert';
+  //font-feature-settings: 'vert';
 }
 .ch2 {
   font-size: 1em;
@@ -303,10 +302,9 @@ pre {
       caption-side: bottom;
       min-width: 13.4em;
       margin: 0.35em 0 0;
-      font-variant-east-asian: proportional-width;
-      -moz-font-feature-settings: 'pwid';
-      -webkit-font-feature-settings: 'pwid';
-      font-feature-settings: 'pwid';
+      //font-variant-east-asian: proportional-width;
+      //-webkit-font-feature-settings: 'pwid';
+      //font-feature-settings: 'pwid';
     }
     .fc-title {
       margin: 0 0.25em 0 0;
@@ -371,10 +369,9 @@ pre {
       caption-side: bottom;
       min-width: 15em;
       margin: 0.35em 0 0;
-      font-variant-east-asian: proportional-width;
-      -moz-font-feature-settings: 'pwid';
-      -webkit-font-feature-settings: 'pwid';
-      font-feature-settings: 'pwid';
+      //font-variant-east-asian: proportional-width;
+      //-webkit-font-feature-settings: 'pwid';
+      //font-feature-settings: 'pwid';
     }
     .fc-title {
       margin: 0 0.25em 0 0;
@@ -416,10 +413,9 @@ pre {
       display: table-caption;
       caption-side: bottom;
       margin: 0.25em 0 0;
-      font-variant-east-asian: proportional-width;
-      -moz-font-feature-settings: 'pwid';
-      -webkit-font-feature-settings: 'pwid';
-      font-feature-settings: 'pwid';
+      //font-variant-east-asian: proportional-width;
+      //-webkit-font-feature-settings: 'pwid';
+      //font-feature-settings: 'pwid';
     }
   }
 }
@@ -509,9 +505,10 @@ footer {
   font-size: 0.85em;
 }
 .nav-toc {
-  right: calc(3em * 0.9);
+  font-size: 0.8em;
+  right: calc(2em / 0.8);
   h2 {
-    font-family: 'Yu Mincho Custom', sans-serif;
+    font-family: 'Yu Gothic Custom', sans-serif;
     font-size: inherit;
     font-weight: normal;
     margin: 0;
@@ -538,16 +535,18 @@ footer {
   }
   li {
     list-style: none;
-    font-family: 'Yu Mincho Custom', sans-serif;
+    font-family: 'Yu Gothic Custom', sans-serif;
   }
 }
 footer {
-  left: calc(2em * 0.9);
+  font-size: 0.8em;
+  left: calc(2em / 0.8);
   p {
-    font-variant-east-asian: proportional-width;
-    -moz-font-feature-settings: 'pwid';
-    -webkit-font-feature-settings: 'pwid';
-    font-feature-settings: 'pwid';
+    font-family: 'Yu Gothic Custom', sans-serif;
+    //font-variant-east-asian: proportional-width;
+    //-webkit-font-feature-settings: 'pwid';
+    //font-feature-settings: 'pwid';
+    text-indent: 0;
   }
 }
 
@@ -601,10 +600,9 @@ th, td {
     border-bottom: #444 solid 0.0625em;
   }
   th, td {
-    font-variant-east-asian: proportional-width;
-    -moz-font-feature-settings: 'pwid';
-    -webkit-font-feature-settings: 'pwid';
-    font-feature-settings: 'pwid';
+    //font-variant-east-asian: proportional-width;
+    //-webkit-font-feature-settings: 'pwid';
+    //font-feature-settings: 'pwid';
   }
   th {
     padding: 0.25em 1em ;

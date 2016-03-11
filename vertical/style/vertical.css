@@ -29,10 +29,8 @@ body {
   /*  for firefox. */
   height: 100%;
   /* for firefox, safari. */
-  overflow-y: hidden;
-  /* for firefox. */
-  overflow: auto !important;
-  /* for edge. But specified overflow-y is canceled. */
+  /* overflow-y: hidden; /* for firefox. */
+  /* overflow: auto !important; /* for edge. */
   margin: 0; }
 
 main, div, p {
@@ -57,7 +55,7 @@ div.runninghead-right h1 span {
   top: 0;
   left: 0;
   margin: 1.5em 0 0 calc(2em / 0.8);
-  font-family: 'Yu Mincho Custom', serif; }
+  font-family: 'Yu Guthic Custom', serif; }
 
 .runninghead-right {
   top: 0;
@@ -91,9 +89,7 @@ p, li, dt, dd, figcaption {
   line-break: strict;
   overflow-wrap: break-word;
   hanging-punctuation: force-end;
-  /* future supported. */
-  font-feature-settings: 'vert';
-  /* for chrome "…" etc. */ }
+  /* future supported. */ }
 
 code, samp, .url, :root:lang(en),
 figcaption {
@@ -149,7 +145,6 @@ p > code, p > samp, p > var {
 
 rt, rtc {
   font-variant-east-asian: ruby;
-  -moz-font-feature-settings: 'ruby';
   -webkit-font-feature-settings: 'ruby';
   font-feature-settings: 'ruby'; }
 
@@ -170,7 +165,6 @@ rtc {
   white-space: inherit;
   text-emphasis: inherit;
   font-variant-east-asian: inherit;
-  -moz-font-feature-settings: inherit;
   -webkit-font-feature-settings: inherit;
   font-feature-settings: inherit; }
   .inline-ruby rt, .inline-ruby rp, .inline-ruby rtc {
@@ -179,7 +173,6 @@ rtc {
     white-space: inherit;
     text-emphasis: inherit;
     font-variant-east-asian: inherit;
-    -moz-font-feature-settings: inherit;
     -webkit-font-feature-settings: inherit;
     font-feature-settings: inherit; }
 
@@ -190,9 +183,7 @@ a {
 
 h1, h2, h3, h4, h6, li, dt, dd, figcaption, th, td {
   font-family: 'Yu Gothic Custom', sans-serif;
-  line-height: 1.5;
-  font-feature-settings: 'vert';
-  /* for chrome '…'. */ }
+  line-height: 1.5; }
 
 .ch2 {
   font-size: 1em;
@@ -291,11 +282,7 @@ pre > code {
       display: table-caption;
       caption-side: bottom;
       min-width: 13.4em;
-      margin: 0.35em 0 0;
-      font-variant-east-asian: proportional-width;
-      -moz-font-feature-settings: 'pwid';
-      -webkit-font-feature-settings: 'pwid';
-      font-feature-settings: 'pwid'; }
+      margin: 0.35em 0 0; }
     .image-sdl .fc-title {
       margin: 0 0.25em 0 0; } }
 .tandem {
@@ -350,11 +337,7 @@ pre > code {
       display: table-caption;
       caption-side: bottom;
       min-width: 15em;
-      margin: 0.35em 0 0;
-      font-variant-east-asian: proportional-width;
-      -moz-font-feature-settings: 'pwid';
-      -webkit-font-feature-settings: 'pwid';
-      font-feature-settings: 'pwid'; }
+      margin: 0.35em 0 0; }
     .tandem-sdl .fc-title {
       margin: 0 0.25em 0 0; } }
 .sidebyside-images {
@@ -387,11 +370,7 @@ pre > code {
     .sidebyside-sdl figcaption {
       display: table-caption;
       caption-side: bottom;
-      margin: 0.25em 0 0;
-      font-variant-east-asian: proportional-width;
-      -moz-font-feature-settings: 'pwid';
-      -webkit-font-feature-settings: 'pwid';
-      font-feature-settings: 'pwid'; } }
+      margin: 0.25em 0 0; } }
 .sidebyside-rtl {
   -webkit-writing-mode: verticlal-rl;
   writing-mode: vertical-rl;
@@ -462,9 +441,10 @@ footer {
   font-size: 0.85em; }
 
 .nav-toc {
-  right: calc(3em * 0.9); }
+  font-size: 0.8em;
+  right: calc(2em / 0.8); }
   .nav-toc h2 {
-    font-family: 'Yu Mincho Custom', sans-serif;
+    font-family: 'Yu Gothic Custom', sans-serif;
     font-size: inherit;
     font-weight: normal;
     margin: 0; }
@@ -485,15 +465,14 @@ footer {
       padding: 0; }
   .nav-toc li {
     list-style: none;
-    font-family: 'Yu Mincho Custom', sans-serif; }
+    font-family: 'Yu Gothic Custom', sans-serif; }
 
 footer {
-  left: calc(2em * 0.9); }
+  font-size: 0.8em;
+  left: calc(2em / 0.8); }
   footer p {
-    font-variant-east-asian: proportional-width;
-    -moz-font-feature-settings: 'pwid';
-    -webkit-font-feature-settings: 'pwid';
-    font-feature-settings: 'pwid'; }
+    font-family: 'Yu Gothic Custom', sans-serif;
+    text-indent: 0; }
 
 table {
   border-collapse: collapse; }
@@ -535,11 +514,6 @@ th, td {
   .table-horizontal table {
     border-top: #444 solid 0.125em;
     border-bottom: #444 solid 0.0625em; }
-  .table-horizontal th, .table-horizontal td {
-    font-variant-east-asian: proportional-width;
-    -moz-font-feature-settings: 'pwid';
-    -webkit-font-feature-settings: 'pwid';
-    font-feature-settings: 'pwid'; }
   .table-horizontal th {
     padding: 0.25em 1em;
     border-bottom: #444 solid calc(0.0625em / 0.875); }
