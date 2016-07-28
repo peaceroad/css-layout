@@ -43,7 +43,7 @@
 <h2 class="ch2"><span class="ch2-label">X.1</span> <strong>EPUBとCSSレイアウト</strong></h2>
 
 <section class="warning" role="doc-notice">
-<p><strong class="warning-title">注意<span class="joint">：</span></strong>この章は<em class="emphasis">まるっと</em>書きかけです。そのため内容は、不正確なことがあること、EPUBの読書システムでの実機確認はしっかりとは行っていないことに注意してください。</p>
+<p><strong class="warning-title">注意<span class="joint">：</span></strong>この章は<em class="emphasis">まるっと</em>書きかけです。もとい、この文書はCSSレイアウトの確認のために書かれたものです。そのため内容は、不正確なことがあること、EPUBの読書システムでの実機確認はしっかりとは行っていないことに注意してください。</p>
 </section>
 
 <section>
@@ -62,7 +62,7 @@
 <section class="subchapter" id="chapterx-2">
 <h2 class="ch2"><span class="ch2-label">X.2</span> <strong>縦書きレイアウトの基礎</strong></h2>
 <p>CSSによる縦組みは、<a href="http://dev.w3.org/csswg/css-writing-modes-3/">CSS Writing Modes Level 3</a>が基礎になります。</p>
-<p>要素内の文字列を縦書きにするためには、writing-modeプロパティを次のように使います。ただし、IEではGrouping contentとなる要素に指定する必要があるようです（以降、IEは鬼門なので説明から外します）。</p>
+<p>要素内の文字列を縦書きにするためには、writing-modeプロパティを次のように使います。ただし、IEではGrouping contentとなる要素に指定する必要があるようです（以降、EPUBのレンダリングエンジンとして使われていないIEやEdgeについては触れません）。</p>
 <pre><code class="prettyprint">-ms-writing-mode: tb-rl; /* for IE. */
 -webkit-writing-mode: vertical-rl; /* for safari. */
 writing-mode: vertical-rl;</code></pre>
@@ -77,7 +77,7 @@ body {
   width: -moz-calc(100vw); /* for firefox. */
   height: 100%; /* for firefox, safari. */
 }</code></pre>
-<p>さらに、Mobile Safari対策のために次のmeta要素を入れるようにしてください。しかし現状Mobile Safariでは描画時に、縦組みの始まり側にスクロール位置が置かれません。</p>
+<p>さらに、Mobile Safari対策のために次のmeta要素を入れるようにしてください（EPUBのHTMLでは不要です）。しかし現状Mobile Safariでは描画時に、縦組みの始まりである右端側にスクロール位置が置かれません。</p>
 <pre><code class="prettyprint"><span class="keyword">&lt;meta</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="string">"viewport"</span><span class="pln"> </span><span class="atn">content</span><span class="pun">=</span><span class="string">"height=device-height, initial-scale=1.0, shrink-to-fit=no"</span><span class="keyword">&gt;</span></code></pre>
 <p>また、寝ている状態（初期値：mixed）になっている半角文字を正立させたい場合には、text-orientationプロパティにuprightを指定します。逆に日本語等を寝せたい場合にはsidewaysを指定します。</p>
 <!--<pre><code class="prettyprint">text-orientation: upright;</code></pre>-->
@@ -127,11 +127,10 @@ code, samp, var {
   font-family: 'Vertical Mono', monospace; /* for sfarii, and adjust windows. */
 }</code></pre>
 <p>また、iPhone（iOS 9）のMobile Safari上では自動的にフォントサイズに修正が入るため、これを打ち消す必要があります。それらの対応としてこのページでは、次のように指定しています。</p>
-<pre><code class="prettyprint">body{
-  -webkit-text-size-adjust: 100%; /* for code font size in ios(iphone) safari. */
+<pre><code class="prettyprint">body {
+  -webkit-text-size-adjust: 100%; /* for font size in ios safari. */
 }</code></pre>
-
-<p>読書システムでは、Monospaceの書体を包含していないことも多いです。そこで、 <a href="https://github.com/adobe-fonts/source-han-code-jp">Source Han Code JP</a>や、日本語に等幅まで求めないのであれば<a href="https://github.com/nathco/Office-Code-Pro">Office Code Pro</a>を含めるのが良いでしょう。</p>
+<p>読書システムでは、Monospaceの書体を包含していないことも多いです。そこで、 <a href="https://github.com/adobe-fonts/source-han-code-jp">Source Han Code JP</a>や、日本語のフォント幅に正確性を求めないのであれば<a href="https://github.com/nathco/Office-Code-Pro">Office Code Pro</a>を含めるのが良いでしょう。</p>
 </section>
 
 <section>
@@ -181,7 +180,7 @@ rtc {
   display: inline;
   font-size: inherit;
   white-space: inherit;
-  text-emphasis: inherit;    
+  text-emphasis: inherit;
   font-variant-east-asian: inherit;
   -webkit-font-feature-settings: inherit;
   font-feature-settings: inherit;
@@ -190,7 +189,7 @@ rtc {
   @include inline-ruby;
   rt, rp, rtc {
     @include inline-ruby;
-  }    
+  }
 }
 </code></pre>
 <p>その結果、次のよう描画されます。最後の「札幌（さっぽろ）」と表示されている箇所がインラインルビです。</p>
@@ -198,6 +197,8 @@ rtc {
 <p>先日、イベントに参加するために<ruby>北海道<rp>（</rp><rt>ほっかいどう</rt><rp>）</rp></ruby>に行ってきました。雪が今年はあまり降っていないということで<ruby>大通<rp>（</rp><rt>おおどおり</rt><rp>）</rp></ruby>などの歩道は地面が<ruby>見<rp>（</rp><rt>み</rt><rp>）</rp></ruby>えていました。食事については<ruby>🍣<rp>（</rp><rt>美味しいお寿司</rt><rp>）</rp></ruby>をたくさん食べてきました。<ruby>鮪<rp>（</rp><rt>まぐろ</rt><rp>）</rp></ruby>やタコ、<ruby>北寄貝<rp>（</rp><rt>ほっきがい</rt><rp>）</rp></ruby>のほか、旬の<ruby>鰤<rp>（</rp><rt>ぶり</rt><rp>）</rp></ruby>や<ruby>真鱈の白子<rp>（</rp><rt>たちぽん</rt><rp>）</rp></ruby>などなど……。その時の<ruby>写真<rp>（</rp><rt>しゃしん</rt><rp>；</rp><rtc>Photo</rtc><rp>）</rp></ruby>をこのページに掲載します。</p>
 <p style="text-align: right;">—— <span class="tcy">2</span><span class="tcy">0</span><span class="tcy">1</span><span class="tcy">6</span>年、<ruby class="inline-ruby">札幌<rp>（</rp><rt>さっぽろ</rt><rp>）</rp></ruby>にて</p>
 </figure>
+
+<p>なお、EPUB内にrtc要素があると、現在のepubcheck 4.0.1での確認がパスできないことに注意してください。</p>
 </section>
 </section>
 
@@ -301,6 +302,7 @@ rtc {
 </table>
 </figure>
 
+<p>つまり、本文縦組みのスタイルでは、表内の文字組が縦書きでに行（tr要素）が左方向に並んでいく場合、本文のあるhtmlに表を埋め込むのは良いのですが（セルがたくさんあると下に切れますが）、表内が横書きで行（tr要素）が下方向に並んでいく場合、本文に埋め込むのは（右方向にも、下方向にも）非常に気をつけないといけなくなるのが分かります。そのため、表内が横書きなら別htmlするのを基本としても良いでしょう。</p>
 </section>
 
 <section class="subchapter" id="chapterx-6">
@@ -595,7 +597,7 @@ rtc {
 <section>
 <h3 class="ch3">EPUBに対応させることを検討する</h3>
 <p>ここまでの画像配置の手法は、ブラウザでの配置方法です。しかし、EPUBではこのままは上手くいきません。EPUB 3.0ではHTML5の勧告を元にしていますので、現在srcset属性を使うとValidatorが通らないためです。ただし、EPUB 3.1では使えるようになることが<a href="https://github.com/IDPF/epub-revision/issues/429">予定されています</a>。</p>
-<p>srcset属性を使わない場合には、次の方法が検討できます。</p>
+<p>そこでこの項では、srcset属性を使わずにHTMLとCSSで図版を配置することを、検討してみます（EPUB対応の結論は次項のSVGラッピングを参照してください）。</p>
 <ul>
 <li>height属性を指定する：しかし横幅が小さいデバイスで見た時に矩形比が保てません。</li>
 <li>image-resolutionプロパティを使う：詳しく見ていませんが、このプロパティを使うことで対応できるようになると思われます。しかし実装されていません。</li>
@@ -603,43 +605,17 @@ rtc {
 <li>transformプロパティを使う：親ボックスが縮小されず、余白が出てしまいます。</li>
 </ul>
 <p>各手法において補足があるとおり、完全な解決策はないのですが、height属性を使うことになるでしょう（特に後述の軽さを求めることも考慮しなければなりませんので）。</p>
-<p>
-<!--
-<p>なお、zoomプロパティを使う場合には次のようになります。</p>
-<pre><code class="prettyprint">img {
-  -ms-zoom: 0.32;
-  zoom: 0.32;
-}
-</code></pre>
-<figure class="bfl sidebyside sidebyside-sdl sidebyside-fc zoom">
-<div class="sidebyside-images">
-<figure class="sidebyside-image">
-<p class="image-img-wrap"><img alt="図16-①" src="image/ramen-sumire.jpg" title="🍜1" class="image-img" /></p>
-</figure>
-<figure class="sidebyside-image">
-<p class="image-img-wrap"><img alt="図16-②" src="image/ramen-nanashi.jpg" title="🍜2"  /></p>
-</figure>
-</div>
-<figcaption class="bfl-fc"><span class="bfl-fc-title">図<span class="bfl-fc-ordinal">16</span></span> 🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜</figcaption>
-</figure>
--->
-<p
+
 <p>srcset属性の以外にも問題があります。</p>
 <p>まず、読書システムとしてよく利用されるReadiumやiBooksでは、縦書きの中で横書きを指定していたfigure[class$=sdl]要素において、画像のmax-heightの％指定が有効にならないというバグがあります。これにより、画像が大きいと描画領域から落ちてしまいます。そこで、!importantをつけて強制的にその指定を有効化させる必要があります。</p>
 <p>また、Kindleでは現在max-heightなどの最大値／最小値の指定がサポートされていません。そのため、Kindle用のメディアクエリーである@amzn-kf8を使って、これらの処理を迂回させる必要があります。<p>
-<p>さらに、これまで解説してきた手法で実装すると、（たぶん）最大値関係のvwの計算と画像の自動縮小処理で、現状のiBooks 4.7（on iOS 9 / iPad Air 1）で図版が数枚あると動作がかなり重くなってしまいます。ただし、iPhoneの場合はどうやら処理がある程度パスされること、Kindleではそもそも最大値の計算が効かないので、iPadのみで重くなります（現時点でAndroidのタブレットでは確認していません）。</p>
-<p>……ということで、前項の図版の配置方法は縦書きレイアウトの基本であって、EPUBに持ち込む前の前提の話だったのが分かります。</p>
+<p>さらに、前項で解説してきたCSSレイアウトで実装すると、（たぶん）最大値関係のvwの計算と画像の自動縮小処理で、現状のiBooks 4.7（on iOS 9 / iPad Air 1）で図版が数枚あると動作がかなり重くなってしまいます（iPhoneの場合はどうやら処理がある程度パスされること、Kindleではそもそも最大値の計算が効かないので、iPadのみで重くなります。現時点でAndroidのタブレットでは確認していません）。</p>
+<p>……ということで、前項の図版のCSSレイアウトは基本的に「とりあえずできた」レベルであって、そのままEPUBに持ち込むことはできない話だったのが分かります。</p>
 </section>
-<section class="figure-image-for-epub">
-<h3 class="ch3">EPUBでの図版の配置方法</h3>
-<p>まず、描画処理を軽くるするには、図版の画像の大きさを指定しまうことです。これによりsrcset属性を使わなくても、画像の大きさがピクセル密度が異なっても同じように表示できるようになるという、もう一つの問題の解決策にもなります。しかし、画像の縦と横の長さを両方とも指定するのはあまりお勧めできません。なぜなら読書システムの描画領域の大きさがばらばらだからです。その際、画像の長辺が描画領域よりも画像が大きいと矩形比が保てなくなります。よって、全体が縦書きであれば縦方向を固定するheight属性を、横書きであればwidth属性を指定して、別方向（進行方向）の長さは描画領域の長さに応じて自動的に調整をかけられるようにするのが現時点では無難な対応になると考えています。</p>
-<p>また、単位vw, vhについては、次の理由を踏まえて<span class="tcy">%</span>に指定し直します。</p>
-<ul>
-<li>計算処理のコストが高いと考えられること</li>
-<li>そもそもタブレット等の物理媒体の読書システムでは横幅が確定されていていること</li>
-<li>スクロール型の読書システムの場合には画面幅に図版が入りきらなくても大きくは問題にならないこと</li>
-</ul>
-<p>そこで、EPUBでの縦書きレイアウトにおける図版画像の配置のHTMLは、以下のように書き直します。CSSは現時点においてはこのページでは先のものと同じスタイルを適用させています。なお、gokko-soup.jpgは300dpiの画像です。</p>
+<div class="figure-image-for-epub">
+<p>そこで、描画処理を軽くるするに、図版の画像の大きさを指定しまうことを検討してみます。これによりsrcset属性を使わなくても、画像の大きさがピクセル密度が異なっても同じように表示できるようになるという、もう一つの問題の解決策にもなるからです。しかし、画像の縦と横の長さを両方とも指定するのはあまりお勧めできません。なぜなら読書システムの描画領域の大きさがばらばらだからです。その際、画像の長辺が描画領域よりも画像が大きいと矩形比が保てなくなります。よって、全体が縦書きであれば縦方向を固定するheight属性を、横書きであればwidth属性を指定して、別方向（進行方向）の長さは描画領域の長さに応じて自動的に調整をかけられるようにするのが無難な対応になると考えています。</p>
+<p>また、単位vw, vhについては「計算処理のコストが高いと考えられること」「スクロール型の読書システムの場合には画面幅に図版が入りきらなくても大きくは問題にならないこと」を踏まえて<span class="tcy">%</span>に指定し直します。ただしこの場合、キャプションのみが次ページに表示される問題が発生しえます。これはvwを使って画像自体の最大値を指定してもheight属性のほうが優先されるためです。この問題にはここでは目をつぶります。</p>
+<p>この対応策を用いることで、EPUBでの縦書きレイアウトにおける図版画像の配置のHTMLを、以下のように書き直します。CSSは現時点においてはこのページでは先のものと同じスタイルを適用させています。なお、gokko-soup.jpgは300dpiの画像です。</p>
 
 <pre><code class="prettyprint"><span class="keyword">&lt;figure</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="string">"bfl image"</span><span class="keyword">&gt;</span><span class="pln">
 </span><span class="keyword">&lt;p</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="string">"image-img-wrap"</span><span class="keyword">&gt;&lt;img</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="string">"ごっこ汁"</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="string">"image/gokko-soup.jpg"</span><span class="pln"> </span><span class="atn">height</span><span class="pun">=</span><span class="string">"230"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="string">"image-img"</span><span class="pln"> </span><span class="keyword">/&gt;&lt;/p&gt;</span><span class="pln">
@@ -649,12 +625,14 @@ rtc {
 <p class="image-img-wrap"><img alt="ごっこ汁" src="image/gokko-soup.jpg" height="230" class="image-img" /></p>
 </figure>
 
-<p>他の画像図版についても同じです。</p>
+<p>キャプションがある場合は次のとおりです（以降、絵文字は適宜JIS2004の範囲内にある文字に置き換えて見てください）。ただし、先述したように、図版画像が描画領域よりも大きい場合、キャプションが別ページに表示されてしまいます。</p>
 
 <figure class="bfl bfl-wfc image">
 <p class="image-img-wrap"><img alt="図2" src="image/gokko-soup.jpg" height="230" class="image-img" /></p>
 <figcaption class="bfl-fc"><span class="bfl-fc-title">図<span class="bfl-fc-ordinal">2</span></span> 🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣</figcaption>
 </figure>
+
+<p>キャプションが下に配置する場合は次のとおりです。ただしiphoneのibooksでは、図版画像の上下に余白ができてしまったり、図版画像の大きさの割合がやや小さくなったりと問題が多少あります。しかしながら、クリティカルな問題ではないため、現状この形式を使うのが良いでしょう。</p>
 
 <figure class="bfl bfl-wfc bfl-wfc-wsd image">
 <p class="image-img-wrap"><img alt="図2" src="image/gokko-soup.jpg" height="230" class="image-img" /></p>
@@ -788,9 +766,40 @@ rtc {
 </div>
 <figcaption class="bfl-fc"><span class="bfl-fc-title">図<span class="bfl-fc-ordinal">15</span></span> 🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣🍣</figcaption>
 </figure>
-
-
+</divn>
 </section>
+
+<section class="svg-wrapping">
+<h3 class="ch3">SVGラッピングを使った画像の配置</h3>
+<p>前項の方法はiBooksのみを考えると上手く展開できます。しかしながら、Readiumを考慮すると良くありません。横長の画像の場合に、矩形比を保ったまま画面領域で上手く収まらないからです（iBooksでは読書システムが画像の矩形比をSVG画像のように保たせます）。</p>
+<p>そこで、HTMLとCSSのみで解決するのを諦め、画像の配置には、いわゆるSVGラッピングと言われる手法を使うことにします。また、それにより、長さ指定でvw/vhの単位を使ってもiBooksが重くなることがありません（先の記述の何かが良くなかっただけかもしれませんが…）。よって、非常に按配が良いです。</p>
+<p>ただし、KindleではSVGラッピングした画像を縮小できません。そこでフォールバックをかけます（svg要素内でフォールバックを記述したかったのですが、epubcheckを上手くパスできませんでした）。</p>
+<p>結果、現時点で、Readium、iBooks、Kindleすべてに対応し、手元でのepub→mobi変換が簡易である図版配置の記述は、次のように書けます。</p>
+
+<pre><code>&lt;figure class="image"&gt;
+&lt;div class="image-svg-wrap"&gt;
+&lt;svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="276.5px" height="230.4px" viewBox="0 0 276.5 230.4"&gt;
+&lt;image xlink:href="image/sushi-tuna.jpg" xlink:title="鮨" width="864px" height="720px" transform="scale(0.32)" /&gt;
+&lt;/svg&gt;
+&lt;/div&gt;
+&lt;img src="image/sushi-tuna.jpg" width="277" height="230" hidden="hidden" class="fallback-kf8" /&gt;
+&lt;/figure&gt;</code></pre>
+
+<p>なお、epubcheck時にwaringが表示されますが、それはバグです。</p>
+<p>また、区経費を保つために画像の自動縮小が起こりえますが、それの違和感をなくすために、svg要素の背景には薄いグレーを敷くことをお勧めします。</p>
+
+<figure class="image">
+<div class="image-svg-wrap">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="276.5px" height="230.4px" viewBox="0 0 276.5 230.4">
+<image xlink:href="image/sushi-tuna.jpg" xlink:title="鮨" width="864px" height="720px" transform="scale(0.32)" />
+</svg>
+</div>
+<img src="image/sushi-tuna.jpg" width="277" height="230" hidden="hidden" class="fallback-kf8" />
+</figure>
+
+<p>※この項の図版は、CSSを書き加える前の状態です。</p>
+</section>
+
 </div>
 </main>
 

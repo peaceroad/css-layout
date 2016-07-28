@@ -149,11 +149,11 @@ p {
   text-emphasis: filled;
   text-emphasis-position: over;
 }
-rt, rtc {
-  font-variant-east-asian: ruby;
-  -webkit-font-feature-settings: 'ruby';
-  font-feature-settings: 'ruby';
-}
+// rt, rtc {
+//   font-variant-east-asian: ruby;
+//   -webkit-font-feature-settings: 'ruby';
+//   font-feature-settings: 'ruby';
+// }
 rtc {
   ruby-position: under;
 }
@@ -173,16 +173,16 @@ rtc {
   display: inline;
   font-size: inherit;
   white-space: inherit;
-  text-emphasis: inherit;    
-  font-variant-east-asian: inherit;
-  -webkit-font-feature-settings: inherit;
-  font-feature-settings: inherit;
+  text-emphasis: inherit;
+  // font-variant-east-asian: inherit;
+  // -webkit-font-feature-settings: inherit;
+  // font-feature-settings: inherit;
 }
 .inline-ruby {
   @include inline-ruby;
   rt, rp, rtc {
     @include inline-ruby;
-  }    
+  }
 }
 a {
   text-underline-position: under right;
@@ -192,8 +192,8 @@ a {
 h1, h2, h3, h4, h6, li, dt, dd, figcaption, th, td {
   font-family: 'Yu Gothic Custom', sans-serif;
   line-height: 1.5;
-  //-webit-font-feature-settings: 'vert';
-  //font-feature-settings: 'vert';
+  // -webit-font-feature-settings: 'vert';
+  // font-feature-settings: 'vert';
 }
 .ch2 {
   font-size: 1em;
