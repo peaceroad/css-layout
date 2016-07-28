@@ -24,6 +24,8 @@ html {
 body {
   -webkit-writing-mode: vertical-rl;
   /* for safari. */
+  -webkit-text-size-adjust: 100%;
+  /* for not adjusting font size in ios(iphone) safari. */
   writing-mode: vertical-rl;
   width: -moz-calc(100vw);
   /*  for firefox. */
@@ -99,16 +101,13 @@ figcaption {
 
 code, samp, var {
   font-family: 'Vertical Mono', monospace;
-  /* for sfarii */
-  -webkit-text-size-adjust: 100%;
-  /* for code font size in ios(iphone) safari. */ }
+  /* for sfarii */ }
 
 p > code, p > samp, p > var {
   font-size: 0.9em;
   margin: 0.063em 0; }
 
-.tcy,
-.fc-ordinal {
+.tcy {
   -webkit-text-combine: horizontal;
   /* for safari. */
   -ms-text-combine-horizontal: digits 2;
@@ -117,7 +116,7 @@ p > code, p > samp, p > var {
   /* for future firefox. */
   text-combine-upright: all;
   text-combine-upright: digits 2;
-  /* text-transform: full-width; */ }
+  text-transform: full-width; }
 
 @supports not (text-combine-upright: all) {
   /* for safari. */
@@ -155,10 +154,10 @@ rtc {
   /* for chrome. */
   rtc::before {
     display: inline;
-    content: '\FE35'; }
+    content: '\FF08'; }
   rtc::after {
     display: inline;
-    content: '\FE36'; } }
+    content: '\Ff09'; } }
 .inline-ruby {
   display: inline;
   font-size: inherit;
@@ -243,52 +242,61 @@ pre > code {
   /* for firefox, and line start prohibition of '"' in chrome */
   word-break: break-all; }
 
-.bfl figcaption {
+.bfl-fc {
   display: block;
   font-size: 0.8em;
   margin-right: 0.5em;
   line-height: 1.5;
   text-align: justify; }
-.bfl .fc-title {
+
+.bfl-fc-title {
   font-weight: bold;
   margin-bottom: 0.25em; }
 
-.img-wrap img {
+.bfl-fc-ordinal {
+  -webkit-text-combine: horizontal;
+  /* for safari. */
+  -ms-text-combine-horizontal: digits 2;
+  /* for IE. */
+  -moz-text-combine-upright: horizontal;
+  /* for future firefox. */
+  text-combine-upright: all;
+  text-combine-upright: digits 2;
+  text-transform: full-width; }
+
+.image-img {
   display: block; }
 
-.image-fc .img-wrap img {
+.bfl-wfc .image-img {
   max-width: 75vw; }
 
 @media screen and (min-height: 32em) {
-  .image-sdl {
+  .bfl-wfc-wsd {
     -webkit-writing-mode: horizontal-tb;
     /* for safari. */
     writing-mode: horizontal-tb;
     display: table;
     border-collapse: collapse; }
-    .image-sdl .img-wrap {
+    .bfl-wfc-wsd .image-img-wrap {
       display: table-cell;
       height: intrinsic;
       /* for mobile safari. */
       height: fit-content;
       min-width: -moz-calc(13.4em * 0.8); }
-      .image-sdl .img-wrap img {
-        max-width: 100vw;
-        max-height: 75%;
-        max-height: -moz-calc(75vh - 6em - 0.5em);
-        margin: 0 auto;
-        /* in case width of caption is longer than image. */ }
-    .image-sdl figcaption {
+    .bfl-wfc-wsd .image-img {
+      max-width: 100vw;
+      max-height: 75%;
+      max-height: -moz-calc(75vh - 6em - 0.5em);
+      margin: 0 auto;
+      /* in case width of caption is longer than image. */ }
+    .bfl-wfc-wsd .bfl-fc {
       display: table-caption;
       caption-side: bottom;
-      min-width: 13.4em;
+      min-width: 16em;
       margin: 0.35em 0 0; }
-    .image-sdl .fc-title {
+    .bfl-wfc-wsd .bfl-fc-title {
       margin: 0 0.25em 0 0; } }
-.tandem {
-  border-collapse: collapse; }
-
-.tandem-images {
+.tandem-wrap {
   -webkit-writing-mode: horizontal-tb;
   /* for safari */
   writing-mode: horizontal-tb;
@@ -296,105 +304,112 @@ pre > code {
   margin-top: -1em;
   max-height: inherit; }
 
-.tandem-image {
+.tandem-figure {
   display: table-row;
   width: -moz-min-content; }
 
-.tandem .img-wrap {
+.tandem .image-img-wrap {
   display: table-cell;
   height: intrinsic;
   height: fit-content;
   padding-top: 1em; }
-  .tandem .img-wrap img {
-    max-width: 75vw;
-    max-height: calc(50% - 0.5em);
-    max-height: -moz-calc((100vh - 7em) * 0.5 - 0.5em); }
+.tandem .image-img {
+  max-height: calc(50% - 0.5em);
+  max-height: -moz-calc((100vh - 7em) * 0.5 - 0.5em); }
+
+.tandem-wfc .image-img {
+  max-width: 75vw; }
 
 @media screen and (min-height: 32em) {
-  .tandem-sdl {
+  .tandem-wfc-wsd {
     -webkit-writing-mode: horizontal-tb;
     writing-mode: horizontal-tb;
     max-height: 75%;
     display: table;
     border-collapse: collapse;
     margin-top: -1em; }
-    .tandem-sdl .tandem-images {
+    .tandem-wfc-wsd .tandem-wrap {
       display: table-cell;
       min-width: -moz-calc(13.4em * 0.9);
       height: intrinsic;
       height: fit-content; }
-    .tandem-sdl .tandem-image {
+    .tandem-wfc-wsd .tandem-figure {
       display: block;
       margin: 0 auto; }
-    .tandem-sdl .img-wrap {
+    .tandem-wfc-wsd .image-img-wrap {
       display: block; }
-      .tandem-sdl .img-wrap img {
-        margin: 0 auto;
-        max-width: 100vw;
-        max-height: calc(50% - 0.5em);
-        max-height: -moz-calc((100vh - 7em) * 0.75 * 0.5 - 0.5em); }
-    .tandem-sdl figcaption {
+    .tandem-wfc-wsd .image-img {
+      margin: 0 auto;
+      max-width: 100vw;
+      max-height: calc(50% - 0.5em);
+      max-height: -moz-calc((100vh - 7em) * 0.75 * 0.5 - 0.5em); }
+    .tandem-wfc-wsd .bfl-fc {
       display: table-caption;
       caption-side: bottom;
-      min-width: 15em;
+      min-width: 16em;
       margin: 0.35em 0 0; }
-    .tandem-sdl .fc-title {
+    .tandem-wfc-wsd .bfl-fc-title {
       margin: 0 0.25em 0 0; } }
-.sidebyside-images {
+.sidebyside-wrap {
   -webkit-writing-mode: horizontal-tb;
   writing-mode: horizontal-tb;
   display: table;
-  border-collapse: collapse; }
+  border-collapse: collapse;
+  margin-right: -1em; }
 
-.sidebyside-image {
-  display: table-cell; }
-  .sidebyside-image:last-child {
-    padding-left: 1em; }
+.sidebyside-figure {
+  display: table-cell;
+  padding-right: 1em; }
 
-.sidebyside .img-wrap img {
+.sidebyside .image-img {
   max-width: calc(50vw - 1em); }
 
-.sidebyside-fc .img-wrap img {
+.sidebyside-wfc .image-img {
   max-width: calc(37.5vw - 1em); }
 
 @media screen and (min-height: 32em) {
-  .sidebyside-sdl {
+  .sidebyside-wfc-wsd {
     -webkit-writing-mode: horizontal-tb;
     writing-mode: horizontal-tb;
     display: table;
     border-collapse: collapse; }
-    .sidebyside-sdl .sidebyside-image {
+    .sidebyside-wfc-wsd .sidebyside-figure {
       display: table-cell; }
-    .sidebyside-sdl.sidebyside-fc .img-wrap img {
+    .sidebyside-wfc-wsd .image-img {
       max-width: calc(50vw - 1em); }
-    .sidebyside-sdl figcaption {
+    .sidebyside-wfc-wsd .bfl-fc {
       display: table-caption;
       caption-side: bottom;
-      margin: 0.25em 0 0; } }
-.sidebyside-rtl {
-  -webkit-writing-mode: verticlal-rl;
-  writing-mode: vertical-rl;
-  display: block; }
-  .sidebyside-rtl .sidebyside-images {
-    display: table-cell;
-    -webkit-writing-mode: inherit;
-    writing-mode: inherit; }
-  .sidebyside-rtl .sidebyside-image {
-    display: block;
-    margin: 0;
-    /* for chrome. */ }
-    .sidebyside-rtl .sidebyside-image:last-child {
-      padding: 0 1em 0 0; }
-  @media screen and (min-height: 32em) {
-    .sidebyside-rtl.sidebyside-sdl {
-      -webkit-writing-mode: horizontal-tb;
-      writing-mode: horizontal-tb;
-      display: table;
-      width: max-content;
-      /* with float property. */ }
-      .sidebyside-rtl.sidebyside-sdl .sidebyside-image {
-        float: right; } }
+      min-width: 16em;
+      margin: 0.35em 0 0; }
+    .sidebyside-wfc-wsd .bfl-fc-title {
+      margin: 0 0.25em 0 0; } }
+.sidebyside-rtl-wrap {
+  margin-right: -1em; }
 
+.sidebyside-rtl-figure {
+  display: block;
+  padding-right: 1em;
+  margin: 0;
+  /* for chrome. */ }
+
+@media screen and (min-height: 32em) {
+  .sidebyside-rtl-wsd {
+    -webkit-writing-mode: horizontal-tb;
+    writing-mode: horizontal-tb;
+    display: table;
+    border-collapse: collapse;
+    width: max-content;
+    /* with float property. */ }
+    .sidebyside-rtl-wsd .sidebyside-rtl-figure {
+      float: right; }
+    .sidebyside-rtl-wsd .bfl-fc {
+      display: table-caption;
+      caption-side: bottom;
+      min-width: 16em;
+      margin: 0.35em 0 0; }
+    .sidebyside-rtl-wsd .bfl-fc-title {
+      margin: 0 0.25em 0 0; } }
 .warning {
   margin: 0 1em;
   border: 0.1em solid #000;
