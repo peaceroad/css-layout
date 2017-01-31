@@ -30,7 +30,7 @@ body {
   -webkit-writing-mode: vertical-rl; /* for safari. */
   -webkit-text-size-adjust: 100%; /* for not adjusting font size in ios(iphone) safari. */
     writing-mode: vertical-rl;
-  width: -moz-calc(100vw); /*  for firefox. */
+  // width: -moz-calc(100vw); /*  for firefox < v50 */
   height: 100%;  /* for firefox, safari. */
   /* overflow-y: hidden; /* for firefox. */
   /* overflow: auto !important; /* for edge. */
